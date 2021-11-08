@@ -8,10 +8,12 @@ namespace com.petrushevskiapps.menumanager
 {
     public class MenuManager : MonoBehaviour
     {
-        [SerializeField] private List<UIScreen> screens = new List<UIScreen>();
+        [SerializeField] private int mainScreenIndex = 0;
+        
+        [SerializeField] private static List<UIScreen> screens = new List<UIScreen>();
         [SerializeField] private List<UIPopup> popups = new List<UIPopup>();
 
-        private readonly Stack<UIWindow> backStack = new Stack<UIWindow>();
+        private static Stack<UIWindow> backStack = new Stack<UIWindow>();
 
         public static MenuManager Instance;
         protected void Awake()
@@ -29,7 +31,7 @@ namespace com.petrushevskiapps.menumanager
 
         private void OnEnable()
         {
-            OpenWindow(screens[0]);
+            OpenWindow(screens[mainScreenIndex]);
             InitializeAllWindows();
         }
 
@@ -39,7 +41,7 @@ namespace com.petrushevskiapps.menumanager
             popups.ForEach(screen => screen.Initialize(()=>OnBack()));
         }
         
-        public void OpenScreen<T>() where T : UIScreen
+        public static void OpenScreen<T>() where T : UIScreen
         {
             UIScreen screen = screens.Find(x => x.GetType() == typeof(T));
             OpenWindow(screen);
@@ -51,7 +53,7 @@ namespace com.petrushevskiapps.menumanager
             OpenWindow(popup);
         }
         
-        private void OpenWindow<T>(T window) where T : UIWindow
+        private static void OpenWindow<T>(T window) where T : UIWindow
         {
             // Hide current active window if of same base type
             if (backStack.Count > 0 && backStack.Peek().GetType().BaseType == typeof(T))
@@ -81,7 +83,7 @@ namespace com.petrushevskiapps.menumanager
             else onEmptyStack?.Invoke();
         }
         
-        private void ClearStackToScreen(UIWindow screen)
+        private static void ClearStackToScreen(UIWindow screen)
         {
             while(backStack.Count > 0)
             {
@@ -97,6 +99,15 @@ namespace com.petrushevskiapps.menumanager
         {
             Application.Quit();
         }
-
+        
+        [ContextMenu("Collect Windows In Scene")]
+        public void CollectWindowsInScene()
+        {
+            screens.Clear();
+            screens = Resources.FindObjectsOfTypeAll<UIScreen>().ToList();
+            
+            popups.Clear();
+            popups = Resources.FindObjectsOfTypeAll<UIPopup>().ToList();
+        }
     }
 }
