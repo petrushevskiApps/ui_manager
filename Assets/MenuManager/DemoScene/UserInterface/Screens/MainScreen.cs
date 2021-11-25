@@ -15,10 +15,6 @@ namespace slowBulletGames.MemoryValley
         [SerializeField] private UIButton levelsMapButton;
         [SerializeField] private UIButton nextLevelButton;
 
-        [Header("World Info")]
-        [SerializeField] private GameObject worldLock;
-
-
         private new void Awake()
         {
             base.Awake();

@@ -7,11 +7,26 @@ namespace PetrushevskiApps.UIManager
     {
         [SerializeField] protected ButtonSoundConfig soundConfig;
 
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            AudioClip soundEffect;
+        private ISoundSystem iSoundSystem;
+        private UIButton button;
+        private AudioClip soundEffect;
 
-            if (GetComponent<UIButton>().interactable)
+        private void Start()
+        {
+            button = GetComponent<UIButton>();
+            iSoundSystem = UIManager.Instance.GetComponent<ISoundSystem>();
+
+            button?.InteractableChangedEvent.AddListener(SetAudioClip);
+        }
+
+        private void OnDestroy()
+        {
+            button?.InteractableChangedEvent.RemoveListener(SetAudioClip);
+        }
+
+        private void SetAudioClip()
+        {
+            if (button.IsInteractable)
             {
                 soundEffect = soundConfig.positiveSound;
             }
@@ -19,8 +34,11 @@ namespace PetrushevskiApps.UIManager
             {
                 soundEffect = soundConfig.negativeSound;
             }
+        }
 
-            UIManager.Instance.SoundSystem.PlaySoundEffect(soundEffect);
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            iSoundSystem?.PlaySoundEffect(soundEffect);
         }
     }
 }

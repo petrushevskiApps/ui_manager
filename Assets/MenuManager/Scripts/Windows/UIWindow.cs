@@ -23,7 +23,6 @@ namespace PetrushevskiApps.UIManager
         }
        
         
-
         public abstract void Open();    
         public abstract void Show();
         public abstract void Hide();

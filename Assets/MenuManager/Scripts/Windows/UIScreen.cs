@@ -7,8 +7,8 @@ namespace PetrushevskiApps.UIManager
 {
     public class UIScreen : UIWindow
     {
-        [SerializeField] private List<GameObject> overlayElements;
         [SerializeField] private bool activateSafeArea = true;
+        [SerializeField] private List<GameObject> overlayElements;
         
         public static UnityEvent OnScreenShown = new UnityEvent();
         public static UnityEvent OnScreenHiden = new UnityEvent();
@@ -23,15 +23,6 @@ namespace PetrushevskiApps.UIManager
             if(activateSafeArea) ApplySafeArea();
         }
 
-
-        private void ActivateGlobalUIElements()
-        {
-            overlayElements.ForEach(x => x.SetActive(true));
-        }
-        private void DeactivateGlobalUIElements()
-        {
-            overlayElements.ForEach(x => x.SetActive(false));
-        }
         public override void Show()
         {
             ActivateGlobalUIElements();
@@ -50,7 +41,6 @@ namespace PetrushevskiApps.UIManager
         {
             ActivateGlobalUIElements();
             gameObject.SetActive(true);
-            
             OnScreenOpen.Invoke();
         }
         public override void Close()
@@ -59,7 +49,16 @@ namespace PetrushevskiApps.UIManager
             DeactivateGlobalUIElements();
             OnScreenClosed.Invoke();
         }
-        
+
+        private void ActivateGlobalUIElements()
+        {
+            overlayElements.ForEach(x => x.SetActive(true));
+        }
+        private void DeactivateGlobalUIElements()
+        {
+            overlayElements.ForEach(x => x.SetActive(false));
+        }
+
         private void ApplySafeArea ()
         {
             Rect safeArea = Screen.safeArea;

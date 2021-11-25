@@ -6,24 +6,21 @@ namespace PetrushevskiApps.UIManager
 {
     public class UIButton : Button
     {
-        private bool isNetworkAvailable = true;
-        private bool isInteractable = true;
-        
-        public void SetNetworkStatus(bool status)
-        {
-            isNetworkAvailable = status;
-            SetInteractable();
-        }
+        public UnityEvent InteractableChangedEvent = new UnityEvent();
 
-        public void SetInteractableStatus(bool status)
+        public new bool IsInteractable
         {
-            isInteractable = status;
-            SetInteractable();
+            get => interactable;
+            set
+            {
+                if (interactable != value)
+                {
+                    interactable = value;
+                    InteractableChangedEvent.Invoke();
+                }
+            }
         }
-        private void SetInteractable()
-        {
-            interactable = isInteractable && isNetworkAvailable;
-        }
+        
         
         protected override void OnDestroy()
         {

@@ -10,28 +10,36 @@ namespace PetrushevskiApps.UIManager
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField] private int mainScreenIndex = 0;
-        [SerializeField] private int exitPopupIndex = 0;
-
         [SerializeField] private bool dontDestroyOnLoad = false;
 
-        [SerializeField] private UISoundSystem soundSystem;
+        [Header("Special Windows")]
+        [SerializeField] private UIScreen MainScreen;
+        [SerializeField] private UIPopup ExitPopup;
 
+        [Header("Game Windows")]
         [SerializeField] private List<UIScreen> screens = new List<UIScreen>();
         [SerializeField] private List<UIPopup> popups = new List<UIPopup>();
 
         private Stack<UIWindow> backStack = new Stack<UIWindow>();
 
-        public UISoundSystem SoundSystem => soundSystem;
+        public IConnected IConnected { get; private set; }
+        public ISoundSystem ISoundSystem { get; private set; }
 
         public static UIManager Instance;
         
+
         protected void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
-                if(dontDestroyOnLoad) DontDestroyOnLoad(Instance.gameObject);
+
+                if (dontDestroyOnLoad)
+                {
+                    DontDestroyOnLoad(gameObject);
+                }
+
+                Setup();
             }
             else
             {
@@ -39,9 +47,15 @@ namespace PetrushevskiApps.UIManager
             }
         }
 
+        private void Setup()
+        {
+            IConnected = GetComponent<IConnected>();
+            ISoundSystem = GetComponent<ISoundSystem>();
+        }
+
         private void OnEnable()
         {
-            OpenWindow(screens[mainScreenIndex]);
+            OpenWindow(MainScreen);
             InitializeAllWindows();
         }
 
@@ -82,6 +96,7 @@ namespace PetrushevskiApps.UIManager
                 }
             }
         }
+
         private void OpenWindow<T>(T newWindow) where T : UIWindow
         {
             // Hide current active window if of same base type
@@ -134,29 +149,17 @@ namespace PetrushevskiApps.UIManager
         {
             return backStack.Peek().GetType().BaseType == typeof(UIPopup);
         }
+
         private void ShowExitPopup()
         {
-            OpenWindow(popups[exitPopupIndex]);
+            OpenWindow(ExitPopup);
         }
+
         public void CloseApplication()
         {
             Application.Quit();
             Debug.Log("Closing App");
         }
-        
-        #if UNITY_EDITOR
-        [ContextMenu("Collect Windows In Scene")]
-        public void CollectWindowsInScene()
-        {
-            
-            screens.Clear();
-            screens = transform.GetComponentsInChildren<UIScreen>().ToList();
 
-            popups.Clear();
-            popups = Resources.FindObjectsOfTypeAll<UIPopup>().ToList();
-
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-        }
-        #endif
     }
 }

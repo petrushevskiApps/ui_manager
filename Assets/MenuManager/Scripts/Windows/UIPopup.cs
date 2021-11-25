@@ -14,6 +14,13 @@ namespace PetrushevskiApps.UIManager
 
         [SerializeField] private PopupSoundConfiguration soundConfiguration;
 
+        private ISoundSystem iSoundSystem;
+
+        public virtual void Start()
+        {
+            iSoundSystem = UIManager.Instance.ISoundSystem;
+        }
+
         public override void Show()
         {
             gameObject.SetActive(true);
@@ -32,6 +39,7 @@ namespace PetrushevskiApps.UIManager
             PlaySfx(soundConfiguration?.PopupShown);
             OnPopupOpen.Invoke();
         }
+
         public override void Close()
         {
             gameObject.SetActive(false);
@@ -44,7 +52,7 @@ namespace PetrushevskiApps.UIManager
         {
             if (sfxClip != null)
             {
-                UIManager.Instance.SoundSystem?.PlaySoundEffect(sfxClip);
+                iSoundSystem?.PlaySoundEffect(sfxClip);
             }
         }
     }
