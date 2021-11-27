@@ -4,27 +4,32 @@ using PetrushevskiApps.UIManager;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NetworkButton : ButtonExtension
+[RequireComponent(typeof(InteractivityMonitor))]
+public class NetworkInteractable : SelectableExtension
 {
     private IConnected iConnected;
+    private InteractivityMonitor interactivityMonitor;
 
     public bool IsConnected { get; private set; }
 
-    private UIButton button;
-
     private void Start()
     {
-        button = GetComponent<UIButton>();
         iConnected = UIManager.Instance.IConnected;
+        interactivityMonitor = GetComponent<InteractivityMonitor>();
 
         iConnected?.RegisterToConnectionChanges(OnConnectionChange);
-        button?.InteractableChangedEvent.AddListener(SetConnectivityStatus);
+        interactivityMonitor?.InteractivityChangedEvent.AddListener(OnInteractivityChange);
     }
 
     private void OnDestroy()
     {
         iConnected?.UnregisterToConnectionChanges(OnConnectionChange);
-        button?.InteractableChangedEvent.RemoveListener(SetConnectivityStatus);
+        interactivityMonitor?.InteractivityChangedEvent.RemoveListener(OnInteractivityChange);
+    }
+
+    private void OnInteractivityChange(bool isInteractive)
+    {
+        SetConnectivityStatus();
     }
 
     private void OnConnectionChange(bool isConnected)
@@ -35,9 +40,9 @@ public class NetworkButton : ButtonExtension
 
     public void SetConnectivityStatus()
     {
-        if (button != null)
+        if (selectable != null)
         {
-            button.interactable &= IsConnected;
+            selectable.interactable &= IsConnected;
         }
     }
 }

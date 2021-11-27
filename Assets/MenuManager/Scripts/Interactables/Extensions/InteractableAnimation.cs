@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 
 namespace PetrushevskiApps.UIManager
 {
-    public class ButtonAnimation : ButtonExtension, IPointerDownHandler, IPointerUpHandler
+    public class InteractableAnimation : SelectableExtension, IPointerDownHandler, IPointerUpHandler
     {
-        [SerializeField] private ButtonAnimationConfig animationConfig;
+        [SerializeField] private InteractableAnimationConfig animationConfig;
 
         private RectTransform rectTransform;
         private Vector3 defaultScale = Vector3.one;

@@ -3,30 +3,31 @@ using UnityEngine.EventSystems;
 
 namespace PetrushevskiApps.UIManager
 {
-    public class ButtonSound : ButtonExtension, IPointerDownHandler
+    [RequireComponent(typeof(InteractivityMonitor))]
+    public class SoundInteractable : SelectableExtension, IPointerDownHandler
     {
-        [SerializeField] protected ButtonSoundConfig soundConfig;
+        [SerializeField] protected InteractableSoundConfig soundConfig;
 
         private ISoundSystem iSoundSystem;
-        private UIButton button;
         private AudioClip soundEffect;
+        private InteractivityMonitor interactivityMonitor;
 
         private void Start()
         {
-            button = GetComponent<UIButton>();
             iSoundSystem = UIManager.Instance.GetComponent<ISoundSystem>();
+            interactivityMonitor = GetComponent<InteractivityMonitor>();
 
-            button?.InteractableChangedEvent.AddListener(SetAudioClip);
+            interactivityMonitor?.InteractivityChangedEvent.AddListener(SetAudioClip);
         }
 
         private void OnDestroy()
         {
-            button?.InteractableChangedEvent.RemoveListener(SetAudioClip);
+            interactivityMonitor?.InteractivityChangedEvent.AddListener(SetAudioClip);
         }
 
-        private void SetAudioClip()
+        private void SetAudioClip(bool isInteractable)
         {
-            if (button.IsInteractable)
+            if (isInteractable)
             {
                 soundEffect = soundConfig.positiveSound;
             }
