@@ -1,5 +1,5 @@
 {
-    "name": "UIInteractablesEditor",
+    "name": "UIManagerEditor",
     "rootNamespace": "",
     "references": [
         "GUID:e8bd46632d0f2324287f330df9951b6f"
