@@ -21,7 +21,7 @@ namespace PetrushevskiApps.UIManager
         protected override void OnEnable()
         {
             base.OnEnable();
-            Selectable buttonObject = (Selectable)target;
+            Button buttonObject = (Button)target;
             this.gameObject = buttonObject.gameObject;
             SetExtensions();
         }

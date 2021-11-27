@@ -23,6 +23,19 @@ namespace com.petrushevskiapps.menumanager
             }
         }
 
+        public void Awake()
+        {
+            onValueChanged.AddListener(OnValueChanged);
+        }
+
+        private void OnDestroy()
+        {
+            onValueChanged.RemoveListener(OnValueChanged);
+        }
+        private void OnValueChanged(bool arg0)
+        {
+            StateChangedEvent.Invoke();
+        }
     }
 }
 

@@ -23,6 +23,25 @@ public class UIManagerContextMenu : Editor
         CreateTemplate("ButtonTemplates/TextButton", "TextButton");
     }
     
+    
+    [MenuItem("GameObject/UI Manager/UI Elements/Toggle/Icon and Text Toggle", false, 1)]
+    private static void IconAndTextToggleTemplate()
+    {
+        CreateTemplate("ToggleTemplates/IconAndTextToggle", "IconAndTextToggle");
+    }
+    
+    [MenuItem("GameObject/UI Manager/UI Elements/Toggle/Icon Toggle", false, 2)]
+    private static void IconToggle()
+    {
+        CreateTemplate("ToggleTemplates/IconToggle", "IconToggle");
+    }
+    
+    [MenuItem("GameObject/UI Manager/UI Elements/Toggle/TextToggle", false, 3)]
+    private static void METHOD_NAME()
+    {
+        CreateTemplate("ToggleTemplates/TextToggle", "TextToggle");
+    }
+    
     private static void CreateTemplate(string path, string name)
     {
         GameObject template = Resources.Load(path) as GameObject;

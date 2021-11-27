@@ -21,7 +21,7 @@ public class UIToggleEditor : ToggleEditor
     protected override void OnEnable()
     {
         base.OnEnable();
-        Selectable buttonObject = (Selectable)target;
+        Toggle buttonObject = (Toggle)target;
         this.gameObject = buttonObject.gameObject;
         SetExtensions();
     }
