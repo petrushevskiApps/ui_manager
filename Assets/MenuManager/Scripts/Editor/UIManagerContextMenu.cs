@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class UIManagerContextMenu : Editor
 {
-    [MenuItem("GameObject/UI Manager/UI Elements/Button/Icon and Text Button", false, 1)]
-    private static void IconAndTextButtonTemplate()
+    [MenuItem("GameObject/UI Manager/UI Elements/Button/Dynamic Size Button", false, 1)]
+    private static void DynamicButtonTemplate()
     {
-        CreateTemplate("ButtonTemplates/BaseButton", "IconAndTextButton");
+        CreateTemplate("ButtonTemplates/DynamicSizeButton", "DynamicSizeButton");
+    }
+    [MenuItem("GameObject/UI Manager/UI Elements/Button/Fix Size Button", false, 1)]
+    private static void FixButtonTemplate()
+    {
+        CreateTemplate("ButtonTemplates/FixSizeButton", "FixSizeButton");
     }
     
     [MenuItem("GameObject/UI Manager/UI Elements/Button/Icon Button", false, 2)]
@@ -37,11 +42,30 @@ public class UIManagerContextMenu : Editor
     }
     
     [MenuItem("GameObject/UI Manager/UI Elements/Toggle/TextToggle", false, 3)]
-    private static void METHOD_NAME()
+    private static void TextToggle()
     {
         CreateTemplate("ToggleTemplates/TextToggle", "TextToggle");
     }
     
+    
+    [MenuItem("GameObject/UI Manager/UI Elements/Label/Horizontal Label", false, 1)]
+    private static void HorizontalLabel()
+    {
+        CreateTemplate("LabelTemplates/HorizontalLabel", "HorizontalLabel");
+    }
+    
+    [MenuItem("GameObject/UI Manager/UI Elements/Label/Vertical Label", false, 1)]
+    private static void VerticalLabel()
+    {
+        CreateTemplate("LabelTemplates/VerticalLabel", "VerticalLabel");
+    }
+    
+    
+    [MenuItem("GameObject/UI Manager/UI Windows/Popups/Base Popup", false, 1)]
+    private static void BasePopup()
+    {
+        CreateTemplate("PopupTemplates/BasePopup", "BasePopup");
+    }
     private static void CreateTemplate(string path, string name)
     {
         GameObject template = Resources.Load(path) as GameObject;

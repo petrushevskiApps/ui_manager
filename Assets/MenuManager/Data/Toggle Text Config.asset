@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d4775c8b77af04b9f0757104b1fc1e, type: 3}
   m_Name: Toggle Text Config
   m_EditorClassIdentifier: 
-  toggleOnText: 
-  toggleOffText: 
+  toggleOnText: Toggle On
+  toggleOffText: Toggle Off
   onFontStyle: 0
-  offFontStyle: 0
+  offFontStyle: 64
