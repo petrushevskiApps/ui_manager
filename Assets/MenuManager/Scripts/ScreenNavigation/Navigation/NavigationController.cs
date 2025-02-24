@@ -5,7 +5,7 @@ public class NavigationController : INavigationController
 {
     private readonly IScreenProvider _screenProvider;
 
-    private readonly Stack<IScreen> _backStack = new Stack<IScreen>();
+    private readonly Stack<IScreen> _backStack = new();
 
     private bool IsBackStackEmpty => _backStack.Count == 0;
 
