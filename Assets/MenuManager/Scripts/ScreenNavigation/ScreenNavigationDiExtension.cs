@@ -12,7 +12,14 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation
                 .AsSingle();
             container
                 .Bind<IScreenProvider>()
+                .WithId("Screen")
                 .To<ScreenProvider>()
+                .FromComponentInHierarchy()
+                .AsSingle();
+            container
+                .Bind<IScreenProvider>()
+                .WithId("PopupScreen")
+                .To<PopupScreenProvider>()
                 .FromComponentInHierarchy()
                 .AsSingle();
         }

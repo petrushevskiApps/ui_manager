@@ -1,3 +1,5 @@
+using System;
+
 public interface INavigationController
 {
     /// <summary>
@@ -14,4 +16,8 @@ public interface INavigationController
     /// and Resumes the next screen available on the stack.
     /// </summary>
     void GoBack();
+
+    void ShowPopup<T, TArguments>(TArguments navArguments) where T : IScreen;
+    event EventHandler AllScreensClosedEvent;
+    bool IsPopupShown();
 }

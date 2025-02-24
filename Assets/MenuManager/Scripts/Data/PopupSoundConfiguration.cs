@@ -1,11 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/PopupSoundConfiguration", fileName = "Popup Sound Config")]
-public class PopupSoundConfiguration : ScriptableObject
+[CreateAssetMenu(
+    menuName = "Data/Popup Sound Configuration", 
+    fileName = "PopupSoundConfiguration")]
+public class PopupSoundConfiguration : ScriptableObject, IPopupSoundConfiguration
 {
-    [SerializeField] private AudioClip popupShown;
-    [SerializeField] private AudioClip popupHidden;
+    [field: SerializeField]
+    public AudioClip PopupShown { get; private set; }
 
-    public AudioClip PopupShown => popupShown;
-    public AudioClip PopupHidden => popupHidden;
+    [field: SerializeField]
+    public AudioClip PopupHidden { get; private set; }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -7,7 +6,7 @@ using Zenject;
 /// <summary>
 /// Base class for all Screens used with Unity.
 /// </summary>
-public abstract class BaseScreen : MonoBehaviour, IScreen, IScreenEvents
+public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
 {
     [SerializeField]
     private bool _activateSafeArea = true;
