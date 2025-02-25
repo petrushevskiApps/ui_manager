@@ -2,7 +2,7 @@
 
 namespace MenuManager.Demo_New.Screens
 {
-    public class GameScreen: BaseScreen
+    public class GameScreen: UIScreen
     {
         public override void Show<T>(T navArguments)
         {

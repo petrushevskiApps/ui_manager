@@ -26,10 +26,9 @@ namespace slowBulletGames.MemoryValley
             playButton.onClick.AddListener(OnPlayClicked);
         }
 
-        public override void Initialize(Action onBackButtonAction)
+        public void Initialize(Action onBackButtonAction)
         {
             //GameManager.LevelStartEvent.AddListener(OnLevelStart);
-            base.Initialize(onBackButtonAction);
         }
 
         private void OnDestroy()
@@ -75,7 +74,7 @@ namespace slowBulletGames.MemoryValley
             //GameManager.Instance.ExitLevel();
         }
 
-        public override void OnBackButtonPressed()
+        public void OnBackButtonPressed()
         {
             OnHomeClicked();
         }

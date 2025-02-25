@@ -6,21 +6,29 @@ namespace slowBulletGames.MemoryValley
     public class PausePopup : UIPopup
     {
         [Header("Buttons")]
-        [SerializeField] private UIButton replayButton;
-        [SerializeField] private UIButton homeButton;
-        [SerializeField] private UIButton playButton;
-        [SerializeField] private UIButton settingsButton;
+        [SerializeField]
+        private UIButton _replayButton;
+
+        [SerializeField]
+        private UIButton _homeButton;
+
+        [SerializeField]
+        private UIButton _playButton;
+
+        [SerializeField]
+        private UIButton _settingsButton;
 
         private void Awake()
         {
-            replayButton.onClick.AddListener(OnReplayClicked);
-            homeButton.onClick.AddListener(OnHomeClicked);
-            playButton.onClick.AddListener(OnPlayClicked);
-            settingsButton.onClick.AddListener(OnSettingsClicked);
+            _replayButton.onClick.AddListener(OnReplayClicked);
+            _homeButton.onClick.AddListener(OnHomeClicked);
+            _playButton.onClick.AddListener(OnPlayClicked);
+            _settingsButton.onClick.AddListener(OnSettingsClicked);
         }
-        public override void Open()
+
+        public override void Resume()
         {
-            base.Open();
+            base.Resume();
             Time.timeScale = 0;
         }
 
@@ -29,23 +37,25 @@ namespace slowBulletGames.MemoryValley
             base.Close();
             Time.timeScale = 1;
         }
+
         private void OnReplayClicked()
         {
             Close();
         }
+
         private void OnHomeClicked()
         {
-            UIManager.Instance.OpenPopup<LevelAbandonPopup>();
+            NavigationController.ShowPopup<LevelAbandonPopup>();
         }
+
         protected virtual void OnPlayClicked()
         {
-            OnBackButtonPressed();
+            NavigationController.GoBack();
         }
+
         private void OnSettingsClicked()
         {
-            UIManager.Instance.OpenPopup<SettingsPopup>();
+            NavigationController.ShowPopup<SettingsPopup>();
         }
     }
-
-
 }

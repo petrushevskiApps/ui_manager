@@ -57,12 +57,12 @@ namespace slowBulletGames.MemoryValley
 
         private void OnPauseClicked()
         {
-            UIManager.Instance.OpenPopup<PausePopup>();
+            // UIManager.Instance.OpenPopup<PausePopup>();
         }
 
-        public override void OnBackButtonPressed()
+        public void OnBackButtonPressed()
         {
-            UIManager.Instance.OpenPopup<LevelAbandonPopup>();
+            // UIManager.Instance.OpenPopup<LevelAbandonPopup>();
         }
     }
 

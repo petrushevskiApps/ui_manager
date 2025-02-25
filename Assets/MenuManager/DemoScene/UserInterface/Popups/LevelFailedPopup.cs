@@ -24,7 +24,7 @@ namespace slowBulletGames.MemoryValley
         {
             Close();
         }
-        public override void OnBackButtonPressed()
+        public void OnBackButtonPressed()
         {
             OnHomeClicked();
         }

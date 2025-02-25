@@ -53,7 +53,7 @@ namespace slowBulletGames.MemoryValley
 
         private void OnSettingsClicked()
         {
-            UIManager.Instance.OpenPopup<SettingsPopup>();
+            // UIManager.Instance.OpenPopup<SettingsPopup>();
         }
         private void OnStartLevelClicked()
         {
@@ -61,7 +61,7 @@ namespace slowBulletGames.MemoryValley
         }
         private void OnLevelsMapClicked()
         {
-            UIManager.Instance.OpenScreen<LevelsScreen>();
+            // UIManager.Instance.OpenScreen<LevelsScreen>();
         }
     }
 

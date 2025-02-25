@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using PetrushevskiApps.UIManager;
 using UnityEngine;
 
@@ -8,13 +6,16 @@ namespace slowBulletGames.MemoryValley
     public class WorldCompletedPopup : UIPopup
     {
         [Header("Buttons")]
-        [SerializeField] private UIButton replayButton;
-        [SerializeField] private UIButton homeButton;
+        [SerializeField]
+        private UIButton _replayButton;
+
+        [SerializeField]
+        private UIButton _homeButton;
 
         private void Awake()
         {
-            replayButton.onClick.AddListener(OnReplayClicked);
-            homeButton.onClick.AddListener(OnHomeClicked);
+            _replayButton.onClick.AddListener(OnReplayClicked);
+            _homeButton.onClick.AddListener(OnHomeClicked);
         }
 
         private void OnReplayClicked()
@@ -27,7 +28,7 @@ namespace slowBulletGames.MemoryValley
             Close();
         }
 
-        public override void OnBackButtonPressed()
+        public void OnBackButtonPressed()
         {
             OnHomeClicked();
         }

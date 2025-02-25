@@ -19,15 +19,15 @@ namespace slowBulletGames.MemoryValley
             noButton.onClick.AddListener(OnNoClicked);
         }
 
-        public override void Open()
+        public override void Resume()
         {
-            base.Open();
+            base.Resume();
             Time.timeScale = 0;
         }
 
-        public override void Close()
+        public override void Hide()
         {
-            base.Close();
+            base.Hide();
             Time.timeScale = 1;
         }
 

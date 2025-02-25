@@ -4,7 +4,7 @@ using Zenject;
 
 namespace MenuManager.Demo_New.Screens
 {
-    public class MainScreen: BaseScreen
+    public class MainScreen: UIScreen
     {
         private INavigationController _navigationController;
         
