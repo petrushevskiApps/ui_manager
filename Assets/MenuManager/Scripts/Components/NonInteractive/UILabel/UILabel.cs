@@ -1,18 +1,21 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UILabel : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI textHolder;
-    [SerializeField] private Image iconImage;
-    
-    [SerializeField] private LabelState state;
-    [SerializeField] private UILabelConfiguration configuration;
+    [SerializeField]
+    private TextMeshProUGUI _textHolder;
+
+    [SerializeField]
+    private Image _iconImage;
+
+    [SerializeField]
+    private LabelState _state;
+
+    [SerializeField]
+    private UILabelConfiguration _configuration;
+
     private void OnEnable()
     {
         Setup();
@@ -22,7 +25,7 @@ public class UILabel : MonoBehaviour
     {
         if (text != null)
         {
-            textHolder.text = text;
+            _textHolder.text = text;
             Setup();
         }
     }
@@ -31,31 +34,34 @@ public class UILabel : MonoBehaviour
     {
         if (icon != null)
         {
-            iconImage.sprite = icon;
+            _iconImage.sprite = icon;
         }
     }
 
     public void SetState(LabelState newState)
     {
-        state = newState;
+        _state = newState;
         Setup();
     }
-    
+
     private void Setup()
     {
-        if(configuration == null) return;
-        
-        LabelStyleData styleData = configuration.GetStyle(state);
-
-        if (textHolder != null)
+        if (_configuration == null)
         {
-            textHolder.fontStyle = styleData.fontStyle;
-            textHolder.color = styleData.color;
+            return;
+        }
+        
+        LabelStyleData styleData = _configuration.GetStyle(_state);
+
+        if (_textHolder != null)
+        {
+            _textHolder.fontStyle = styleData.FontStyle;
+            _textHolder.color = styleData.Color;
         }
 
-        if (iconImage != null)
+        if (_iconImage != null)
         {
-            iconImage.color = styleData.color;
+            _iconImage.color = styleData.Color;
         }
     }
 }

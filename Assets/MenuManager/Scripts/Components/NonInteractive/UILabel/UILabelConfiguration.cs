@@ -1,31 +1,16 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Label Configuration", menuName = "Data/Label Configuration", order = 1)]
+[CreateAssetMenu(
+    fileName = "Label Configuration", 
+    menuName = "Data/Label Configuration", order = 1)]
 public class UILabelConfiguration : ScriptableObject
 {
-    [SerializeField] private List<LabelStyleData> stylesData;
+    [SerializeField]
+    private List<LabelStyleData> stylesData;
 
     public LabelStyleData GetStyle(LabelState state)
     {
-        return stylesData.Find(style => style.labelState == state);
+        return stylesData.Find(style => style.State == state);
     }
-}
-
-[Serializable]
-public class LabelStyleData
-{
-    public LabelState labelState;
-    public FontStyles fontStyle;
-    public Color color;
-}
-
-public enum LabelState
-{
-    Normal,
-    Warning,
-    Error,
 }
