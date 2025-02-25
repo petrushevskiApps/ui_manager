@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/InteractableAnimationConfig", fileName = "InteractableAnimationConfig")]
+[CreateAssetMenu(
+    menuName = "Data/Interactable Animation Configuration", 
+    fileName = "InteractableAnimationConfig")]
 public class InteractableAnimationConfig : ScriptableObject
 {
-    public Vector3 scale = new Vector3(0.85f, 0.85f, 0.85f);
-    public float scaleSpeed = 1f;
+    [field: SerializeField]
+    public Vector3 Scale { get; private set; } = new(0.85f, 0.85f, 0.85f);
+    [field: SerializeField]
+    public float ScaleSpeed { get; private set; } = 1f;
 }

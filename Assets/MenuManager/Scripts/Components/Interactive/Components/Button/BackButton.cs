@@ -1,36 +1,46 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
+using Zenject;
 
 namespace PetrushevskiApps.UIManager
 {
     public class BackButton : MonoBehaviour
     {
-        [SerializeField] private UnityEvent Execute = new UnityEvent();
-
-        private UIButton backButton;
+        public event EventHandler BackButtonClickedEvent;
         
+        private UIButton _backButton;
+        private INavigationController _navigationController;
+
+        [Inject]
+        private void Initialize(INavigationController navigationController)
+        {
+            _navigationController = navigationController;
+        }
         private void Awake()
         {
-            backButton = gameObject.GetComponent<UIButton>();
+            _backButton = gameObject.GetComponent<UIButton>();
+        }
 
-            if (backButton != null)
+        private void OnEnable()
+        {
+            if (_backButton != null)
             {
-                backButton.onClick.AddListener(OnClick);
+                _backButton.onClick.AddListener(OnClick);
             }
-            else Debug.LogError("UIManager:: BackButton:: UIButton not found !!");
+        }
+
+        private void OnDisable()
+        {
+            if (_backButton != null)
+            {
+                _backButton.onClick.RemoveListener(OnClick);
+            }
         }
 
         private void OnClick()
         {
-            if (Execute.GetPersistentEventCount() > 0)
-            {
-                Execute.Invoke();
-            }
-            else
-            {
-                UIManager.Instance.OnBack();
-            }
+            BackButtonClickedEvent?.Invoke(this, EventArgs.Empty);
+            _navigationController?.GoBack();
         }
     }
 }

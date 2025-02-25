@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,17 +6,21 @@ namespace PetrushevskiApps.UIManager
 {
     public class InteractableAnimation : SelectableExtension, IPointerDownHandler, IPointerUpHandler
     {
-        [SerializeField] private InteractableAnimationConfig animationConfig;
+        [SerializeField]
+        private InteractableAnimationConfig _animationConfig;
 
-        private RectTransform rectTransform;
-        private Vector3 defaultScale = Vector3.one;
-        private Coroutine scaleDownCoroutine;
+        // Internal
+        private RectTransform _rectTransform;
+        private Vector3 _defaultScale = Vector3.one;
+        private Coroutine _scaleDownCoroutine;
 
-        protected void Awake()
+        protected new void Awake()
         {
-            rectTransform = GetComponent<RectTransform>();
-            defaultScale = rectTransform.localScale;
+            base.Awake();
+            _rectTransform = GetComponent<RectTransform>();
+            _defaultScale = _rectTransform.localScale;
         }
+
         protected void OnDisable()
         {
             ResetScale();
@@ -25,12 +28,9 @@ namespace PetrushevskiApps.UIManager
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (scaleDownCoroutine == null)
-            {
-                scaleDownCoroutine = StartCoroutine(Scale(animationConfig.scale));
-            }
+            _scaleDownCoroutine ??= StartCoroutine(Scale(_animationConfig.Scale));
         }
-    
+
         public void OnPointerUp(PointerEventData eventData)
         {
             ResetScale();
@@ -38,29 +38,28 @@ namespace PetrushevskiApps.UIManager
 
         private void ResetScale()
         {
-            if (scaleDownCoroutine != null)
+            if (_scaleDownCoroutine != null)
             {
-                StopCoroutine(scaleDownCoroutine);
-                scaleDownCoroutine = null;
+                StopCoroutine(_scaleDownCoroutine);
+                _scaleDownCoroutine = null;
             }
-            rectTransform.localScale = defaultScale;
+
+            _rectTransform.localScale = _defaultScale;
         }
-    
+
         private IEnumerator Scale(Vector3 newScale)
         {
-            Vector3 lScale = rectTransform.localScale;
-        
+            Vector3 lScale = _rectTransform.localScale;
+
             while (Vector3.Distance(lScale, newScale) >= 0.01f)
             {
-                lScale = Vector3.Lerp(lScale, newScale, Time.unscaledDeltaTime * animationConfig.scaleSpeed);
-                rectTransform.localScale = lScale;
+                lScale = Vector3.Lerp(lScale, newScale, Time.unscaledDeltaTime * _animationConfig.ScaleSpeed);
+                _rectTransform.localScale = lScale;
                 yield return new WaitForSeconds(Time.deltaTime);
             }
 
             // Smooth out the values of rect scale
-            rectTransform.localScale = newScale;
+            _rectTransform.localScale = newScale;
         }
-
     }
-
 }

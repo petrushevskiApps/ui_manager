@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/InteractableSoundConfig", fileName = "InteractableSoundConfig")]
-public class InteractableSoundConfig : ScriptableObject
+[CreateAssetMenu(
+    menuName = "Data/Interactable Sound Configuration", 
+    fileName = "InteractableSoundConfig")]
+public class InteractableSoundConfig : ScriptableObject, IInteractableSoundConfig
 {
-    public AudioClip positiveSound;
-    public AudioClip negativeSound;
+    [field: SerializeField]
+    public AudioClip PositiveSound { get; private set; }
+    [field: SerializeField]
+    public AudioClip NegativeSound { get; private set; }
 }

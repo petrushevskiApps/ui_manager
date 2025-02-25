@@ -5,11 +5,11 @@ namespace PetrushevskiApps.UIManager
 {
     public abstract class SelectableExtension : MonoBehaviour
     {
-        protected Selectable selectable;
+        protected Selectable Selectable;
 
         protected void Awake()
         {
-            selectable = GetComponent<Selectable>();
+            Selectable = GetComponent<Selectable>();
         }
 
     }

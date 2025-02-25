@@ -6,10 +6,10 @@ using UnityEngine.Events;
 
 public class InteractivityMonitor : SelectableExtension
 {
-    public UnityEvent<bool> InteractivityChangedEvent = new UnityEvent<bool>();
+    public UnityEvent<bool> InteractivityChangedEvent = new();
 
-    private bool currentStatus;
-    private Coroutine checkCoroutine;
+    private bool _currentStatus;
+    private Coroutine _checkCoroutine;
 
     private void OnEnable()
     {
@@ -24,23 +24,24 @@ public class InteractivityMonitor : SelectableExtension
     private void StartCheck()
     {
         StopCheck();
-        currentStatus = selectable.interactable;
-        checkCoroutine = StartCoroutine(InteractivityCheck());
+        _currentStatus = Selectable.interactable;
+        _checkCoroutine = StartCoroutine(InteractivityCheck());
     }
 
     private void StopCheck()
     {
-        if (checkCoroutine != null)
+        if (_checkCoroutine == null)
         {
-            StopCoroutine(checkCoroutine);
-            checkCoroutine = null;
+            return;
         }
+        StopCoroutine(_checkCoroutine);
+        _checkCoroutine = null;
     }
 
     private IEnumerator InteractivityCheck()
     {
-        yield return new WaitUntil(()=> selectable.interactable != currentStatus);
-        InteractivityChangedEvent.Invoke(selectable.interactable);
+        yield return new WaitUntil(()=> Selectable.interactable != _currentStatus);
+        InteractivityChangedEvent.Invoke(Selectable.interactable);
         StartCheck();
     }
 }

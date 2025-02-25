@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 namespace PetrushevskiApps.UIManager
 {
@@ -11,6 +9,5 @@ namespace PetrushevskiApps.UIManager
             onClick.RemoveAllListeners();
             base.OnDestroy();
         }
-
     }
 }

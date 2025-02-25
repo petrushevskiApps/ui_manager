@@ -1,45 +1,52 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 namespace PetrushevskiApps.UIManager
 {
-    [RequireComponent(typeof(InteractivityMonitor))]
+    /// <summary>
+    /// This component extends the Selectable Unity Component
+    /// with Sound Effects functionality depending on the
+    /// interactive state of the Selectable.
+    /// </summary>
     public class SoundInteractable : SelectableExtension, IPointerDownHandler
     {
-        [SerializeField] protected InteractableSoundConfig soundConfig;
+        [Header("Override Defaults")]
+        [SerializeField]
+        [Tooltip("Override for the default interaction sound. Played when the selectable is interactive.")]
+        private AudioClip _positiveSound;
+        [SerializeField]
+        [Tooltip("Override for the default interaction sound. Played when the selectable is not interactive.")]
+        private AudioClip _negativeSound;
 
-        private ISoundSystem iSoundSystem;
-        private AudioClip soundEffect;
-        private InteractivityMonitor interactivityMonitor;
+        // Injected
+        private ISoundSystem _soundSystem;
+        private IInteractableSoundConfig _interactableSoundConfig;
 
-        private void Start()
+        [Inject]
+        public void Initialize(
+            ISoundSystem soundSystem,
+            IInteractableSoundConfig interactableSoundConfig)
         {
-            iSoundSystem = UIManager.Instance.GetComponent<ISoundSystem>();
-            interactivityMonitor = GetComponent<InteractivityMonitor>();
-
-            interactivityMonitor?.InteractivityChangedEvent.AddListener(SetAudioClip);
-        }
-
-        private void OnDestroy()
-        {
-            interactivityMonitor?.InteractivityChangedEvent.AddListener(SetAudioClip);
-        }
-
-        private void SetAudioClip(bool isInteractable)
-        {
-            if (isInteractable)
-            {
-                soundEffect = soundConfig.positiveSound;
-            }
-            else
-            {
-                soundEffect = soundConfig.negativeSound;
-            }
+            _soundSystem = soundSystem;
+            _interactableSoundConfig = interactableSoundConfig;
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            iSoundSystem?.PlaySoundEffect(soundEffect);
+            _soundSystem?.PlaySoundEffect(Selectable.interactable
+                ? GetPositiveSound()
+                : GetNegativeSound());
+        }
+
+        private AudioClip GetPositiveSound()
+        {
+            return _positiveSound != null ? _positiveSound : _interactableSoundConfig.PositiveSound;
+        }
+        
+        private AudioClip GetNegativeSound()
+        {
+            return _negativeSound != null ? _negativeSound : _interactableSoundConfig.NegativeSound;
         }
     }
 }

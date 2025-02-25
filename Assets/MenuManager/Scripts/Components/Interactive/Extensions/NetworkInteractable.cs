@@ -1,30 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using PetrushevskiApps.UIManager;
 using UnityEngine;
-using UnityEngine.UI;
+using Zenject;
 
+/// <summary>
+/// This component extends the functionality of a Selectable
+/// component ( for example: Buttons, Toggles, Input Fields )
+/// and changes their interactivity depending on the Network
+/// connectivity state.
+/// </summary>
 [RequireComponent(typeof(InteractivityMonitor))]
 public class NetworkInteractable : SelectableExtension
 {
-    private IConnected iConnected;
-    private InteractivityMonitor interactivityMonitor;
+    private IConnectionListener _connectionListener;
+    private InteractivityMonitor _interactivityMonitor;
 
     public bool IsConnected { get; private set; }
 
+    [Inject]
+    public void Initialize(IConnectionListener connectionListener)
+    {
+        _connectionListener = connectionListener;
+    }
+
+    protected new void Awake()
+    {
+        base.Awake();
+        _interactivityMonitor = GetComponent<InteractivityMonitor>();
+    }
     private void Start()
     {
-        iConnected = UIManager.Instance.IConnected;
-        interactivityMonitor = GetComponent<InteractivityMonitor>();
-
-        iConnected?.RegisterToConnectionChanges(OnConnectionChange);
-        interactivityMonitor?.InteractivityChangedEvent.AddListener(OnInteractivityChange);
+        _connectionListener?.RegisterToConnectionChanges(OnConnectionChange);
+        if (_interactivityMonitor != null)
+        {
+            _interactivityMonitor.InteractivityChangedEvent.AddListener(OnInteractivityChange);
+        }
     }
 
     private void OnDestroy()
     {
-        iConnected?.UnregisterToConnectionChanges(OnConnectionChange);
-        interactivityMonitor?.InteractivityChangedEvent.RemoveListener(OnInteractivityChange);
+        _connectionListener?.UnregisterToConnectionChanges(OnConnectionChange);
+        if (_interactivityMonitor != null)
+        {
+            _interactivityMonitor.InteractivityChangedEvent.RemoveListener(OnInteractivityChange);
+        }
     }
 
     private void OnInteractivityChange(bool isInteractive)
@@ -38,11 +56,11 @@ public class NetworkInteractable : SelectableExtension
         SetConnectivityStatus();
     }
 
-    public void SetConnectivityStatus()
+    private void SetConnectivityStatus()
     {
-        if (selectable != null)
+        if (Selectable != null)
         {
-            selectable.interactable &= IsConnected;
+            Selectable.interactable &= IsConnected;
         }
     }
 }

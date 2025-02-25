@@ -8,19 +8,23 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class ToggleText : MonoBehaviour
 {
-    [SerializeField] private UIToggle toggle;
-    [SerializeField] private ToggleTextConfig config;
-    private TextMeshProUGUI text;
-    
+    [SerializeField]
+    private UIToggle _toggle;
+
+    [SerializeField]
+    private ToggleTextConfig _config;
+
+    private TextMeshProUGUI _text;
+
     private void Awake()
     {
-        text = GetComponent<TextMeshProUGUI>();
-        toggle.StateChangedEvent.AddListener(SetToggleText);
+        _text = GetComponent<TextMeshProUGUI>();
+        _toggle.StateChangedEvent.AddListener(SetToggleText);
     }
 
     private void OnDestroy()
     {
-        toggle.StateChangedEvent.RemoveListener(SetToggleText);
+        _toggle.StateChangedEvent.RemoveListener(SetToggleText);
     }
 
     private void OnEnable()
@@ -30,10 +34,10 @@ public class ToggleText : MonoBehaviour
 
     private void SetToggleText()
     {
-        if (config != null)
+        if (_config != null)
         {
-            text.text = config.GetText(toggle.IsOn);
-            text.fontStyle = config.GetFontStyle(toggle.IsOn);
+            _text.text = _config.GetText(_toggle.IsOn);
+            _text.fontStyle = _config.GetFontStyle(_toggle.IsOn);
         }
     }
 }

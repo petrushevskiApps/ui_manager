@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -13,32 +12,33 @@ namespace PetrushevskiApps.UIManager
     [CanEditMultipleObjects]
     public class UIButtonEditor : ButtonEditor
     {
-        private GameObject gameObject;
+        private readonly List<string> _extensionNames = new();
 
-        private List<Type> extensions = new List<Type>();
-        private List<string> extensionNames = new List<string>();
+        private List<Type> _extensions = new();
+        private GameObject _gameObject;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            Button buttonObject = (Button)target;
-            this.gameObject = buttonObject.gameObject;
+            var buttonObject = (Button) target;
+            _gameObject = buttonObject.gameObject;
             SetExtensions();
         }
 
         private void SetExtensions()
         {
-            Type[] types = AppDomain.CurrentDomain.GetAllDerivedTypes(typeof(SelectableExtension));
+            var types = AppDomain.CurrentDomain.GetAllDerivedTypes(typeof(SelectableExtension));
 
-            if (types.Length != extensions.Count)
+            if (types.Length == _extensions.Count)
             {
-                extensions.Clear();
-                extensionNames.Clear();
-
-                extensions = types.ToList();
-                extensionNames.Add("select");
-                extensions.ForEach(extension => extensionNames.Add(extension.Name));
+                return;
             }
+            _extensions.Clear();
+            _extensionNames.Clear();
+
+            _extensions = types.ToList();
+            _extensionNames.Add("select");
+            _extensions.ForEach(extension => _extensionNames.Add(extension.Name));
         }
 
         public override void OnInspectorGUI()
@@ -59,19 +59,16 @@ namespace PetrushevskiApps.UIManager
         {
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Extensions", EditorStyles.boldLabel);
-            Rect rect = EditorGUILayout.GetControlRect(true, EditorGUIUtility.singleLineHeight);
+            var rect = EditorGUILayout.GetControlRect(true, EditorGUIUtility.singleLineHeight);
             rect = EditorGUI.PrefixLabel(rect, new GUIContent("Add Extension"));
 
-            int selection = EditorGUI.Popup(rect, 0, extensionNames.ToArray());
+            var selection = EditorGUI.Popup(rect, 0, _extensionNames.ToArray());
 
             if (selection > 0)
             {
-                Type extType = extensions[selection - 1];
+                var extType = _extensions[selection - 1];
 
-                if (gameObject.GetComponent(extType) == null)
-                {
-                    Undo.AddComponent(gameObject, extType);
-                }
+                if (_gameObject.GetComponent(extType) == null) Undo.AddComponent(_gameObject, extType);
             }
         }
     }
