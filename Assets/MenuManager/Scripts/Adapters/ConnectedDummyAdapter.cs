@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ConnectedDummyAdapter : MonoBehaviour, IConnected
+public class ConnectionListenerDummyAdapter : MonoBehaviour, IConnectionListener
 {
     public void RegisterToConnectionChanges(Action<bool> onConnectionChanges)
     {
