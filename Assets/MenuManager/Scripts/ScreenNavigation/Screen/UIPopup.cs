@@ -21,14 +21,17 @@ namespace PetrushevskiApps.UIManager
         // Injected
         private ISoundSystem _soundSystem;
         private IPopupSoundConfiguration _popupSoundConfiguration;
+        protected INavigationController NavigationController;
         
         [Inject]
         public void Initialize(
             ISoundSystem soundSystem,
-            IPopupSoundConfiguration popupSoundConfiguration)
+            IPopupSoundConfiguration popupSoundConfiguration,
+            INavigationController navigationController)
         {
             _soundSystem = soundSystem;
             _popupSoundConfiguration = popupSoundConfiguration;
+            NavigationController = navigationController;
         }
         
         public void Show<TArguments>(TArguments navArguments)

@@ -18,6 +18,7 @@ public interface INavigationController
     void GoBack();
 
     void ShowPopup<T, TArguments>(TArguments navArguments) where T : IScreen;
+    void ShowPopup<T>() where T : IScreen;
     event EventHandler AllScreensClosedEvent;
     bool IsPopupShown();
 }

@@ -6,11 +6,13 @@ using Zenject;
 public class NavigationController : INavigationController
 {
     public event EventHandler AllScreensClosedEvent;
-    
+
     private readonly IScreenProvider _screenProvider;
+
     private readonly IScreenProvider _popupScreenProvider;
 
     private readonly Stack<IScreen> _screenBackStack = new();
+
     private readonly Stack<IScreen> _popupBackStack = new();
 
     public NavigationController(
@@ -20,17 +22,22 @@ public class NavigationController : INavigationController
         _screenProvider = screenProvider;
         _popupScreenProvider = popupScreenProvider;
     }
-    
+
     public void ShowScreen<T, TArguments>(TArguments navArguments) where T : IScreen
     {
         Show<T, TArguments>(_screenProvider, _screenBackStack, navArguments);
+    }
+
+    public void ShowPopup<T>() where T : IScreen
+    {
+        ShowPopup<T, NavigationArguments>(new NavigationArguments());
     }
 
     public void ShowPopup<T, TArguments>(TArguments navArguments) where T : IScreen
     {
         Show<T, TArguments>(_popupScreenProvider, _popupBackStack, navArguments);
     }
-    
+
     public void GoBack()
     {
         if (!_popupBackStack.IsEmpty())
@@ -109,4 +116,9 @@ public class NavigationController : INavigationController
             else break;
         }
     }
+}
+
+public class NavigationArguments
+{
+    
 }

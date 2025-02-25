@@ -39,7 +39,7 @@ public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
         _navigationController = navigationController;
     }
 
-    private void Awake()
+    protected void Awake()
     {
         _screenRect = GetComponent<RectTransform>();
         if (_activateSafeArea) ApplySafeArea();
