@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using MenuManager.Scripts.Utilitis;
+using UnityEngine;
 
 namespace slowBulletGames.MemoryValley
 {
     public class PausePopupViewModel : IPausePopupViewModel
     {
-        public string Title { get; protected set; }
-
-        public string Message { get; protected set;}
+        // Reactive Properties
+        public IReactiveProperty<string> Title { get; protected set; }
+        public IReactiveProperty<string> Message { get; protected set;}
 
         // Injected
         private readonly INavigationController _navigationController;
@@ -16,10 +17,11 @@ namespace slowBulletGames.MemoryValley
         {
             _navigationController = navigationController;
 
-            Title = "Pause";
-            Message = "";
+            
+            Title = new ReactiveProperty<string>("Pause");
+            Message = new ReactiveProperty<string>(null);
         }
-        
+
         public virtual void RestartClicked()
         {
             Debug.LogWarning("Restart clicked method is not implemented.");
@@ -38,6 +40,11 @@ namespace slowBulletGames.MemoryValley
         public virtual void SettingsClicked()
         {
             _navigationController.ShowPopup<SettingsPopup>();
+        }
+
+        public void BackgroundClicked()
+        {
+            _navigationController.GoBack();
         }
     }
 }

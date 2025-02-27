@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class SettingsPopupViewModel : ISettingsPopupViewModel
 {
-    public string Title { get; }
-    public string Message { get; }
+    // Reactive Properties
+    public IReactiveProperty<string> Title { get; protected set; }
+    public IReactiveProperty<string> Message { get; protected set; }
 
     public IReadOnlyReactiveProperty<bool> AudioToggle => _audioToggle;
     public IReadOnlyReactiveProperty<bool> MusicToggle => _musicToggle;
@@ -12,7 +13,8 @@ public class SettingsPopupViewModel : ISettingsPopupViewModel
 
     // Injected
     private readonly IUrlConfigurationProvider _urlConfigurationProvider;
-    
+    private readonly INavigationController _navigationController;
+
     // Internal
     private readonly IReactiveProperty<bool> _audioToggle;
     private readonly IReactiveProperty<bool> _musicToggle;
@@ -20,15 +22,17 @@ public class SettingsPopupViewModel : ISettingsPopupViewModel
 
 
     public SettingsPopupViewModel(
-        IUrlConfigurationProvider urlConfigurationProvider)
+        IUrlConfigurationProvider urlConfigurationProvider,
+        INavigationController navigationController)
     {
         _urlConfigurationProvider = urlConfigurationProvider;
+        _navigationController = navigationController;
         _audioToggle = new ReactiveProperty<bool>(false);
         _musicToggle = new ReactiveProperty<bool>(false);
         _vibrationToggle = new ReactiveProperty<bool>(false);
         
-        Title = "Settings";
-        Message = "";
+        Title = new ReactiveProperty<string>("Settings");
+        Message = new ReactiveProperty<string>(null);
     }
 
     public virtual  void RateUsClicked()
@@ -73,5 +77,10 @@ public class SettingsPopupViewModel : ISettingsPopupViewModel
     private void OpenURL(string url)
     {
         Application.OpenURL(url);
+    }
+    
+    public void BackgroundClicked()
+    {
+        _navigationController.GoBack();
     }
 }
