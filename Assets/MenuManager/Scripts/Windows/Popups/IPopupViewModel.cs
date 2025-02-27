@@ -1,8 +1,11 @@
-﻿namespace slowBulletGames.MemoryValley
+﻿using MenuManager.Scripts.Utilitis;
+
+namespace slowBulletGames.MemoryValley
 {
     public interface IPopupViewModel
     {
-        string Title { get; }
-        string Message { get; }
+        IReactiveProperty<string> Title { get; }
+        IReactiveProperty<string> Message { get; }
+        void BackgroundClicked();
     }
 }
