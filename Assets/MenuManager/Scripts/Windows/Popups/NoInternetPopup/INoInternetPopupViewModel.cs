@@ -5,4 +5,7 @@
 /// Concrete implementation should be provided
 /// with the app using this toolkit.
 /// </summary>
-public interface INoInternetPopupViewModel: IPopupViewModel { }
+public interface INoInternetPopupViewModel : IPopupViewModel
+{
+    public void OkButtonClicked();
+}
