@@ -27,9 +27,13 @@ namespace MenuManager.Scripts.Utilitis
             _value = initialValue;
         }
 
-        public void Subscribe(Action<T> onValueChangeListener)
+        public void Subscribe(Action<T> onValueChangeListener, bool triggerOnSubscribe = true)
         {
             ValueChanged += onValueChangeListener;
+            if (triggerOnSubscribe)
+            {
+                onValueChangeListener?.Invoke(Value);
+            }
         }
 
         public void Unsubscribe(Action<T> onValueChangeListener)
