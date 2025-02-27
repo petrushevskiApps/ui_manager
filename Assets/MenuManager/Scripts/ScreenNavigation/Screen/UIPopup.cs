@@ -1,4 +1,6 @@
 ﻿using System;
+using slowBulletGames.MemoryValley;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +12,16 @@ namespace PetrushevskiApps.UIManager
         [Tooltip("True: Popup goes on backstack when hidden. False: One time popup.")]
         private bool _isBackStackable = true;
 
+        [SerializeField]
+        [Tooltip("True: When this popup is shown the Game Time is set to 0. False: Ignores this setting.")]
+        private bool _pauseGameWhenActive = false;
+        
+        [Header("Popup Properties")]
+        [SerializeField]
+        private TextMeshProUGUI _title;
+        [SerializeField]
+        private TextMeshProUGUI _message;
+        
         public bool IsBackStackable => _isBackStackable;
         
         // Events
@@ -22,6 +34,8 @@ namespace PetrushevskiApps.UIManager
         private ISoundSystem _soundSystem;
         private IPopupSoundConfiguration _popupSoundConfiguration;
         protected INavigationController NavigationController;
+        
+        protected abstract IPopupViewModel GetPopupViewModel();
         
         [Inject]
         public void Initialize(
@@ -45,12 +59,22 @@ namespace PetrushevskiApps.UIManager
             PopupScreenResumedEvent?.Invoke(this, EventArgs.Empty);
             gameObject.SetActive(true);
             PlaySfx(_popupSoundConfiguration.PopupShown);
+            SetTitleAndMessage();
+            if (_pauseGameWhenActive)
+            {
+                Time.timeScale = 0;
+            }
         }
 
         public virtual void Hide()
         {
             PopupScreenHiddenEvent?.Invoke(this, EventArgs.Empty);
             gameObject.SetActive(false);
+            
+            if (_pauseGameWhenActive)
+            {
+                Time.timeScale = 1;
+            }
         }
 
         public virtual void Close()
@@ -68,5 +92,26 @@ namespace PetrushevskiApps.UIManager
             }
         }
 
+        private void SetTitleAndMessage()
+        {
+            IPopupViewModel viewModel = GetPopupViewModel();
+            if (viewModel != null)
+            {
+                _title.text = viewModel.Title;
+                _message.text = viewModel.Message;
+                ToggleTitleAndMessage(true);
+            }
+            else
+            {
+                ToggleTitleAndMessage(false);
+            }
+            
+        }
+
+        private void ToggleTitleAndMessage(bool isActive)
+        {
+            _title.gameObject.SetActive(isActive);
+            _message.gameObject.SetActive(isActive);
+        }
     }
 }
