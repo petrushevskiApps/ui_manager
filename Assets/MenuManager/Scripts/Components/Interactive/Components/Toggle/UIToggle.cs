@@ -17,19 +17,21 @@ namespace com.petrushevskiapps.menumanager
                 if (isOn != value)
                 {
                     isOn = value;
-                    StateChangedEvent.Invoke();
+                    onValueChanged.Invoke(isOn);
                 }
                 
             }
         }
 
-        public void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             onValueChanged.AddListener(OnValueChanged);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             onValueChanged.RemoveListener(OnValueChanged);
         }
         private void OnValueChanged(bool arg0)
