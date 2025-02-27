@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using PetrushevskiApps.UIManager;
 using TMPro;
 using UnityEngine;
@@ -9,12 +7,18 @@ namespace slowBulletGames.MemoryValley
 {
     public class InGameScreen : UIScreen
     {
-        [SerializeField] private TextMeshProUGUI levelTitle;
-        [SerializeField] private Image progressFill;
+        [SerializeField]
+        private TextMeshProUGUI levelTitle;
+
+        [SerializeField]
+        private Image progressFill;
 
         [Header("Buttons")]
-        [SerializeField] private UIButton pauseButton;
-        [SerializeField] private UIButton hintButton;
+        [SerializeField]
+        private UIButton pauseButton;
+
+        [SerializeField]
+        private UIButton hintButton;
 
         private new void Awake()
         {
@@ -65,5 +69,4 @@ namespace slowBulletGames.MemoryValley
             // UIManager.Instance.OpenPopup<LevelAbandonPopup>();
         }
     }
-
 }

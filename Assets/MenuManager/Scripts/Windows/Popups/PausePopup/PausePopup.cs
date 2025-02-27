@@ -1,5 +1,6 @@
 using PetrushevskiApps.UIManager;
 using UnityEngine;
+using Zenject;
 
 namespace slowBulletGames.MemoryValley
 {
@@ -7,7 +8,7 @@ namespace slowBulletGames.MemoryValley
     {
         [Header("Buttons")]
         [SerializeField]
-        private UIButton _replayButton;
+        private UIButton _restartButton;
 
         [SerializeField]
         private UIButton _homeButton;
@@ -18,44 +19,44 @@ namespace slowBulletGames.MemoryValley
         [SerializeField]
         private UIButton _settingsButton;
 
+        // Injected
+        private IPausePopupViewModel _viewModel;
+
+        protected override IPopupViewModel GetPopupViewModel() => _viewModel;
+        
+        [Inject]
+        private void Initialize(IPausePopupViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+        
         private void Awake()
         {
-            _replayButton.onClick.AddListener(OnReplayClicked);
+            _restartButton.onClick.AddListener(OnRestartClicked);
             _homeButton.onClick.AddListener(OnHomeClicked);
             _playButton.onClick.AddListener(OnPlayClicked);
             _settingsButton.onClick.AddListener(OnSettingsClicked);
         }
 
-        public override void Resume()
-        {
-            base.Resume();
-            Time.timeScale = 0;
-        }
-
-        public override void Close()
-        {
-            base.Close();
-            Time.timeScale = 1;
-        }
-
-        private void OnReplayClicked()
+        private void OnRestartClicked()
         {
             Close();
+            _viewModel.RestartClicked();
         }
 
         private void OnHomeClicked()
         {
-            NavigationController.ShowPopup<LevelAbandonPopup>();
+            _viewModel.HomeClicked();
         }
 
         protected virtual void OnPlayClicked()
         {
-            NavigationController.GoBack();
+            _viewModel.PlayClicked();
         }
 
         private void OnSettingsClicked()
         {
-            NavigationController.ShowPopup<SettingsPopup>();
+            _viewModel.SettingsClicked();
         }
     }
 }
