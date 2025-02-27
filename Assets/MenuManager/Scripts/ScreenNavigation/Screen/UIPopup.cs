@@ -15,6 +15,10 @@ namespace PetrushevskiApps.UIManager
         [SerializeField]
         [Tooltip("True: When this popup is shown the Game Time is set to 0. False: Ignores this setting.")]
         private bool _pauseGameWhenActive = false;
+
+        [SerializeField]
+        [Tooltip("Clickable background which disposes the popup when clicked.Same as the Back Button.")]
+        private UIButton _popupClickableBackground;
         
         [Header("Popup Properties")]
         [SerializeField]
@@ -57,24 +61,34 @@ namespace PetrushevskiApps.UIManager
         public virtual void Resume()
         {
             PopupScreenResumedEvent?.Invoke(this, EventArgs.Empty);
+            _popupClickableBackground.onClick.AddListener(()=> GetPopupViewModel().BackgroundClicked());
+            if (_title != null)
+            {
+                GetPopupViewModel().Title.Subscribe(SetTitle);
+            }
+            if (_message != null)
+            {
+                GetPopupViewModel().Message.Subscribe(SetMessage);
+            }
             gameObject.SetActive(true);
             PlaySfx(_popupSoundConfiguration.PopupShown);
-            SetTitleAndMessage();
-            if (_pauseGameWhenActive)
-            {
-                Time.timeScale = 0;
-            }
+            PauseGame(true);
         }
-
+        
         public virtual void Hide()
         {
             PopupScreenHiddenEvent?.Invoke(this, EventArgs.Empty);
+            _popupClickableBackground.onClick.RemoveListener(()=> GetPopupViewModel().BackgroundClicked());
             gameObject.SetActive(false);
-            
-            if (_pauseGameWhenActive)
+            if (_title != null)
             {
-                Time.timeScale = 1;
+                GetPopupViewModel().Title.Unsubscribe(SetTitle);
             }
+            if (_message != null)
+            {
+                GetPopupViewModel().Message.Unsubscribe(SetMessage);
+            }
+            PauseGame(false);
         }
 
         public virtual void Close()
@@ -91,27 +105,32 @@ namespace PetrushevskiApps.UIManager
                 _soundSystem?.PlaySoundEffect(sfxClip);
             }
         }
-
-        private void SetTitleAndMessage()
+        
+        private void SetTitle(string title)
         {
-            IPopupViewModel viewModel = GetPopupViewModel();
-            if (viewModel != null)
+            if (!string.IsNullOrWhiteSpace(title))
             {
-                _title.text = viewModel.Title;
-                _message.text = viewModel.Message;
-                ToggleTitleAndMessage(true);
+                _title.gameObject.SetActive(true);
+                _title.text = title;
             }
-            else
+            _title.gameObject.SetActive(false);
+        }
+        private void SetMessage(string message)
+        {
+            if (!string.IsNullOrWhiteSpace(message))
             {
-                ToggleTitleAndMessage(false);
+                _message.gameObject.SetActive(true);
+                _message.text = message;
             }
-            
+            _message.gameObject.SetActive(false);
         }
 
-        private void ToggleTitleAndMessage(bool isActive)
+        private void PauseGame(bool pause)
         {
-            _title.gameObject.SetActive(isActive);
-            _message.gameObject.SetActive(isActive);
+            if (_pauseGameWhenActive)
+            {
+                Time.timeScale = pause ? 0 : 1;
+            }
         }
     }
 }
