@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using slowBulletGames.MemoryValley;
 using UnityEngine;
 using Zenject;
 
@@ -28,21 +29,30 @@ public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
     public event EventHandler ScreenClosedEvent;
     
     // Injected
-    private INavigationController _navigationController;
+    protected INavigationController NavigationController;
 
     // Internal
     private RectTransform _screenRect;
+    protected abstract IBackButtonHandler BackButtonHandler();
 
     [Inject]
     private void SetNavigationController(INavigationController navigationController)
     {
-        _navigationController = navigationController;
+        NavigationController = navigationController;
     }
 
     protected void Awake()
     {
         _screenRect = GetComponent<RectTransform>();
         if (_activateSafeArea) ApplySafeArea();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey("Escape"))
+        {
+            OnBackButton();
+        }
     }
 
     public virtual void Show<TArguments>(TArguments navArguments)
@@ -73,7 +83,7 @@ public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
 
     protected virtual void OnBackButton()
     {
-        _navigationController.GoBack();
+        NavigationController.GoBack();
     }
 
     private void ToggleGlobalUIElementsState(bool isToggled)
