@@ -28,6 +28,11 @@ public class NavigationController : INavigationController
         Show<T, TArguments>(_screenProvider, _screenBackStack, navArguments);
     }
 
+    public void ShowScreen<T>() where T : IScreen
+    {
+        ShowScreen<T, NavigationArguments>(new NavigationArguments());
+    }
+
     public void ShowPopup<T>() where T : IScreen
     {
         ShowPopup<T, NavigationArguments>(new NavigationArguments());
