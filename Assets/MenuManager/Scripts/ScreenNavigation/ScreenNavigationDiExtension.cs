@@ -4,7 +4,7 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation
 {
     public static class ScreenNavigationDiExtension
     {
-        public static void BindDependencies(DiContainer container)
+        public static void BindScreenNavigationDependencies(this DiContainer container)
         {
             container
                 .Bind<INavigationController>()
