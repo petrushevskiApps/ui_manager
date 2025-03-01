@@ -4,7 +4,7 @@ using Zenject;
 
 namespace slowBulletGames.MemoryValley
 {
-    public class ExitPopup : UIPopup
+    public class ExitGamePopup : UIPopup
     {
         [SerializeField]
         private UIButton _confirmButton;
