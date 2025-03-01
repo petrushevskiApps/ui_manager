@@ -27,6 +27,11 @@ namespace slowBulletGames.MemoryValley
             _viewModel = viewModel;
         }
 
+        protected override IBackButtonHandler BackButtonHandler()
+        {
+            throw new System.NotImplementedException();
+        }
+
         private new void Awake()
         {
             base.Awake();

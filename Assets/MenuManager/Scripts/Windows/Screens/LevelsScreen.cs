@@ -18,6 +18,11 @@ namespace slowBulletGames.MemoryValley
 
         private List<LevelButton> levelsGrid = new List<LevelButton>();
 
+        protected override IBackButtonHandler BackButtonHandler()
+        {
+            throw new NotImplementedException();
+        }
+
         private new void Awake()
         {
             base.Awake();
