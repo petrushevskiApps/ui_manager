@@ -4,7 +4,7 @@ using Zenject;
 
 namespace slowBulletGames.MemoryValley
 {
-    public class LevelLeavePopup : UIPopup
+    public class ExitLevelPopup : UIPopup
     {
         [SerializeField]
         private UIButton _confirmButton;
@@ -13,12 +13,12 @@ namespace slowBulletGames.MemoryValley
         private UIButton _discardButton;
 
         // Injected
-        private ILevelLeavePopupViewModel _viewModel;
+        private IExitLevelPopupViewModel _viewModel;
 
         protected override IPopupViewModel GetPopupViewModel() => _viewModel;
         
         [Inject]
-        private void Initialize(ILevelLeavePopupViewModel viewModel)
+        private void Initialize(IExitLevelPopupViewModel viewModel)
         {
             _viewModel = viewModel;
         }

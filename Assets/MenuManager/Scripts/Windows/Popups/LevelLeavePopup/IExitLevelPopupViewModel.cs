@@ -5,7 +5,7 @@
     /// Concrete implementation should be provided
     /// with the app using this toolkit.
     /// </summary>
-    public interface ILevelLeavePopupViewModel: IPopupViewModel
+    public interface IExitLevelPopupViewModel: IPopupViewModel
     {
         void ExitLevel();
         void DiscardPopupClicked();

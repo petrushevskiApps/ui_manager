@@ -29,7 +29,7 @@ namespace slowBulletGames.MemoryValley
 
         public virtual void HomeClicked()
         {
-            _navigationController.ShowPopup<LevelLeavePopup>();
+            _navigationController.ShowPopup<ExitLevelPopup>();
         }
 
         public virtual void PlayClicked()
