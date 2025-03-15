@@ -19,6 +19,20 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation
                 .To<InGameScreenViewModel>()
                 .AsSingle();
         }
+        public static void BindLevelFailedScreenDependencies(this DiContainer container)
+        {
+            container
+                .Bind<ILevelFailedScreenViewModel>()
+                .To<LevelFailedScreenViewModel>()
+                .AsSingle();
+        }
+        public static void BindLevelCompletedScreenDependencies(this DiContainer container)
+        {
+            container
+                .Bind<ILevelCompletedScreenViewModel>()
+                .To<LevelCompletedScreenViewModel>()
+                .AsSingle();
+        }
         public static void BindNoInternetPopupDependencies(this DiContainer container)
         {
             container

@@ -11,5 +11,7 @@ public class UIInstaller : MonoInstaller
         Container.BindNoInternetPopupDependencies();
         Container.BindMainScreenDependencies();
         Container.BindInGameScreenDependencies();
+        Container.BindLevelFailedScreenDependencies();
+        Container.BindLevelCompletedScreenDependencies();
     }
 }
