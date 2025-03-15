@@ -4,23 +4,28 @@
     {
         // Injected
         protected readonly INavigationController NavigationController;
+        private readonly IUILevelControlled _uiLevelControlled;
 
-        public MainScreenViewModel(INavigationController navigationController)
+        public MainScreenViewModel(
+            INavigationController navigationController,
+            IUILevelControlled uiLevelControlled)
         {
             NavigationController = navigationController;
+            _uiLevelControlled = uiLevelControlled;
         }
 
-        public void SettingsClicked()
+        public virtual void SettingsClicked()
         {
             NavigationController.ShowPopup<SettingsPopup>();
         }
 
-        public void StartLevelClicked()
+        public virtual void StartLevelClicked()
         {
+            _uiLevelControlled.StartNextLevel();
             NavigationController.ShowScreen<InGameScreen>();
         }
 
-        public void OnBackTriggered()
+        public virtual void OnBackTriggered()
         {
             NavigationController.ShowPopup<ExitGamePopup>();
         }
