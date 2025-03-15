@@ -1,9 +1,9 @@
 ﻿namespace slowBulletGames.MemoryValley
 {
-    public interface ILevelFailedScreenViewModel
+    public interface ILevelFailedScreenViewModel: IBackButtonHandler
     {
         void HomeButtonClicked();
         void ReplayButtonClicked();
-        void BackClicked();
+        void ReviveButtonClicked();
     }
 }

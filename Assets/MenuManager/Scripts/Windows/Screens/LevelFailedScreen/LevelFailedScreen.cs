@@ -7,45 +7,37 @@ namespace slowBulletGames.MemoryValley
     public class LevelFailedScreen : UIScreen
     {
         [SerializeField]
+        private UIButton _reviveButton;
+        [SerializeField]
         private UIButton _replayButton;
-
         [SerializeField]
         private UIButton _homeButton;
 
         // Injected
-        private ILevelFailedScreenViewModel _viewModel;
-        
+        protected ILevelFailedScreenViewModel ViewModel;
+
+        protected override IBackButtonHandler BackButtonHandler() => ViewModel;
+
         [Inject]
         private void Initialize(ILevelFailedScreenViewModel viewModel)
         {
-            _viewModel = viewModel;
+            ViewModel = viewModel;
         }
 
-        protected override IBackButtonHandler BackButtonHandler()
+        public override void Resume()
         {
-            throw new System.NotImplementedException();
+            base.Resume();
+            _reviveButton.onClick.AddListener(ViewModel.ReviveButtonClicked);
+            _replayButton.onClick.AddListener(ViewModel.ReplayButtonClicked);
+            _homeButton.onClick.AddListener(ViewModel.HomeButtonClicked);
         }
 
-        private new void Awake()
+        public override void Hide()
         {
-            base.Awake();
-            _replayButton.onClick.AddListener(OnReplayClicked);
-            _homeButton.onClick.AddListener(OnHomeClicked);
-        }
-
-        private void OnReplayClicked()
-        {
-            _viewModel.ReplayButtonClicked();
-        }
-
-        private void OnHomeClicked()
-        {
-            _viewModel.HomeButtonClicked();
-        }
-
-        protected override void OnBackButton()
-        {
-            _viewModel.BackClicked();
+            base.Hide();
+            _reviveButton.onClick.RemoveListener(ViewModel.ReviveButtonClicked);
+            _replayButton.onClick.RemoveListener(ViewModel.ReplayButtonClicked);
+            _homeButton.onClick.RemoveListener(ViewModel.HomeButtonClicked);
         }
     }
 }
