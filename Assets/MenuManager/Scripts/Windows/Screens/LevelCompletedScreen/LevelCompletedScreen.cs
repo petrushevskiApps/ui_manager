@@ -1,4 +1,6 @@
+using MenuManager.Scripts.Components.NonInteractive.Extensions;
 using PetrushevskiApps.UIManager;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -6,69 +8,56 @@ namespace slowBulletGames.MemoryValley
 {
     public class LevelCompletedScreen : UIScreen
     {
-        //TODO: Add UIStars here.
-        // [SerializeField]
-        // private GameObject _stars;
-
-        [Header("Buttons")]
-        [SerializeField]
+        [SerializeField] 
+        private UIStars _stars;
+        [SerializeField] 
+        private TextMeshProUGUI _title;
+        
+        [Header("Buttons")] 
+        [SerializeField] 
         private UIButton _replayButton;
-        [SerializeField]
+        [SerializeField] 
         private UIButton _homeButton;
-        [SerializeField]
+        [SerializeField] 
+        private UIButton _settingsButton;
+        [SerializeField] 
         private UIButton _nextButton;
+        [SerializeField] 
+        private UIButton _doubleRewardButton;
 
         // Injected
-        private ILevelCompletedScreenViewModel _viewModel;
+        protected ILevelCompletedScreenViewModel ViewModel;
+
+        protected override IBackButtonHandler BackButtonHandler() => ViewModel;
 
         [Inject]
         private void Initialize(ILevelCompletedScreenViewModel viewModel)
         {
-            _viewModel = viewModel;
-        }
-
-        protected override IBackButtonHandler BackButtonHandler()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private new void Awake()
-        {
-            base.Awake();
-            _replayButton.onClick.AddListener(OnReplayClicked);
-            _homeButton.onClick.AddListener(OnHomeClicked);
-            _nextButton.onClick.AddListener(OnNextClicked);
+            ViewModel = viewModel;
         }
 
         public override void Resume()
         {
             base.Resume();
-            SetStarsInfo();
+            _replayButton.onClick.AddListener(ViewModel.ReplayButtonClicked);
+            _homeButton.onClick.AddListener(ViewModel.HomeButtonClicked);
+            _settingsButton.onClick.AddListener(ViewModel.SettingsButtonClicked);
+            _nextButton.onClick.AddListener(ViewModel.NextLevelButtonClicked);
+            _doubleRewardButton.onClick.AddListener(ViewModel.DoubleRewardButtonClicked);
+            ViewModel.StarsAchieved.Subscribe(_stars.SetData);
+            ViewModel.Title.Subscribe(_title.Update);
         }
 
-        private void SetStarsInfo()
+        public override void Hide()
         {
-            //TODO: Implement Stars info handling once UIStars component is created.
-        }
-
-        private void OnNextClicked()
-        {
-            _viewModel.NextLevelButtonClicked();
-        }
-
-        private void OnReplayClicked()
-        {
-            _viewModel.ReplayButtonClicked();
-        }
-
-        private void OnHomeClicked()
-        {
-            _viewModel.HomeButtonClicked();
-        }
-
-        protected override void OnBackButton()
-        {
-            _viewModel.HomeButtonClicked();
+            base.Hide();
+            _replayButton.onClick.RemoveListener(ViewModel.ReplayButtonClicked);
+            _homeButton.onClick.RemoveListener(ViewModel.HomeButtonClicked);
+            _settingsButton.onClick.RemoveListener(ViewModel.SettingsButtonClicked);
+            _nextButton.onClick.RemoveListener(ViewModel.NextLevelButtonClicked);
+            _doubleRewardButton.onClick.RemoveListener(ViewModel.DoubleRewardButtonClicked);
+            ViewModel.StarsAchieved.Unsubscribe(_stars.SetData);
+            ViewModel.Title.Unsubscribe(_title.Update);
         }
     }
 }
