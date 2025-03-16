@@ -5,5 +5,6 @@
         void HomeButtonClicked();
         void ReplayButtonClicked();
         void ReviveButtonClicked();
+        void SettingsClicked();
     }
 }

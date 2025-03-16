@@ -33,5 +33,10 @@
         {
             _uiLevelControlled.ReviveAndContinueLevel();
         }
+
+        public void SettingsClicked()
+        {
+            NavigationController.ShowPopup<SettingsPopup>();
+        }
     }
 }
