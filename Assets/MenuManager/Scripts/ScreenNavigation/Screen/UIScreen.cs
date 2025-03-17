@@ -49,7 +49,7 @@ public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
 
     private void Update()
     {
-        if (Input.GetKey("Escape"))
+        if (Input.GetKey(KeyCode.Escape))
         {
             OnBackButton();
         }
