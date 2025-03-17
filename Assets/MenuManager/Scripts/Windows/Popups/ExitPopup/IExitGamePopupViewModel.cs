@@ -5,7 +5,7 @@
     /// Concrete implementation should be provided
     /// with the app using this toolkit.
     /// </summary>
-    public interface IExitPopupViewModel: IPopupViewModel
+    public interface IExitGamePopupViewModel: IPopupViewModel
     {
         void DiscardPopupClicked();
         void ExitApp();

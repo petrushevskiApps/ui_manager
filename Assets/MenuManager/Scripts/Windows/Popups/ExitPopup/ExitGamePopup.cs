@@ -13,12 +13,12 @@ namespace slowBulletGames.MemoryValley
         private UIButton _discardButton;
 
         // Injected
-        private IExitPopupViewModel _viewModel;
+        private IExitGamePopupViewModel _viewModel;
 
         protected override IPopupViewModel GetPopupViewModel() => _viewModel;
 
         [Inject]
-        private void Initialize(IExitPopupViewModel viewModel)
+        private void Initialize(IExitGamePopupViewModel viewModel)
         {
             _viewModel = viewModel;
         }
