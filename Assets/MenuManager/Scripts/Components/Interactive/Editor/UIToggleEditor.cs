@@ -10,17 +10,16 @@ using UnityEngine.UI;
 
 [CustomEditor(typeof(UIToggle), true)]
 [CanEditMultipleObjects]
-public class UIToggleEditor : ToggleEditor
+public class UIToggleEditor : Editor
 {
     private readonly List<string> _extensionNames = new();
 
     private List<Type> _extensions = new();
     private GameObject _gameObject;
 
-    protected override void OnEnable()
+    protected void OnEnable()
     {
-        base.OnEnable();
-        var buttonObject = (Toggle) target;
+        var buttonObject = (UIToggle) target;
         _gameObject = buttonObject.gameObject;
         SetExtensions();
     }
