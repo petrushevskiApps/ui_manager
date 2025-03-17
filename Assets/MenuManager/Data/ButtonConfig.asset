@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229f8e210d13df841ac8cb2c2905921b, type: 3}
   m_Name: ButtonConfig
   m_EditorClassIdentifier: 
-  positiveSound: {fileID: 8300000, guid: b6d1b4a1c8da01a4ea7972b477368d6b, type: 3}
-  negativeSound: {fileID: 8300000, guid: 75c8c76c2be8d5343a3d0674d455973f, type: 3}
+  <PositiveSound>k__BackingField: {fileID: 8300000, guid: f9517356afb533a41b9e7cb6f155031e,
+    type: 3}
+  <NegativeSound>k__BackingField: {fileID: 8300000, guid: 9cb65eb2505fbf443ac876ba177374f9,
+    type: 3}
