@@ -1,4 +1,5 @@
-﻿using MenuManager.Scripts.Utilitis;
+﻿using com.petrushevskiapps.menumanager;
+using MenuManager.Scripts.Utilitis;
 using slowBulletGames.MemoryValley;
 
 public interface ISettingsPopupViewModel : IPopupViewModel
@@ -7,10 +8,7 @@ public interface ISettingsPopupViewModel : IPopupViewModel
     void TermsOfUseClicked();
     void PrivacyPolicyClicked();
     void PrivacySettingsClicked();
-    void AudioToggleClicked();
-    void MusicToggleClicked();
-    IReadOnlyReactiveProperty<bool> AudioToggle { get; }
-    IReadOnlyReactiveProperty<bool> MusicToggle { get; }
-    IReadOnlyReactiveProperty<bool> VibrationToggle { get; }
-    void VibrationToggleClicked();
+    IReadOnlyReactiveProperty<ToggleViewData> AudioToggle { get; }
+    IReadOnlyReactiveProperty<ToggleViewData> MusicToggle { get; }
+    IReadOnlyReactiveProperty<ToggleViewData> VibrationToggle { get; }
 }

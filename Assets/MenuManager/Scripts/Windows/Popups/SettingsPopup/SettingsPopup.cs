@@ -6,13 +6,13 @@ using Zenject;
 
 public class SettingsPopup : UIPopup
 {
-    [Header("Toggle Buttons")]
+    [Header("Toggles")]
     [SerializeField]
-    private GameObject _audioButtonObject;
+    private UIToggle _audioToggle;
     [SerializeField]
-    private GameObject _musicToggleObject;
+    private UIToggle _musicToggle;
     [SerializeField]
-    private GameObject _vibrationToggleObject;
+    private UIToggle _vibrationToggle;
     [SerializeField]
     private UIButton _rateUsButton;
 
@@ -24,14 +24,6 @@ public class SettingsPopup : UIPopup
     [SerializeField]
     private UIButton _termsOfUseButton;
 
-    private UIButton _audioButton;
-    private UIButton _musicButton;
-    private UIButton _vibrationButton;
-
-    private UIToggle _audioToggle;
-    private UIToggle _musicToggle;
-    private UIToggle _vibrationToggle;
-
     // Injected
     private ISettingsPopupViewModel _viewModel;
 
@@ -42,62 +34,31 @@ public class SettingsPopup : UIPopup
     {
         _viewModel = viewModel;
     }
-    
-    private void Awake()
-    {
-        _audioButton = _audioButtonObject.GetComponent<UIButton>();
-        _audioToggle = _audioButtonObject.GetComponent<UIToggle>();
 
-        _musicButton = _musicToggleObject.GetComponent<UIButton>();
-        _musicToggle = _musicToggleObject.GetComponent<UIToggle>();
-        
-        _vibrationButton = _vibrationToggleObject.GetComponent<UIButton>();
-        _vibrationToggle = _vibrationToggleObject.GetComponent<UIToggle>();
-    }
-
-    private void OnEnable()
+    public override void Resume()
     {
-        _audioButton.onClick.AddListener(OnAudioToggleClick);
-        _musicButton.onClick.AddListener(OnMusicToggleClick);
-        _vibrationButton.onClick.AddListener(OnVibrationToggleClicked);
-        
+        base.Resume();
         _privacySettingsButton.onClick.AddListener(OnPrivacySettingsClick);
         _privacyPolicyButton.onClick.AddListener(OnPrivacyPolicyClick);
         _termsOfUseButton.onClick.AddListener(OnTermsOfUseClick);
         _rateUsButton.onClick.AddListener(OnRateUsClick);
 
-        _viewModel.AudioToggle.Subscribe(OnAudioToggleUpdated);
-        _viewModel.MusicToggle.Subscribe(OnMusicToggleUpdated);
-        _viewModel.VibrationToggle.Subscribe(OnVibrationToggleUpdated);
+        _viewModel.AudioToggle.Subscribe(_audioToggle.SetData);
+        _viewModel.MusicToggle.Subscribe(_musicToggle.SetData);
+        _viewModel.VibrationToggle.Subscribe(_vibrationToggle.SetData);
     }
 
-    private void OnDisable()
+    public override void Hide()
     {
-        _audioButton.onClick.RemoveListener(OnAudioToggleClick);
-        _musicButton.onClick.RemoveListener(OnMusicToggleClick);
+        base.Hide();
         _privacySettingsButton.onClick.RemoveListener(OnPrivacySettingsClick);
         _privacyPolicyButton.onClick.RemoveListener(OnPrivacyPolicyClick);
         _termsOfUseButton.onClick.RemoveListener(OnTermsOfUseClick);
         _rateUsButton.onClick.RemoveListener(OnRateUsClick);
         
-        _viewModel.AudioToggle.Unsubscribe(OnAudioToggleUpdated);
-        _viewModel.MusicToggle.Unsubscribe(OnMusicToggleUpdated);
-        _viewModel.VibrationToggle.Unsubscribe(OnVibrationToggleUpdated);
-    }
-
-    private void OnAudioToggleUpdated(bool audioToggleState)
-    {
-        _audioToggle.IsOn = audioToggleState;
-    }
-
-    private void OnMusicToggleUpdated(bool musicToggleState)
-    {
-        _musicToggle.IsOn = musicToggleState;
-    }
-
-    private void OnVibrationToggleUpdated(bool vibrationToggleState)
-    {
-        _vibrationToggle.IsOn = vibrationToggleState;
+        _viewModel.AudioToggle.Unsubscribe(_audioToggle.SetData);
+        _viewModel.MusicToggle.Unsubscribe(_musicToggle.SetData);
+        _viewModel.VibrationToggle.Unsubscribe(_vibrationToggle.SetData);
     }
 
     private void OnRateUsClick()
@@ -118,21 +79,6 @@ public class SettingsPopup : UIPopup
     private void OnPrivacySettingsClick()
     {
         _viewModel.PrivacySettingsClicked();
-    }
-
-    private void OnMusicToggleClick()
-    {
-        _viewModel.MusicToggleClicked();
-    }
-
-    private void OnAudioToggleClick()
-    {
-        _viewModel.AudioToggleClicked();
-    }
-
-    private void OnVibrationToggleClicked()
-    {
-        _viewModel.VibrationToggleClicked();
     }
 }
 
