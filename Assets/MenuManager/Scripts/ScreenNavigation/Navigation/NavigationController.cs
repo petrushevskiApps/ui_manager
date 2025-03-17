@@ -48,12 +48,19 @@ public class NavigationController : INavigationController
         if (!_popupBackStack.IsEmpty())
         {
             _popupBackStack.Pop().Close();
-            _popupBackStack.Peek().Resume();
+            
+            if (!_popupBackStack.IsEmpty())
+            {
+                _popupBackStack.Peek().Resume();
+            }
         }
         else if (!_screenBackStack.IsEmpty())
         {
             _screenBackStack.Pop().Close();
-            _screenBackStack.Peek().Resume();
+            if (!_screenBackStack.IsEmpty())
+            {
+                _screenBackStack.Peek().Resume();
+            }
         }
         else
         {
