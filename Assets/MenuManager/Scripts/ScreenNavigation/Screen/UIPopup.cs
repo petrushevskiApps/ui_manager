@@ -64,11 +64,11 @@ namespace PetrushevskiApps.UIManager
             _popupClickableBackground.onClick.AddListener(()=> GetPopupViewModel().BackgroundClicked());
             if (_title != null)
             {
-                GetPopupViewModel().Title.Subscribe(SetTitle);
+                GetPopupViewModel().Title.Subscribe(SetTitle, triggerOnSubscribe: true);
             }
             if (_message != null)
             {
-                GetPopupViewModel().Message.Subscribe(SetMessage);
+                GetPopupViewModel().Message.Subscribe(SetMessage, triggerOnSubscribe: true);
             }
             gameObject.SetActive(true);
             PlaySfx(_popupSoundConfiguration.PopupShown);
@@ -108,21 +108,23 @@ namespace PetrushevskiApps.UIManager
         
         private void SetTitle(string title)
         {
-            if (!string.IsNullOrWhiteSpace(title))
+            if (string.IsNullOrWhiteSpace(title))
             {
-                _title.gameObject.SetActive(true);
-                _title.text = title;
+                _title.gameObject.SetActive(false);
+                return;
             }
-            _title.gameObject.SetActive(false);
+            _title.gameObject.SetActive(true);
+            _title.text = title;
         }
         private void SetMessage(string message)
         {
-            if (!string.IsNullOrWhiteSpace(message))
+            if (string.IsNullOrWhiteSpace(message))
             {
-                _message.gameObject.SetActive(true);
-                _message.text = message;
+                _message.gameObject.SetActive(false);
+                return;
             }
-            _message.gameObject.SetActive(false);
+            _message.gameObject.SetActive(true);
+            _message.text = message;
         }
 
         private void PauseGame(bool pause)
