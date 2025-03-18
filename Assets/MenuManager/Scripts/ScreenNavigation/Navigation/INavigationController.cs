@@ -20,5 +20,5 @@ public interface INavigationController
     void ShowPopup<T, TArguments>(TArguments navArguments) where T : IScreen;
     void ShowPopup<T>() where T : IScreen;
     event EventHandler AllScreensClosedEvent;
-    bool IsPopupShown();
+    IBackHandler GetActiveBackHandler();
 }

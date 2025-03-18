@@ -4,8 +4,9 @@
 /// controlled by the <see cref="NavigationController"/>,
 /// and contains screen lifecycle methods.
 /// </summary>
-public interface IScreen
+public interface IScreen : IBackHandler
 {
+    bool IsPopup { get; }
     /// <summary>
     /// <c>True: if this screen should be added on backstack,</c>
     /// <c>False: if this screen should not be added on backstack</c>

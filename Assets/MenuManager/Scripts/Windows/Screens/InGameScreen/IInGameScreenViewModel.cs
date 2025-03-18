@@ -3,10 +3,11 @@ using MenuManager.Scripts.Utilitis;
 
 namespace slowBulletGames.MemoryValley
 {
-    public interface IInGameScreenViewModel: IBackButtonHandler
+    public interface IInGameScreenViewModel
     {
         IReactiveProperty<string> LevelTitle { get; }
         IReactiveProperty<UIProgressBarData> ProgressBarData { get; }
         void PauseClicked();
+        void OnBackTriggered();
     }
 }

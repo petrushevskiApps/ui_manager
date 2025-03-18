@@ -13,8 +13,6 @@ public class NavigationController : INavigationController
 
     private readonly Stack<IScreen> _screenBackStack = new();
 
-    private readonly Stack<IScreen> _popupBackStack = new();
-
     public NavigationController(
         [Inject(Id = "Screen")]IScreenProvider screenProvider,
         [Inject(Id = "PopupScreen")]IScreenProvider popupScreenProvider)
@@ -25,7 +23,7 @@ public class NavigationController : INavigationController
 
     public void ShowScreen<T, TArguments>(TArguments navArguments) where T : IScreen
     {
-        Show<T, TArguments>(_screenProvider, _screenBackStack, navArguments);
+        Show<T, TArguments>(_screenProvider, navArguments);
     }
 
     public void ShowScreen<T>() where T : IScreen
@@ -40,26 +38,21 @@ public class NavigationController : INavigationController
 
     public void ShowPopup<T, TArguments>(TArguments navArguments) where T : IScreen
     {
-        Show<T, TArguments>(_popupScreenProvider, _popupBackStack, navArguments);
+        Show<T, TArguments>(_popupScreenProvider, navArguments);
     }
 
     public void GoBack()
     {
-        if (!_popupBackStack.IsEmpty())
-        {
-            _popupBackStack.Pop().Close();
-            
-            if (!_popupBackStack.IsEmpty())
-            {
-                _popupBackStack.Peek().Resume();
-            }
-        }
-        else if (!_screenBackStack.IsEmpty())
+        if (!_screenBackStack.IsEmpty())
         {
             _screenBackStack.Pop().Close();
             if (!_screenBackStack.IsEmpty())
             {
                 _screenBackStack.Peek().Resume();
+            }
+            else
+            {
+                AllScreensClosedEvent?.Invoke(this, EventArgs.Empty);
             }
         }
         else
@@ -68,30 +61,37 @@ public class NavigationController : INavigationController
         }
     }
 
-    public bool IsPopupShown()
+    public IBackHandler GetActiveBackHandler()
     {
-        return !_popupBackStack.IsEmpty();
+        if (!_screenBackStack.IsEmpty())
+        {
+            return _screenBackStack.Peek();
+        }
+
+        return null;
     }
-    
+
     private void Show<T, TArguments>(
-        IScreenProvider screenProvider, 
-        Stack<IScreen> stack,
+        IScreenProvider screenProvider,
         TArguments navArguments) where T : IScreen
     {
         IScreen screen = screenProvider.GetScreen<T>();
 
         if (screen != null)
         {
-            HideCurrentScreenIn(stack);
-            
-            if (stack.Contains(screen))
+            if (!_screenBackStack.IsEmpty() && !(screen.IsPopup ^ _screenBackStack.Peek().IsPopup))
             {
-                ClearStackToScreen(stack, screen);
+                HideCurrentScreenIn(_screenBackStack);
+            }
+            
+            if (_screenBackStack.Contains(screen))
+            {
+                ClearStackToScreen(_screenBackStack, screen);
                 screen.Resume();
             }
             else
             {
-                stack.Push(screen);
+                _screenBackStack.Push(screen);
                 screen.Show(navArguments);
             }
         }
@@ -128,9 +128,4 @@ public class NavigationController : INavigationController
             else break;
         }
     }
-}
-
-public class NavigationArguments
-{
-    
 }

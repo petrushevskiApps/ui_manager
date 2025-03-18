@@ -23,7 +23,7 @@ namespace slowBulletGames.MemoryValley
             NavigationController.ShowPopup<PausePopup>();
         }
 
-        public virtual void OnBackTriggered()
+        public void OnBackTriggered()
         {
             NavigationController.ShowPopup<ExitLevelPopup>();
         }

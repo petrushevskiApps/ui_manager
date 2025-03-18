@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using slowBulletGames.MemoryValley;
 using UnityEngine;
 using Zenject;
 
@@ -20,6 +19,7 @@ public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
     [Tooltip("List of all the Global UI Elements to be shown or hidden when this screen is active")]
     private List<GlobalUiElement> _globalUiElements;
 
+    public bool IsPopup => false;
     public bool IsBackStackable => _isBackStackable;
 
     // Events
@@ -33,7 +33,6 @@ public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
 
     // Internal
     private RectTransform _screenRect;
-    protected abstract IBackButtonHandler BackButtonHandler();
 
     [Inject]
     private void SetNavigationController(INavigationController navigationController)
@@ -46,15 +45,6 @@ public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
         _screenRect = GetComponent<RectTransform>();
         if (_activateSafeArea) ApplySafeArea();
     }
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            OnBackButton();
-        }
-    }
-
     public virtual void Show<TArguments>(TArguments navArguments)
     {
         ScreenShownEvent?.Invoke(this, EventArgs.Empty);
@@ -81,11 +71,6 @@ public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
         Hide();
     }
 
-    protected virtual void OnBackButton()
-    {
-        NavigationController.GoBack();
-    }
-
     private void ToggleGlobalUIElementsState(bool isToggled)
     {
         _globalUiElements.ForEach(x => x.SetElement(isToggled));
@@ -104,5 +89,10 @@ public abstract class UIScreen : MonoBehaviour, IScreen, IScreenEvents
         anchorMax.y /= Screen.height;
         _screenRect.anchorMin = anchorMin;
         _screenRect.anchorMax = anchorMax;
+    }
+
+    public virtual void OnBackTriggered()
+    {
+        NavigationController.GoBack();
     }
 }

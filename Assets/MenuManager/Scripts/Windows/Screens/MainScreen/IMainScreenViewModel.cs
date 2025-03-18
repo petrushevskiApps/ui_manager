@@ -1,8 +1,9 @@
 ﻿namespace slowBulletGames.MemoryValley
 {
-    public interface IMainScreenViewModel: IBackButtonHandler
+    public interface IMainScreenViewModel
     {
         void SettingsClicked();
         void StartLevelClicked();
+        void OnBackTriggered();
     }
 }

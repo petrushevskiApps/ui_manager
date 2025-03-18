@@ -7,7 +7,7 @@ namespace slowBulletGames.MemoryValley
     /// Concrete implementation should be provided
     /// with the app using this toolkit.
     /// </summary>
-    public interface ILevelCompletedScreenViewModel: IBackButtonHandler
+    public interface ILevelCompletedScreenViewModel
     {
         IReactiveProperty<int> StarsAchieved { get; }
         IReactiveProperty<string> Title { get; }
@@ -16,5 +16,6 @@ namespace slowBulletGames.MemoryValley
         void HomeButtonClicked();
         void DoubleRewardButtonClicked();
         void SettingsButtonClicked();
+        void OnBackTriggered();
     }
 }

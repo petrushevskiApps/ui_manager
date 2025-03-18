@@ -26,6 +26,7 @@ namespace PetrushevskiApps.UIManager
         [SerializeField]
         private TextMeshProUGUI _message;
         
+        public bool IsPopup => true;
         public bool IsBackStackable => _isBackStackable;
         
         // Events
@@ -64,11 +65,11 @@ namespace PetrushevskiApps.UIManager
             _popupClickableBackground.onClick.AddListener(GetPopupViewModel().BackgroundClicked);
             if (_title != null)
             {
-                GetPopupViewModel().Title.Subscribe(SetTitle, triggerOnSubscribe: true);
+                GetPopupViewModel().Title?.Subscribe(SetTitle, triggerOnSubscribe: true);
             }
             if (_message != null)
             {
-                GetPopupViewModel().Message.Subscribe(SetMessage, triggerOnSubscribe: true);
+                GetPopupViewModel().Message?.Subscribe(SetMessage, triggerOnSubscribe: true);
             }
             gameObject.SetActive(true);
             PlaySfx(_popupSoundConfiguration.PopupShown);
@@ -82,11 +83,11 @@ namespace PetrushevskiApps.UIManager
             gameObject.SetActive(false);
             if (_title != null)
             {
-                GetPopupViewModel().Title.Unsubscribe(SetTitle);
+                GetPopupViewModel().Title?.Unsubscribe(SetTitle);
             }
             if (_message != null)
             {
-                GetPopupViewModel().Message.Unsubscribe(SetMessage);
+                GetPopupViewModel().Message?.Unsubscribe(SetMessage);
             }
             PauseGame(false);
         }
@@ -133,6 +134,11 @@ namespace PetrushevskiApps.UIManager
             {
                 Time.timeScale = pause ? 0 : 1;
             }
+        }
+
+        public void OnBackTriggered()
+        {
+            NavigationController.GoBack();
         }
     }
 }

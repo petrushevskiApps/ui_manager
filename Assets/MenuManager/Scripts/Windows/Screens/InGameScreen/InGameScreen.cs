@@ -19,9 +19,7 @@ namespace slowBulletGames.MemoryValley
 
         // Injected
         protected IInGameScreenViewModel ViewModel;
-
-        protected override IBackButtonHandler BackButtonHandler() => ViewModel;
-
+        
         [Inject]
         public void Initialize(IInGameScreenViewModel viewModel)
         {
@@ -47,6 +45,11 @@ namespace slowBulletGames.MemoryValley
         private void SetLevelTitle(string title)
         {
             _levelTitle.text = title;
+        }
+
+        public override void OnBackTriggered()
+        {
+            ViewModel.OnBackTriggered();
         }
     }
 }

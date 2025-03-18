@@ -28,8 +28,6 @@ namespace slowBulletGames.MemoryValley
         // Injected
         protected ILevelCompletedScreenViewModel ViewModel;
 
-        protected override IBackButtonHandler BackButtonHandler() => ViewModel;
-
         [Inject]
         private void Initialize(ILevelCompletedScreenViewModel viewModel)
         {
@@ -58,6 +56,11 @@ namespace slowBulletGames.MemoryValley
             _doubleRewardButton.onClick.RemoveListener(ViewModel.DoubleRewardButtonClicked);
             ViewModel.StarsAchieved.Unsubscribe(_stars.SetData);
             ViewModel.Title.Unsubscribe(_title.Update);
+        }
+
+        public override void OnBackTriggered()
+        {
+            ViewModel.OnBackTriggered();
         }
     }
 }

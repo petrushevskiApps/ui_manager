@@ -17,9 +17,7 @@ namespace slowBulletGames.MemoryValley
 
         // Injected
         protected ILevelFailedScreenViewModel ViewModel;
-
-        protected override IBackButtonHandler BackButtonHandler() => ViewModel;
-
+        
         [Inject]
         private void Initialize(ILevelFailedScreenViewModel viewModel)
         {
@@ -42,6 +40,11 @@ namespace slowBulletGames.MemoryValley
             _replayButton.onClick.RemoveListener(ViewModel.ReplayButtonClicked);
             _homeButton.onClick.RemoveListener(ViewModel.HomeButtonClicked);
             _settingsButton.onClick.RemoveListener(ViewModel.SettingsClicked);
+        }
+        
+        public override void OnBackTriggered()
+        {
+            ViewModel.OnBackTriggered();
         }
     }
 }

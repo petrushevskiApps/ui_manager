@@ -14,28 +14,31 @@ namespace slowBulletGames.MemoryValley
         private UIButton _startButton;
 
         // Injected
-        protected IMainScreenViewModel ViewModel;
-
-        protected override IBackButtonHandler BackButtonHandler() => ViewModel;
-
+        private IMainScreenViewModel _viewModel;
+        
         [Inject]
         public void Initialize(IMainScreenViewModel viewModel)
         {
-            ViewModel = viewModel;
+            _viewModel = viewModel;
         }
 
         public override void Resume()
         {
             base.Resume();
-            _settingsButton.onClick.AddListener(ViewModel.SettingsClicked);
-            _startButton.onClick.AddListener(ViewModel.StartLevelClicked);
+            _settingsButton.onClick.AddListener(_viewModel.SettingsClicked);
+            _startButton.onClick.AddListener(_viewModel.StartLevelClicked);
         }
 
         public override void Hide()
         {
             base.Hide();
-            _settingsButton.onClick.RemoveListener(ViewModel.SettingsClicked);
-            _startButton.onClick.RemoveListener(ViewModel.StartLevelClicked);
+            _settingsButton.onClick.RemoveListener(_viewModel.SettingsClicked);
+            _startButton.onClick.RemoveListener(_viewModel.StartLevelClicked);
+        }
+
+        public override void OnBackTriggered()
+        {
+            _viewModel.OnBackTriggered();
         }
     }
 }

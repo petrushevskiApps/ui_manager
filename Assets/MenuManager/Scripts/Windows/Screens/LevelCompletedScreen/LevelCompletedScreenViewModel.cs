@@ -24,7 +24,7 @@ namespace slowBulletGames.MemoryValley
             Title = new ReactiveProperty<string>("Level Completed");
         }
 
-        public virtual void OnBackTriggered()
+        public void OnBackTriggered()
         {
             NavigationController.ShowScreen<MainScreen>();
         }
