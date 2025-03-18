@@ -1,0 +1,3 @@
+[submodule "Assets/Plugins/UIManager"]
+	path = Assets/Plugins/UIManager
+	url = https://github.com/petrushevskiApps/UIManager.git
