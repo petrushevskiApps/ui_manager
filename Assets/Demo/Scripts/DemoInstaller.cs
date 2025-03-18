@@ -11,6 +11,7 @@ namespace Demo.Scripts
             Container.BindNetworkSystemDependencies();
             Container.BindLevelControllerDependencies();
             Container.BindSettingsStateControllerDependencies();
+            Container.BindDemoAppControllerDependencies();
         }
     }
 }

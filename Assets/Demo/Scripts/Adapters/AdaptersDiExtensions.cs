@@ -1,4 +1,5 @@
-﻿using slowBulletGames.MemoryValley;
+﻿using Demo.Scripts;
+using slowBulletGames.MemoryValley;
 using Zenject;
 
 namespace MenuManager.Scripts.Adapters
@@ -34,6 +35,15 @@ namespace MenuManager.Scripts.Adapters
                 .Bind(typeof(ISettingsStateProvider),
                     typeof(ISettingsStateUpdater))
                 .To<SettingsStateController>()
+                .AsSingle();
+        }
+
+        public static void BindDemoAppControllerDependencies(this DiContainer container)
+        {
+            container
+                .Bind(typeof(IExitAppController))
+                .To<DemoApp>()
+                .FromComponentInHierarchy()
                 .AsSingle();
         }
     }

@@ -5,7 +5,7 @@ using slowBulletGames.MemoryValley;
 using UnityEngine;
 using Zenject;
 
-public class DemoApp : MonoBehaviour
+public class DemoApp : MonoBehaviour, IExitAppController
 {
     private INavigationController _navigationController;
 
@@ -18,5 +18,10 @@ public class DemoApp : MonoBehaviour
     private void Start()
     {
         _navigationController.ShowScreen<MainScreen>();
+    }
+
+    public void ExitApp()
+    {
+        Application.Quit();
     }
 }
