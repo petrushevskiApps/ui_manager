@@ -31,13 +31,11 @@ namespace slowBulletGames.MemoryValley
 
         private void ConfirmButtonClicked()
         {
-            Close();
             _viewModel.ExitApp();
         }
 
         private void DiscardButtonClicked()
         {
-            Close();
             _viewModel.DiscardPopupClicked();
         }
     }

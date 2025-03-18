@@ -4,22 +4,35 @@ namespace slowBulletGames.MemoryValley
 {
     public class ExitGamePopupViewModel : IExitGamePopupViewModel
     {
-        public IReactiveProperty<string> Title { get; }
-        public IReactiveProperty<string> Message { get; }
-        
+        // Reactive Properties
+        public IReactiveProperty<string> Title { get; protected set; }
+        public IReactiveProperty<string> Message { get; protected set; }
+
+        // Injected
+        private readonly INavigationController _navigationController;
+        private readonly IExitAppController _exitAppController;
+
+        public ExitGamePopupViewModel(
+            INavigationController navigationController,
+            IExitAppController exitAppController)
+        {
+            _navigationController = navigationController;
+            _exitAppController = exitAppController;
+        }
+
         public void BackgroundClicked()
         {
-            throw new System.NotImplementedException();
+            _navigationController.GoBack();
         }
 
         public void DiscardPopupClicked()
         {
-            throw new System.NotImplementedException();
+            _navigationController.GoBack();
         }
 
         public void ExitApp()
         {
-            throw new System.NotImplementedException();
+            _exitAppController.ExitApp();
         }
     }
 }
