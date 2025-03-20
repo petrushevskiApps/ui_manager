@@ -10,15 +10,15 @@ namespace slowBulletGames.MemoryValley
 
         // Injected
         protected readonly INavigationController NavigationController;
-        private readonly IUILevelControlled _uiLevelControlled;
+        private readonly IUILevelController _uiLevelControlled;
 
 
         public LevelCompletedScreenViewModel(
             INavigationController navigationController,
-            IUILevelControlled uiLevelControlled)
+            IUILevelController uiLevelController)
         {
             NavigationController = navigationController;
-            _uiLevelControlled = uiLevelControlled;
+            _uiLevelControlled = uiLevelController;
 
             StarsAchieved = new ReactiveProperty<int>();
             Title = new ReactiveProperty<string>("Level Completed");

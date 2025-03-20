@@ -4,14 +4,14 @@
     {
         // Injected
         protected readonly INavigationController NavigationController;
-        private readonly IUILevelControlled _uiLevelControlled;
+        private readonly IUILevelController _uiLevelController;
 
         public MainScreenViewModel(
             INavigationController navigationController,
-            IUILevelControlled uiLevelControlled)
+            IUILevelController uiLevelController)
         {
             NavigationController = navigationController;
-            _uiLevelControlled = uiLevelControlled;
+            _uiLevelController = uiLevelController;
         }
 
         public virtual void SettingsClicked()
@@ -21,7 +21,7 @@
 
         public virtual void StartLevelClicked()
         {
-            _uiLevelControlled.StartNextLevel();
+            _uiLevelController.StartNextLevel();
             NavigationController.ShowScreen<InGameScreen>();
         }
 

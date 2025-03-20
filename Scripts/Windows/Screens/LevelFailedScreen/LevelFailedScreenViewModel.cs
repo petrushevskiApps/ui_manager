@@ -4,14 +4,14 @@
     {
         // Injected
         protected readonly INavigationController NavigationController;
-        private readonly IUILevelControlled _uiLevelControlled;
+        private readonly IUILevelController _uiLevelController;
 
         public LevelFailedScreenViewModel(
             INavigationController navigationController,
-            IUILevelControlled uiLevelControlled)
+            IUILevelController uiLevelController)
         {
             NavigationController = navigationController;
-            _uiLevelControlled = uiLevelControlled;
+            _uiLevelController = uiLevelController;
         }
         
         public virtual void OnBackTriggered()
@@ -26,12 +26,12 @@
 
         public virtual void ReplayButtonClicked()
         {
-            _uiLevelControlled.RestartLevel();
+            _uiLevelController.RestartLevel();
         }
 
         public virtual void ReviveButtonClicked()
         {
-            _uiLevelControlled.ReviveAndContinueLevel();
+            _uiLevelController.ReviveAndContinueLevel();
         }
 
         public void SettingsClicked()

@@ -1,6 +1,6 @@
 ﻿namespace slowBulletGames.MemoryValley
 {
-    public interface IUILevelControlled
+    public interface IUILevelController
     {
         void StartNextLevel();
         void RestartLevel();
