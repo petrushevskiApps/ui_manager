@@ -10,7 +10,7 @@ namespace slowBulletGames.MemoryValley
 
         // Injected
         protected readonly INavigationController NavigationController;
-        private readonly IUILevelController _uiLevelControlled;
+        private readonly IUILevelController _uiLevelController;
 
 
         public LevelCompletedScreenViewModel(
@@ -18,7 +18,7 @@ namespace slowBulletGames.MemoryValley
             IUILevelController uiLevelController)
         {
             NavigationController = navigationController;
-            _uiLevelControlled = uiLevelController;
+            _uiLevelController = uiLevelController;
 
             StarsAchieved = new ReactiveProperty<int>();
             Title = new ReactiveProperty<string>("Level Completed");
@@ -31,19 +31,19 @@ namespace slowBulletGames.MemoryValley
 
         public virtual void NextLevelButtonClicked()
         {
-            _uiLevelControlled.CollectReward();
-            _uiLevelControlled.StartNextLevel();
+            _uiLevelController.CollectReward();
+            _uiLevelController.StartLevel();
         }
 
         public virtual void DoubleRewardButtonClicked()
         {
-            _uiLevelControlled.CollectDoubleReward();
-            _uiLevelControlled.StartNextLevel();
+            _uiLevelController.CollectDoubleReward();
+            _uiLevelController.StartLevel();
         }
 
         public virtual void ReplayButtonClicked()
         {
-            _uiLevelControlled.RestartLevel();
+            _uiLevelController.RestartLevel();
         }
 
         public virtual void HomeButtonClicked()

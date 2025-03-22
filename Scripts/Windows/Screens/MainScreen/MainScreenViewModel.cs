@@ -21,8 +21,8 @@
 
         public virtual void StartLevelClicked()
         {
-            _uiLevelController.StartNextLevel();
-            NavigationController.ShowScreen<InGameScreen>();
+            _uiLevelController.StartLevel();
+            // NavigationController.ShowScreen<InGameScreen>();
         }
 
         public virtual void OnBackTriggered()

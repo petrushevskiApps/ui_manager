@@ -2,7 +2,7 @@
 {
     public interface IUILevelController
     {
-        void StartNextLevel();
+        void StartLevel();
         void RestartLevel();
         void ReviveAndContinueLevel();
         void CollectReward();
