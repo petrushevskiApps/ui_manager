@@ -11,20 +11,23 @@ namespace slowBulletGames.MemoryValley
 
         // Injected
         private readonly INavigationController _navigationController;
+        private readonly IUILevelController _uiLevelController;
 
         public PausePopupViewModel(
-            INavigationController navigationController)
+            INavigationController navigationController,
+            IUILevelController uiLevelController)
         {
             _navigationController = navigationController;
+            _uiLevelController = uiLevelController;
 
-            
+
             Title = new ReactiveProperty<string>("Pause");
             Message = new ReactiveProperty<string>(null);
         }
 
         public virtual void RestartClicked()
         {
-            Debug.LogWarning("Restart clicked method is not implemented.");
+            _uiLevelController.RestartLevel();
         }
 
         public virtual void HomeClicked()
