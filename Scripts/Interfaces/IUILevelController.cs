@@ -7,5 +7,6 @@
         void ReviveAndContinueLevel();
         void CollectReward();
         void CollectDoubleReward();
+        void LeaveLevel();
     }
 }
