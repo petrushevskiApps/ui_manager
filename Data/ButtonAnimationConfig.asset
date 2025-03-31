@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c861d6da2b5df4e901d4e29c89fd6e, type: 3}
   m_Name: ButtonAnimationConfig
   m_EditorClassIdentifier: 
-  scale: {x: 0.85, y: 0.85, z: 0.85}
-  scaleSpeed: 25
+  <Scale>k__BackingField: {x: 0.85, y: 0.85, z: 0.85}
+  <ScaleSpeed>k__BackingField: 20
