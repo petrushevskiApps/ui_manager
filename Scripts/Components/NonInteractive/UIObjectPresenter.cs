@@ -6,7 +6,7 @@ namespace MenuManager.Scripts.Components.NonInteractive
 {
     public class UIObjectPresenter : MonoBehaviour, IUIObjectPresenter
     {
-        private const string LAYER_NAME = "Island";
+        private const string LAYER_NAME = "ObjectPresenter";
 
         [SerializeField] 
         private Transform _loadedParent;
