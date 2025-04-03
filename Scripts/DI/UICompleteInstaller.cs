@@ -1,3 +1,4 @@
+using MenuManager.Scripts.Components.NonInteractive;
 using PetrushevskiApps.UIManager.ScreenNavigation;
 using Zenject;
 
@@ -7,6 +8,7 @@ public class UICompleteInstaller : MonoInstaller
     {
         Container.BindScreenNavigationDependencies();
         Container.BindPopupDependencies();
+        Container.BindNonInteractiveComponentDependencies();
         
         // Screen Bindings
         Container.BindMainScreenDependencies();
