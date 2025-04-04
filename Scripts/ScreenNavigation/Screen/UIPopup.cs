@@ -62,7 +62,7 @@ namespace PetrushevskiApps.UIManager
         public virtual void Resume()
         {
             PopupScreenResumedEvent?.Invoke(this, EventArgs.Empty);
-            _popupClickableBackground.onClick.AddListener(GetPopupViewModel().BackgroundClicked);
+            _popupClickableBackground.OnClick.AddListener(GetPopupViewModel().BackgroundClicked);
             if (_title != null)
             {
                 GetPopupViewModel().Title?.Subscribe(SetTitle, triggerOnSubscribe: true);
@@ -79,7 +79,7 @@ namespace PetrushevskiApps.UIManager
         public virtual void Hide()
         {
             PopupScreenHiddenEvent?.Invoke(this, EventArgs.Empty);
-            _popupClickableBackground.onClick.RemoveListener(GetPopupViewModel().BackgroundClicked);
+            _popupClickableBackground.OnClick.RemoveListener(GetPopupViewModel().BackgroundClicked);
             gameObject.SetActive(false);
             if (_title != null)
             {
