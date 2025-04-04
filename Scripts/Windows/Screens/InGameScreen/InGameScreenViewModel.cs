@@ -1,5 +1,6 @@
 ﻿using MenuManager.Scripts.Components.NonInteractive;
 using MenuManager.Scripts.Utilitis;
+using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
 
 namespace slowBulletGames.MemoryValley
 {
@@ -9,23 +10,23 @@ namespace slowBulletGames.MemoryValley
         public IReactiveProperty<UIProgressBarData> ProgressBarData { get; protected set;}
         
         // Injected
-        protected readonly INavigationController NavigationController;
+        private readonly IPopupNavigation _popupNavigation;
 
-        public InGameScreenViewModel(INavigationController navigationController)
+        public InGameScreenViewModel(IPopupNavigation popupNavigation)
         {
-            NavigationController = navigationController;
+            _popupNavigation = popupNavigation;
             LevelTitle = new ReactiveProperty<string>("");
             ProgressBarData = new ReactiveProperty<UIProgressBarData>();
         }
         
         public virtual void PauseClicked()
         {
-            NavigationController.ShowPopup<PausePopup>();
+            _popupNavigation.ShowPausePopup();
         }
 
         public void OnBackTriggered()
         {
-            NavigationController.ShowPopup<ExitLevelPopup>();
+            _popupNavigation.ShowExitLevelPopup();
         }
     }
 }

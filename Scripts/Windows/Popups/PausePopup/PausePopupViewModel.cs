@@ -1,4 +1,5 @@
 ﻿using MenuManager.Scripts.Utilitis;
+using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
 using UnityEngine;
 
 namespace slowBulletGames.MemoryValley
@@ -10,13 +11,16 @@ namespace slowBulletGames.MemoryValley
         public IReactiveProperty<string> Message { get; protected set;}
 
         // Injected
+        private readonly IPopupNavigation _popupNavigation;
         private readonly INavigationController _navigationController;
         private readonly IUILevelController _uiLevelController;
 
         public PausePopupViewModel(
+            IPopupNavigation popupNavigation,
             INavigationController navigationController,
             IUILevelController uiLevelController)
         {
+            _popupNavigation = popupNavigation;
             _navigationController = navigationController;
             _uiLevelController = uiLevelController;
 
@@ -32,7 +36,7 @@ namespace slowBulletGames.MemoryValley
 
         public virtual void HomeClicked()
         {
-            _navigationController.ShowPopup<ExitLevelPopup>();
+            _popupNavigation.ShowExitLevelPopup();
         }
 
         public virtual void PlayClicked()
@@ -42,7 +46,7 @@ namespace slowBulletGames.MemoryValley
 
         public virtual void SettingsClicked()
         {
-            _navigationController.ShowPopup<SettingsPopup>();
+            _popupNavigation.ShowSettingsPopup();
         }
 
         public void BackgroundClicked()

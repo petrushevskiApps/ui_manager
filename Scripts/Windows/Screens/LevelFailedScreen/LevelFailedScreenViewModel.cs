@@ -1,27 +1,32 @@
-﻿namespace slowBulletGames.MemoryValley
+﻿using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
+
+namespace slowBulletGames.MemoryValley
 {
     public class LevelFailedScreenViewModel : ILevelFailedScreenViewModel
     {
         // Injected
-        protected readonly INavigationController NavigationController;
+        private readonly IScreenNavigation _screenNavigation;
+        private readonly IPopupNavigation _popupNavigation;
         private readonly IUILevelController _uiLevelController;
 
         public LevelFailedScreenViewModel(
-            INavigationController navigationController,
+            IScreenNavigation screenNavigation,
+            IPopupNavigation popupNavigation,
             IUILevelController uiLevelController)
         {
-            NavigationController = navigationController;
+            _screenNavigation = screenNavigation;
+            _popupNavigation = popupNavigation;
             _uiLevelController = uiLevelController;
         }
         
         public virtual void OnBackTriggered()
         {
-            NavigationController.ShowScreen<MainScreen>();
+            _screenNavigation.ShowMainScreen();
         }
 
         public virtual void HomeButtonClicked()
         {
-            NavigationController.ShowScreen<MainScreen>();
+            _screenNavigation.ShowMainScreen();
         }
 
         public virtual void ReplayButtonClicked()
@@ -36,7 +41,7 @@
 
         public void SettingsClicked()
         {
-            NavigationController.ShowPopup<SettingsPopup>();
+            _popupNavigation.ShowSettingsPopup();
         }
     }
 }

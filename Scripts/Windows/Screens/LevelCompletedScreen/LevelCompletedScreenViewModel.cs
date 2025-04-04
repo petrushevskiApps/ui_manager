@@ -1,4 +1,5 @@
 ﻿using MenuManager.Scripts.Utilitis;
+using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
 
 namespace slowBulletGames.MemoryValley
 {
@@ -9,15 +10,18 @@ namespace slowBulletGames.MemoryValley
         public IReactiveProperty<string> Title { get; }
 
         // Injected
-        protected readonly INavigationController NavigationController;
+        private readonly IScreenNavigation _screenNavigation;
+        private readonly IPopupNavigation _popupNavigation;
         private readonly IUILevelController _uiLevelController;
 
 
         public LevelCompletedScreenViewModel(
-            INavigationController navigationController,
+            IScreenNavigation screenNavigation,
+            IPopupNavigation popupNavigation,
             IUILevelController uiLevelController)
         {
-            NavigationController = navigationController;
+            _screenNavigation = screenNavigation;
+            _popupNavigation = popupNavigation;
             _uiLevelController = uiLevelController;
 
             StarsAchieved = new ReactiveProperty<int>();
@@ -26,7 +30,8 @@ namespace slowBulletGames.MemoryValley
 
         public void OnBackTriggered()
         {
-            NavigationController.ShowScreen<MainScreen>();
+            _uiLevelController.CollectReward();
+            _screenNavigation.ShowMainScreen();
         }
 
         public virtual void NextLevelButtonClicked()
@@ -48,12 +53,13 @@ namespace slowBulletGames.MemoryValley
 
         public virtual void HomeButtonClicked()
         {
-            NavigationController.ShowScreen<MainScreen>();
+            _uiLevelController.CollectReward();
+            _screenNavigation.ShowMainScreen();
         }
 
         public virtual void SettingsButtonClicked()
         {
-            NavigationController.ShowPopup<SettingsPopup>();
+            _popupNavigation.ShowSettingsPopup();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PetrushevskiApps.UIManager;
-using slowBulletGames.MemoryValley;
+using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
 using UnityEngine;
 using Zenject;
 
@@ -10,8 +10,12 @@ public class PopupScreenProvider : MonoBehaviour, IScreenProvider
     [SerializeField]
     [Tooltip("List of screens to be provided to Navigation Controller")]
     private List<UIPopup> _popups = new();
+    
     [Inject]
     private INavigationController _navigationController;
+
+    [Inject]
+    private IPopupNavigation _popupNavigation;
     
     private void Awake()
     {
@@ -25,7 +29,7 @@ public class PopupScreenProvider : MonoBehaviour, IScreenProvider
 
     private void OnAllScreensClosed(object sender, EventArgs e)
     {
-        _navigationController.ShowPopup<ExitGamePopup>();
+        _popupNavigation.ShowExitGamePopup();
     }
 
     public IScreen GetScreen<T>() where T : IScreen

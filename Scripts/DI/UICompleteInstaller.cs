@@ -6,7 +6,9 @@ public class UICompleteInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        Container.BindNavigationControllerDependencies();
         Container.BindScreenNavigationDependencies();
+        Container.BindPopupNavigationDependencies();
         Container.BindPopupDependencies();
         Container.BindNonInteractiveComponentDependencies();
         
