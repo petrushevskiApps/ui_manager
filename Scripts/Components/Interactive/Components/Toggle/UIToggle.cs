@@ -61,7 +61,7 @@ namespace com.petrushevskiapps.menumanager
             {
                 return;
             }
-            _label.Update(viewData.Label);
+            _label.SetData(viewData.Label);
             _toggle.isOn = viewData.State;
         }
     }
