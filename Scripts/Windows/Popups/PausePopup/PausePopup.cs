@@ -30,12 +30,22 @@ namespace slowBulletGames.MemoryValley
             _viewModel = viewModel;
         }
         
-        private void Awake()
+        public override void Resume()
         {
-            _restartButton.onClick.AddListener(OnRestartClicked);
-            _homeButton.onClick.AddListener(OnHomeClicked);
-            _playButton.onClick.AddListener(OnPlayClicked);
-            _settingsButton.onClick.AddListener(OnSettingsClicked);
+            base.Resume();
+            _restartButton.OnClick.AddListener(OnRestartClicked);
+            _homeButton.OnClick.AddListener(OnHomeClicked);
+            _playButton.OnClick.AddListener(OnPlayClicked);
+            _settingsButton.OnClick.AddListener(OnSettingsClicked);
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            _restartButton.OnClick.RemoveAllListeners();
+            _homeButton.OnClick.RemoveAllListeners();
+            _playButton.OnClick.RemoveAllListeners();
+            _settingsButton.OnClick.RemoveAllListeners();
         }
 
         private void OnRestartClicked()

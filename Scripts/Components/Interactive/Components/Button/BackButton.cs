@@ -25,7 +25,7 @@ namespace PetrushevskiApps.UIManager
         {
             if (_backButton != null)
             {
-                _backButton.onClick.AddListener(OnClick);
+                _backButton.OnClick.AddListener(OnClick);
             }
         }
 
@@ -33,7 +33,7 @@ namespace PetrushevskiApps.UIManager
         {
             if (_backButton != null)
             {
-                _backButton.onClick.RemoveListener(OnClick);
+                _backButton.OnClick.RemoveListener(OnClick);
             }
         }
 

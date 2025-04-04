@@ -24,21 +24,23 @@ namespace slowBulletGames.MemoryValley
         {
             _viewModel = viewModel;
         }
-        
-        private void Awake()
+
+        public override void Resume()
         {
-            _homeButton.onClick.AddListener(OnHomeClicked);
+            base.Resume();
+            _homeButton.OnClick.AddListener(OnHomeClicked);
         }
-        
+
+        public override void Hide()
+        {
+            base.Hide();
+            _homeButton.OnClick.RemoveAllListeners();
+        }
+
         private void OnHomeClicked()
         {
             Close();
             _viewModel.HomeClicked();
-        }
-
-        public void OnBackButtonPressed()
-        {
-            _viewModel.HandleBackButtonPressed();
         }
     }
 }

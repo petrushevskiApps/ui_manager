@@ -38,10 +38,10 @@ public class SettingsPopup : UIPopup
     public override void Resume()
     {
         base.Resume();
-        _privacySettingsButton.onClick.AddListener(OnPrivacySettingsClick);
-        _privacyPolicyButton.onClick.AddListener(OnPrivacyPolicyClick);
-        _termsOfUseButton.onClick.AddListener(OnTermsOfUseClick);
-        _rateUsButton.onClick.AddListener(OnRateUsClick);
+        _privacySettingsButton.OnClick.AddListener(OnPrivacySettingsClick);
+        _privacyPolicyButton.OnClick.AddListener(OnPrivacyPolicyClick);
+        _termsOfUseButton.OnClick.AddListener(OnTermsOfUseClick);
+        _rateUsButton.OnClick.AddListener(OnRateUsClick);
 
         _viewModel.AudioToggle.Subscribe(_audioToggle.SetData);
         _viewModel.MusicToggle.Subscribe(_musicToggle.SetData);
@@ -51,10 +51,10 @@ public class SettingsPopup : UIPopup
     public override void Hide()
     {
         base.Hide();
-        _privacySettingsButton.onClick.RemoveListener(OnPrivacySettingsClick);
-        _privacyPolicyButton.onClick.RemoveListener(OnPrivacyPolicyClick);
-        _termsOfUseButton.onClick.RemoveListener(OnTermsOfUseClick);
-        _rateUsButton.onClick.RemoveListener(OnRateUsClick);
+        _privacySettingsButton.OnClick.RemoveListener(OnPrivacySettingsClick);
+        _privacyPolicyButton.OnClick.RemoveListener(OnPrivacyPolicyClick);
+        _termsOfUseButton.OnClick.RemoveListener(OnTermsOfUseClick);
+        _rateUsButton.OnClick.RemoveListener(OnRateUsClick);
         
         _viewModel.AudioToggle.Unsubscribe(_audioToggle.SetData);
         _viewModel.MusicToggle.Unsubscribe(_musicToggle.SetData);

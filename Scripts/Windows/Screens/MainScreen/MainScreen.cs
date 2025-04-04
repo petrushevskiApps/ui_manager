@@ -25,15 +25,15 @@ namespace slowBulletGames.MemoryValley
         public override void Resume()
         {
             base.Resume();
-            _settingsButton.onClick.AddListener(_viewModel.SettingsClicked);
-            _startButton.onClick.AddListener(_viewModel.StartLevelClicked);
+            _settingsButton.OnClick.AddListener(_viewModel.SettingsClicked);
+            _startButton.OnClick.AddListener(_viewModel.StartLevelClicked);
         }
 
         public override void Hide()
         {
             base.Hide();
-            _settingsButton.onClick.RemoveListener(_viewModel.SettingsClicked);
-            _startButton.onClick.RemoveListener(_viewModel.StartLevelClicked);
+            _settingsButton.OnClick.RemoveListener(_viewModel.SettingsClicked);
+            _startButton.OnClick.RemoveListener(_viewModel.StartLevelClicked);
         }
 
         public override void OnBackTriggered()

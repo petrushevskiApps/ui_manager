@@ -27,19 +27,19 @@ namespace slowBulletGames.MemoryValley
         public override void Resume()
         {
             base.Resume();
-            _reviveButton.onClick.AddListener(ViewModel.ReviveButtonClicked);
-            _replayButton.onClick.AddListener(ViewModel.ReplayButtonClicked);
-            _homeButton.onClick.AddListener(ViewModel.HomeButtonClicked);
-            _settingsButton.onClick.AddListener(ViewModel.SettingsClicked);
+            _reviveButton.OnClick.AddListener(ViewModel.ReviveButtonClicked);
+            _replayButton.OnClick.AddListener(ViewModel.ReplayButtonClicked);
+            _homeButton.OnClick.AddListener(ViewModel.HomeButtonClicked);
+            _settingsButton.OnClick.AddListener(ViewModel.SettingsClicked);
         }
 
         public override void Hide()
         {
             base.Hide();
-            _reviveButton.onClick.RemoveListener(ViewModel.ReviveButtonClicked);
-            _replayButton.onClick.RemoveListener(ViewModel.ReplayButtonClicked);
-            _homeButton.onClick.RemoveListener(ViewModel.HomeButtonClicked);
-            _settingsButton.onClick.RemoveListener(ViewModel.SettingsClicked);
+            _reviveButton.OnClick.RemoveListener(ViewModel.ReviveButtonClicked);
+            _replayButton.OnClick.RemoveListener(ViewModel.ReplayButtonClicked);
+            _homeButton.OnClick.RemoveListener(ViewModel.HomeButtonClicked);
+            _settingsButton.OnClick.RemoveListener(ViewModel.SettingsClicked);
         }
         
         public override void OnBackTriggered()

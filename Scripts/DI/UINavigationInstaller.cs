@@ -5,6 +5,6 @@ public class UINavigationInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.BindScreenNavigationDependencies();
+        Container.BindNavigationControllerDependencies();
     }
 }

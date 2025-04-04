@@ -29,7 +29,7 @@ namespace slowBulletGames.MemoryValley
         public override void Resume()
         {
             base.Resume();
-            _pauseButton.onClick.AddListener(ViewModel.PauseClicked);
+            _pauseButton.OnClick.AddListener(ViewModel.PauseClicked);
             ViewModel.LevelTitle.Subscribe(SetLevelTitle);
             ViewModel.ProgressBarData.Subscribe(_progressBar.SetData);
         }
@@ -37,7 +37,7 @@ namespace slowBulletGames.MemoryValley
         public override void Hide()
         {
             base.Hide();
-            _pauseButton.onClick.RemoveListener(ViewModel.PauseClicked);
+            _pauseButton.OnClick.RemoveListener(ViewModel.PauseClicked);
             ViewModel.LevelTitle.Unsubscribe(SetLevelTitle);
             ViewModel.ProgressBarData.Unsubscribe(_progressBar.SetData);
         }

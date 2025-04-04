@@ -2,25 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PetrushevskiApps.UIManager
 {
     [CustomEditor(typeof(UIButton), true)]
     [CanEditMultipleObjects]
-    public class UIButtonEditor : ButtonEditor
+    public class UIButtonEditor : Editor
     {
         private readonly List<string> _extensionNames = new();
 
         private List<Type> _extensions = new();
         private GameObject _gameObject;
 
-        protected override void OnEnable()
+        protected void OnEnable()
         {
-            base.OnEnable();
-            var buttonObject = (Button) target;
+            var buttonObject = (UIButton) target;
             _gameObject = buttonObject.gameObject;
             SetExtensions();
         }

@@ -1,13 +1,44 @@
-﻿using UnityEngine.UI;
+﻿using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace PetrushevskiApps.UIManager
 {
-    public class UIButton : Button
+    [RequireComponent(typeof(Button))]
+    public class UIButton : MonoBehaviour
     {
-        protected override void OnDestroy()
+        [SerializeField]
+        private TextMeshProUGUI _label;
+
+        private Button _button;
+
+        public UnityEvent OnClick;
+
+        protected void Awake()
         {
-            onClick.RemoveAllListeners();
-            base.OnDestroy();
+            _button = GetComponent<Button>();
+        }
+
+        public void SetData(UIButtonViewData viewData)
+        {
+            gameObject.SetActive(viewData.IsVisible);
+            if (viewData.IsVisible)
+            {
+                _label.text = viewData.Label;
+            }
+        }
+
+        private void OnEnable()
+        {
+            _button.onClick.AddListener(OnClick.Invoke);
+        }
+
+        protected void OnDisable()
+        {
+            _button.onClick.RemoveAllListeners();
         }
     }
 }

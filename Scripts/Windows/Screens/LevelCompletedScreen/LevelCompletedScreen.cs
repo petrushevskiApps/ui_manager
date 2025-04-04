@@ -37,25 +37,25 @@ namespace slowBulletGames.MemoryValley
         public override void Resume()
         {
             base.Resume();
-            _replayButton.onClick.AddListener(ViewModel.ReplayButtonClicked);
-            _homeButton.onClick.AddListener(ViewModel.HomeButtonClicked);
-            _settingsButton.onClick.AddListener(ViewModel.SettingsButtonClicked);
-            _nextButton.onClick.AddListener(ViewModel.NextLevelButtonClicked);
-            _doubleRewardButton.onClick.AddListener(ViewModel.DoubleRewardButtonClicked);
+            _replayButton.OnClick.AddListener(ViewModel.ReplayButtonClicked);
+            _homeButton.OnClick.AddListener(ViewModel.HomeButtonClicked);
+            _settingsButton.OnClick.AddListener(ViewModel.SettingsButtonClicked);
+            _nextButton.OnClick.AddListener(ViewModel.NextLevelButtonClicked);
+            _doubleRewardButton.OnClick.AddListener(ViewModel.DoubleRewardButtonClicked);
             ViewModel.StarsAchieved.Subscribe(_stars.SetData);
-            ViewModel.Title.Subscribe(_title.Update);
+            ViewModel.Title.Subscribe(_title.SetData);
         }
 
         public override void Hide()
         {
             base.Hide();
-            _replayButton.onClick.RemoveListener(ViewModel.ReplayButtonClicked);
-            _homeButton.onClick.RemoveListener(ViewModel.HomeButtonClicked);
-            _settingsButton.onClick.RemoveListener(ViewModel.SettingsButtonClicked);
-            _nextButton.onClick.RemoveListener(ViewModel.NextLevelButtonClicked);
-            _doubleRewardButton.onClick.RemoveListener(ViewModel.DoubleRewardButtonClicked);
+            _replayButton.OnClick.RemoveListener(ViewModel.ReplayButtonClicked);
+            _homeButton.OnClick.RemoveListener(ViewModel.HomeButtonClicked);
+            _settingsButton.OnClick.RemoveListener(ViewModel.SettingsButtonClicked);
+            _nextButton.OnClick.RemoveListener(ViewModel.NextLevelButtonClicked);
+            _doubleRewardButton.OnClick.RemoveListener(ViewModel.DoubleRewardButtonClicked);
             ViewModel.StarsAchieved.Unsubscribe(_stars.SetData);
-            ViewModel.Title.Unsubscribe(_title.Update);
+            ViewModel.Title.Unsubscribe(_title.SetData);
         }
 
         public override void OnBackTriggered()

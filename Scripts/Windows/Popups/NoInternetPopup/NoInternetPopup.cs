@@ -22,12 +22,12 @@ public class NoInternetPopup : UIPopup
     public override void Resume()
     {
         base.Resume();
-        _okButton.onClick.AddListener(_viewModel.OkButtonClicked);
+        _okButton.OnClick.AddListener(_viewModel.OkButtonClicked);
     }
 
     public override void Hide()
     {
         base.Hide();
-        _okButton.onClick.RemoveListener(_viewModel.OkButtonClicked);
+        _okButton.OnClick.RemoveListener(_viewModel.OkButtonClicked);
     }
 }
