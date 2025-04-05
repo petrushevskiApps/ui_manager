@@ -35,6 +35,7 @@ namespace MenuManager.Scripts.Components.NonInteractive
             else
             {
                 _loadedObject = Instantiate(prefab);
+                _loadedObject.name = prefab.name;
                 _loadedObject.SetLayerRecursively(LayerMask.NameToLayer(LAYER_NAME));
             }
             
@@ -48,7 +49,7 @@ namespace MenuManager.Scripts.Components.NonInteractive
         {
             _loadedObject.transform.SetParent(_unloadedParent, false);
             _loadedObject.SetActive(false);
-            _unloadedObjects.Add(_loadedObject.name, _loadedObject);
+            _unloadedObjects.TryAdd(_loadedObject.name, _loadedObject);
             _loadedObject = null;
         }
 
