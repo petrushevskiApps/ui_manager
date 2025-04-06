@@ -8,6 +8,9 @@ namespace slowBulletGames.MemoryValley
         // Reactive Properties
         public IReactiveProperty<int> StarsAchieved { get; }
         public IReactiveProperty<string> Title { get; }
+        public IReactiveProperty<string> EarnedCoinsText { get; }
+
+        protected int EarnedCoins { get; private set; }
 
         // Injected
         private readonly IScreenNavigation _screenNavigation;
@@ -26,12 +29,18 @@ namespace slowBulletGames.MemoryValley
 
             StarsAchieved = new ReactiveProperty<int>();
             Title = new ReactiveProperty<string>("Level Completed");
+            EarnedCoinsText = new ReactiveProperty<string>();
         }
 
         public void OnBackTriggered()
         {
             _uiLevelController.CollectReward();
             _screenNavigation.ShowMainScreen();
+        }
+
+        public virtual void SetEarnedCoins(int coins)
+        {
+            EarnedCoins = coins;
         }
 
         public virtual void NextLevelButtonClicked()

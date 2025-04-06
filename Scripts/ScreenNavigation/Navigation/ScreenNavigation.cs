@@ -20,9 +20,9 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation.Navigation
             _navigationController.ShowScreen<InGameScreen>();
         }
 
-        public void ShowLevelCompletedScreen()
+        public void ShowLevelCompletedScreen(LevelCompletedArguments arguments)
         {
-            _navigationController.ShowScreen<LevelCompletedScreen>();
+            _navigationController.ShowScreen<LevelCompletedScreen, LevelCompletedArguments>(arguments);
         }
 
         public void ShowLevelFailedScreen()

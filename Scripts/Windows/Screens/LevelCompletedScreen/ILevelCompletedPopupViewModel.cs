@@ -11,11 +11,13 @@ namespace slowBulletGames.MemoryValley
     {
         IReactiveProperty<int> StarsAchieved { get; }
         IReactiveProperty<string> Title { get; }
+        IReactiveProperty<string> EarnedCoinsText { get; }
         void NextLevelButtonClicked();
         void ReplayButtonClicked();
         void HomeButtonClicked();
         void DoubleRewardButtonClicked();
         void SettingsButtonClicked();
         void OnBackTriggered();
+        void SetEarnedCoins(int coins);
     }
 }
