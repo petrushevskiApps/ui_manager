@@ -45,6 +45,9 @@ public class UIProgressBar : MonoBehaviour
 
     private void UpdateText()
     {
-        _text.text = $"{_slider.value} / {_slider.maxValue}";
+        if (_text != null)
+        {
+            _text.text = $"{_slider.value} / {_slider.maxValue}";    
+        }
     }
 }
