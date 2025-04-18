@@ -1,5 +1,6 @@
 using MenuManager.Scripts.Components.NonInteractive;
 using PetrushevskiApps.UIManager.ScreenNavigation;
+using Plugins.UIManager.Scripts.Components.NonInteractive.UITimer;
 using Zenject;
 
 public class UICompleteInstaller : MonoInstaller
@@ -11,6 +12,8 @@ public class UICompleteInstaller : MonoInstaller
         Container.BindPopupNavigationDependencies();
         Container.BindPopupDependencies();
         Container.BindNonInteractiveComponentDependencies();
+        Container.BindTimerColoringDependencies();
+        Container.BindTimerFormattingDependencies();
         
         // Screen Bindings
         Container.BindMainScreenDependencies();
