@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,10 +9,12 @@ public class UIStars : MonoBehaviour
 
     private void Awake()
     {
-        foreach (var star in _stars)
-        {
-            star.SetActive(false);
-        }
+        ClearStars();
+    }
+
+    private void OnDisable()
+    {
+        ClearStars();
     }
 
     public void SetData(int starsCount)
@@ -20,5 +23,10 @@ public class UIStars : MonoBehaviour
         {
             _stars[i].SetActive(true);
         }
+    }
+
+    private void ClearStars()
+    {
+        _stars.ForEach(star => star.SetActive(false));
     }
 }
