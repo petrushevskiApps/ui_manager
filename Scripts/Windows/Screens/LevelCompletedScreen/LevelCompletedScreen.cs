@@ -29,11 +29,15 @@ namespace slowBulletGames.MemoryValley
 
         // Injected
         protected ILevelCompletedScreenViewModel ViewModel;
+        private IUiHapticsController _uiHapticsController;
 
         [Inject]
-        private void Initialize(ILevelCompletedScreenViewModel viewModel)
+        private void Initialize(
+            ILevelCompletedScreenViewModel viewModel,
+            IUiHapticsController uiHapticsController)
         {
             ViewModel = viewModel;
+            _uiHapticsController = uiHapticsController;
         }
 
         public override void Show<TArguments>(TArguments navArguments)
@@ -42,6 +46,7 @@ namespace slowBulletGames.MemoryValley
             if (navArguments is LevelCompletedArguments arguments)
             {
                 ViewModel.SetEarnedCoins(arguments.EarnedCoins);
+                _uiHapticsController.LevelCompleted();
             }
         }
 

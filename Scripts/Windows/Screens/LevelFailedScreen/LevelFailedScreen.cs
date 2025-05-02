@@ -17,11 +17,15 @@ namespace slowBulletGames.MemoryValley
 
         // Injected
         protected ILevelFailedScreenViewModel ViewModel;
+        private IUiHapticsController _uiHapticsController;
         
         [Inject]
-        private void Initialize(ILevelFailedScreenViewModel viewModel)
+        private void Initialize(
+            ILevelFailedScreenViewModel viewModel,
+            IUiHapticsController uiHapticsController)
         {
             ViewModel = viewModel;
+            _uiHapticsController = uiHapticsController;
         }
 
         public override void Resume()
@@ -31,6 +35,7 @@ namespace slowBulletGames.MemoryValley
             _replayButton.OnClick.AddListener(ViewModel.ReplayButtonClicked);
             _homeButton.OnClick.AddListener(ViewModel.HomeButtonClicked);
             _settingsButton.OnClick.AddListener(ViewModel.SettingsClicked);
+            _uiHapticsController.LevelFailed();
         }
 
         public override void Hide()

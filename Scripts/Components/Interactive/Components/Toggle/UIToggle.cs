@@ -1,9 +1,11 @@
 ﻿using System;
 using MenuManager.Scripts.Components.NonInteractive.Extensions;
+using slowBulletGames.MemoryValley;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace com.petrushevskiapps.menumanager
 {
@@ -21,6 +23,16 @@ namespace com.petrushevskiapps.menumanager
 
         // Internal
         private Action _onToggleStateChanged;
+        
+        // Injected
+        private IUiHapticsController _uiHapticsController;
+
+        [Inject]
+        public void Initialize(IUiHapticsController uiHapticsController)
+        {
+            _uiHapticsController = uiHapticsController;
+        }
+        
         protected void Awake()
         {
             _toggle.onValueChanged.AddListener(OnValueChanged);
@@ -34,6 +46,7 @@ namespace com.petrushevskiapps.menumanager
         private void OnValueChanged(bool state)
         {
             SetToggleState(state);
+            _uiHapticsController.Toggle(state);
             _onToggleStateChanged?.Invoke();
         }
 
