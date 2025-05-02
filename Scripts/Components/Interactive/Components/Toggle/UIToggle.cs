@@ -31,6 +31,8 @@ namespace com.petrushevskiapps.menumanager
         [SerializeField] 
         private GameObject _toggleOffState;
 
+        // Internal
+        private Action _onToggleStateChanged;
         protected void Awake()
         {
             _toggle.onValueChanged.AddListener(OnValueChanged);
@@ -43,6 +45,13 @@ namespace com.petrushevskiapps.menumanager
 
         private void OnValueChanged(bool state)
         {
+            SetToggleState(state);
+            _onToggleStateChanged?.Invoke();
+        }
+
+        private void SetToggleState(bool state)
+        {
+            _toggle.isOn = state;
             if (_toggleOnState != null)
             {
                 _toggleOnState.SetActive(state);
@@ -62,7 +71,8 @@ namespace com.petrushevskiapps.menumanager
                 return;
             }
             _label.SetData(viewData.Label);
-            _toggle.isOn = viewData.State;
+            SetToggleState(viewData.State);
+            _onToggleStateChanged = viewData.OnToggleStateChanged;
         }
     }
 }
