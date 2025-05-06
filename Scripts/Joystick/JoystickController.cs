@@ -31,19 +31,19 @@ namespace UI
             ShowTutorial(true);
         }
 
-        private void OnJoystickClicked(object sender, EventArgs e)
-        {
-            ShowTutorial(false);
-        }
-
         private void OnEnable()
         {
             _joystick.ClickedEvent += OnJoystickClicked;
         }
-        
+
         private void OnDisable()
         {
             _joystick.ClickedEvent -= OnJoystickClicked;
+        }
+
+        private void OnJoystickClicked(object sender, EventArgs e)
+        {
+            ShowTutorial(false);
         }
 
         private void OnLevelRevived(object sender, EventArgs e)
@@ -63,6 +63,7 @@ namespace UI
 
         private void ShowTutorial(bool isShowTutorial)
         {
+            gameObject.SetActive(true);
             _tutorialHand.SetActive(isShowTutorial);
             _joystickVisual.gameObject.SetActive(!isShowTutorial);
         }
