@@ -38,7 +38,7 @@ namespace PetrushevskiApps.UIManager
         public void SetData(UIButtonViewData viewData)
         {
             gameObject.SetActive(viewData.IsVisible);
-            if (viewData.IsVisible)
+            if (viewData.IsVisible && _label != null)
             {
                 _label.text = viewData.Label;
             }
