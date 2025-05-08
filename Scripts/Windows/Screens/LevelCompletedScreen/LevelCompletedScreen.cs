@@ -46,6 +46,7 @@ namespace slowBulletGames.MemoryValley
             if (navArguments is LevelCompletedArguments arguments)
             {
                 ViewModel.SetEarnedCoins(arguments.EarnedCoins);
+                ViewModel.SetEarnedStars(arguments.EarnedStars);
                 _uiHapticsController.LevelCompleted();
             }
         }
@@ -53,12 +54,13 @@ namespace slowBulletGames.MemoryValley
         public override void Resume()
         {
             base.Resume();
+            ViewModel.ScreenResumed();
             _replayButton.OnClick.AddListener(ViewModel.ReplayButtonClicked);
             _homeButton.OnClick.AddListener(ViewModel.HomeButtonClicked);
             _settingsButton.OnClick.AddListener(ViewModel.SettingsButtonClicked);
             _nextButton.OnClick.AddListener(ViewModel.NextLevelButtonClicked);
             _doubleRewardButton.OnClick.AddListener(ViewModel.DoubleRewardButtonClicked);
-            ViewModel.StarsAchieved.Subscribe(_stars.SetData);
+            ViewModel.EarnedStars.Subscribe(_stars.SetData);
             ViewModel.Title.Subscribe(_title.SetData);
             ViewModel.EarnedCoinsText.Subscribe(_earnedCoinsText.SetData);
         }
@@ -71,7 +73,7 @@ namespace slowBulletGames.MemoryValley
             _settingsButton.OnClick.RemoveListener(ViewModel.SettingsButtonClicked);
             _nextButton.OnClick.RemoveListener(ViewModel.NextLevelButtonClicked);
             _doubleRewardButton.OnClick.RemoveListener(ViewModel.DoubleRewardButtonClicked);
-            ViewModel.StarsAchieved.Unsubscribe(_stars.SetData);
+            ViewModel.EarnedStars.Unsubscribe(_stars.SetData);
             ViewModel.Title.Unsubscribe(_title.SetData);
             ViewModel.EarnedCoinsText.Subscribe(_earnedCoinsText.SetData);
         }

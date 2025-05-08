@@ -6,9 +6,9 @@ namespace slowBulletGames.MemoryValley
     public class LevelCompletedScreenViewModel : ILevelCompletedScreenViewModel
     {
         // Reactive Properties
-        public IReactiveProperty<int> StarsAchieved { get; }
-        public IReactiveProperty<string> Title { get; }
-        public IReactiveProperty<string> EarnedCoinsText { get; }
+        public IReactiveProperty<int> EarnedStars { get; private set; }
+        public IReactiveProperty<string> Title { get;  private set;}
+        public IReactiveProperty<string> EarnedCoinsText { get;  private set;}
 
         protected int EarnedCoins { get; private set; }
 
@@ -27,8 +27,14 @@ namespace slowBulletGames.MemoryValley
             _popupNavigation = popupNavigation;
             _uiLevelController = uiLevelController;
 
-            StarsAchieved = new ReactiveProperty<int>();
             Title = new ReactiveProperty<string>("Level Completed");
+            EarnedStars = new ReactiveProperty<int>();
+            EarnedCoinsText = new ReactiveProperty<string>();
+        }
+
+        public void ScreenResumed()
+        {
+            EarnedStars = new ReactiveProperty<int>();
             EarnedCoinsText = new ReactiveProperty<string>();
         }
 
@@ -41,6 +47,11 @@ namespace slowBulletGames.MemoryValley
         public virtual void SetEarnedCoins(int coins)
         {
             EarnedCoins = coins;
+        }
+
+        public virtual void SetEarnedStars(int earnedStars)
+        {
+            EarnedStars.Value = earnedStars;
         }
 
         public virtual void NextLevelButtonClicked()

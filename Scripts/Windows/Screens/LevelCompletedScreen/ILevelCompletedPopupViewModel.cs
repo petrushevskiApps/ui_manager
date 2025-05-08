@@ -9,7 +9,7 @@ namespace slowBulletGames.MemoryValley
     /// </summary>
     public interface ILevelCompletedScreenViewModel
     {
-        IReactiveProperty<int> StarsAchieved { get; }
+        IReactiveProperty<int> EarnedStars { get; }
         IReactiveProperty<string> Title { get; }
         IReactiveProperty<string> EarnedCoinsText { get; }
         void NextLevelButtonClicked();
@@ -19,5 +19,7 @@ namespace slowBulletGames.MemoryValley
         void SettingsButtonClicked();
         void OnBackTriggered();
         void SetEarnedCoins(int coins);
+        void SetEarnedStars(int earnedStars);
+        void ScreenResumed();
     }
 }
