@@ -23,6 +23,7 @@ public class UIStars : MonoBehaviour
         {
             _stars[i].SetActive(true);
         }
+        gameObject.SetActive(true);
     }
 
     private void ClearStars()
