@@ -1,6 +1,7 @@
 using MenuManager.Scripts.Components.NonInteractive;
 using PetrushevskiApps.UIManager.ScreenNavigation;
 using Plugins.UIManager.Scripts.Components.NonInteractive.UITimer;
+using TinyRiftGames.UIManager.Scripts.InfiniteScrollList;
 using Zenject;
 
 public class UICompleteInstaller : MonoInstaller
@@ -14,6 +15,7 @@ public class UICompleteInstaller : MonoInstaller
         Container.BindNonInteractiveComponentDependencies();
         Container.BindTimerColoringDependencies();
         Container.BindTimerFormattingDependencies();
+        Container.BindInfiniteScrollListDependencies();
         
         // Screen Bindings
         Container.BindMainScreenDependencies();

@@ -1,6 +1,7 @@
 ﻿using MenuManager.Scripts.Components.NonInteractive;
 using Plugins.UIManager.Scripts.Components.NonInteractive.UITimer;
 using Plugins.UIManager.Scripts.CustomJoystick;
+using TinyRiftGames.UIManager.Scripts.InfiniteScrollList;
 using Zenject;
 
 public class UIComponentInstaller : MonoInstaller
@@ -11,5 +12,6 @@ public class UIComponentInstaller : MonoInstaller
         Container.BindTimerColoringDependencies();
         Container.BindTimerFormattingDependencies();
         Container.BindJoystickDependencies();
+        Container.BindInfiniteScrollListDependencies();
     }
 }
