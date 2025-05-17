@@ -25,7 +25,9 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
         private float _scrollSpeed = 100f;
         [SerializeField]
         private float _scrollLength = 300f;
-
+        [SerializeField]
+        private float _bottomPadding;
+        
         // Events
         public event EventHandler OnListEndEvent;
         public event EventHandler ScrolledToTopEvent;
@@ -231,7 +233,7 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         private void UpdateContainerSize(int rowsCount)
         {
-            float containerHeight = _headerSize + rowsCount * (_verticalSpacing + _rowHeight);
+            float containerHeight = _headerSize + rowsCount * (_verticalSpacing + _rowHeight) + _bottomPadding;
             _container.sizeDelta = new Vector2(_container.sizeDelta.x, containerHeight);
             RowsInView = ViewPortHeight / _rowHeight;
             _scrollThreshold = RowsInView / _container.rect.height;

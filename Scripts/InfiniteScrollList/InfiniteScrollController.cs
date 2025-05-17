@@ -9,6 +9,7 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
     {
         public event EventHandler<IItemView> ScrollPageCompleted;
         public event EventHandler ListViewsReadyEvent;
+        public event EventHandler ListEndEvent;
 
         [SerializeField]
         private InfiniteScrollList _scrollList;
@@ -39,6 +40,7 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
             _scrollList.RowVisibleEvent += OnRowVisible;
             _scrollList.RowHiddenEvent += OnRowHidden;
             _scrollList.RowsVisibilityUpdatedEvent += OnRowsVisibilityUpdated;
+            _scrollList.OnListEndEvent += OnListEndEvent;
         }
 
         private void OnDestroy()
@@ -46,6 +48,12 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
             _scrollList.RowVisibleEvent -= OnRowVisible;
             _scrollList.RowHiddenEvent -= OnRowHidden;
             _scrollList.RowsVisibilityUpdatedEvent -= OnRowsVisibilityUpdated;
+            _scrollList.OnListEndEvent -= OnListEndEvent;
+        }
+
+        private void OnListEndEvent(object sender, EventArgs e)
+        {
+            ListEndEvent?.Invoke(sender, e);
         }
 
         private void Start()
@@ -112,9 +120,12 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
         private void SetPrefabAnchors()
         {
             var rectTransform = _listItemPrefab.GetComponent<RectTransform>();
-            rectTransform.anchorMin = new Vector2(0, 1);
-            rectTransform.anchorMax = new Vector2(1, 1);
-            rectTransform.pivot = new Vector2(0, 0.5f);
+            // rectTransform.anchorMin = new Vector2(0, 1);
+            // rectTransform.anchorMax = new Vector2(1, 1);
+            // rectTransform.pivot = new Vector2(0, 0.5f);
+            rectTransform.anchorMin = new Vector2(0.5f, 1);
+            rectTransform.anchorMax = new Vector2(0.5f, 1);
+            rectTransform.pivot = new Vector2(0.5f, 0.5f);
         }
 
         public void Clear()
