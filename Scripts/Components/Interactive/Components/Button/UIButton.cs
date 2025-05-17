@@ -35,13 +35,24 @@ namespace PetrushevskiApps.UIManager
             _button = GetComponent<Button>();
         }
 
+        public void SetHaptics(IUiHapticsController hapticsController)
+        {
+            _uiHapticsController = hapticsController;
+        }
         public void SetData(UIButtonViewData viewData)
         {
             gameObject.SetActive(viewData.IsVisible);
             if (viewData.IsVisible && _label != null)
             {
+                _label.gameObject.SetActive(true);
                 _label.text = viewData.Label;
             }
+            else if(viewData.Label == null && _label != null)
+            {
+                _label.gameObject.SetActive(false);
+            }
+
+            _button.interactable = viewData.IsInteractive;
         }
 
         private void OnEnable()
@@ -56,7 +67,7 @@ namespace PetrushevskiApps.UIManager
 
         private void ButtonClicked()
         {
-            OnClick.Invoke();
+            OnClick?.Invoke();
             if (_ignoreHaptics)
             {
                 return;

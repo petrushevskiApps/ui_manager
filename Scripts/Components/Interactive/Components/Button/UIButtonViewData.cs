@@ -4,5 +4,6 @@
     {
         public bool IsVisible;
         public string Label;
+        public bool IsInteractive;
     }
 }
