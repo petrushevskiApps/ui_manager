@@ -29,5 +29,15 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation.Navigation
         {
             _navigationController.ShowScreen<LevelFailedScreen>();
         }
+
+        public void NavigateBack()
+        {
+            _navigationController.GoBack();
+        }
+
+        public void ShowLevelsScreen()
+        {
+            _navigationController.ShowScreen<LevelsScreen>();
+        }
     }
 }

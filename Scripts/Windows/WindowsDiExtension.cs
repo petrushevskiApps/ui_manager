@@ -33,6 +33,13 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation
                 .To<LevelCompletedScreenViewModel>()
                 .AsSingle();
         }
+        public static void BindLevelsScreenDependencies(this DiContainer container)
+        {
+            container
+                .Bind<ILevelsScreenViewModel>()
+                .To<LevelsScreenViewModel>()
+                .AsSingle();
+        }
         public static void BindPopupDependencies(this DiContainer container)
         {
             container

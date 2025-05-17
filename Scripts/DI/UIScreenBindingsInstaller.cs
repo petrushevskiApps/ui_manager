@@ -9,5 +9,6 @@ public class UIScreenBindingsInstaller : MonoInstaller
         Container.BindInGameScreenDependencies();
         Container.BindLevelFailedScreenDependencies();
         Container.BindLevelCompletedScreenDependencies();
+        Container.BindLevelsScreenDependencies();
     }
 }

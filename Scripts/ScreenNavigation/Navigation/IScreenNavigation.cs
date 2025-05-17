@@ -8,5 +8,7 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation.Navigation
         public void ShowInGameScreen();
         public void ShowLevelCompletedScreen(LevelCompletedArguments levelResults);
         public void ShowLevelFailedScreen();
+        void NavigateBack();
+        void ShowLevelsScreen();
     }
 }
