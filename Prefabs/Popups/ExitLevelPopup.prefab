@@ -681,7 +681,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 2
@@ -1491,15 +1491,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7101682504984444583, guid: 62c8b131ddd89cf4cab53eaf3b2a7d29, type: 3}
       propertyPath: m_Color.b
-      value: 0.15686275
+      value: 0.9529412
       objectReference: {fileID: 0}
     - target: {fileID: 7101682504984444583, guid: 62c8b131ddd89cf4cab53eaf3b2a7d29, type: 3}
       propertyPath: m_Color.g
-      value: 0.5372549
+      value: 0.4862745
       objectReference: {fileID: 0}
     - target: {fileID: 7101682504984444583, guid: 62c8b131ddd89cf4cab53eaf3b2a7d29, type: 3}
       propertyPath: m_Color.r
-      value: 0.95294124
+      value: 0.15686275
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
