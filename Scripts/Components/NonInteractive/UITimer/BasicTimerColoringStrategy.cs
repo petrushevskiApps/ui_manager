@@ -6,7 +6,7 @@ namespace Plugins.UIManager.Scripts.Components.NonInteractive.UITimer
     {
         public Color GetTimerLabelColor(int minutes, int seconds)
         {
-            if (minutes == 0 && seconds <= 10)
+            if (minutes == 0 && seconds <= 15)
             {
                 return Color.red;
             }
