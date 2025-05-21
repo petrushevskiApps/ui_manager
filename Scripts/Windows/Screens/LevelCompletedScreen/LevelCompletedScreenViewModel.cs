@@ -57,13 +57,13 @@ namespace slowBulletGames.MemoryValley
         public virtual void NextLevelButtonClicked()
         {
             _uiLevelController.CollectReward();
-            _uiLevelController.StartLevel();
+            _uiLevelController.StartNextLevel();
         }
 
         public virtual void DoubleRewardButtonClicked()
         {
             _uiLevelController.CollectDoubleReward();
-            _uiLevelController.StartLevel();
+            _uiLevelController.StartNextLevel();
         }
 
         public virtual void ReplayButtonClicked()

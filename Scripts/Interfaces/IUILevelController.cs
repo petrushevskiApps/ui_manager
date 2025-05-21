@@ -9,5 +9,6 @@
         void CollectReward();
         void CollectDoubleReward();
         void LeaveLevel();
+        void StartNextLevel();
     }
 }
