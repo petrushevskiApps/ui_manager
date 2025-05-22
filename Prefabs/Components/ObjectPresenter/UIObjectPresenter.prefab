@@ -121,7 +121,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4607227394041838380}
   - component: {fileID: 7448785708276095347}
-  - component: {fileID: 6576419002215576802}
   - component: {fileID: 2686998136744124746}
   m_Layer: 0
   m_Name: IslandCamera
@@ -196,14 +195,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &6576419002215576802
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9061512114942128840}
-  m_Enabled: 1
 --- !u!114 &2686998136744124746
 MonoBehaviour:
   m_ObjectHideFlags: 0
