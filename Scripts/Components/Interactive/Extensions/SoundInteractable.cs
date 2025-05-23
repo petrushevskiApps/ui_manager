@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Plugins.UIManager.Scripts.Data;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
@@ -21,15 +22,15 @@ namespace PetrushevskiApps.UIManager
 
         // Injected
         private ISoundSystem _soundSystem;
-        private IInteractableSoundConfig _interactableSoundConfig;
+        private IUiAudioPalette _uiAudioPalette;
 
         [Inject]
         public void Initialize(
             ISoundSystem soundSystem,
-            IInteractableSoundConfig interactableSoundConfig)
+            IUiAudioPalette uiAudioPalette)
         {
             _soundSystem = soundSystem;
-            _interactableSoundConfig = interactableSoundConfig;
+            _uiAudioPalette = uiAudioPalette;
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -41,12 +42,12 @@ namespace PetrushevskiApps.UIManager
 
         private AudioClip GetPositiveSound()
         {
-            return _positiveSound != null ? _positiveSound : _interactableSoundConfig.PositiveSound;
+            return _positiveSound != null ? _positiveSound : _uiAudioPalette.ActiveInteractableElementClicked;
         }
         
         private AudioClip GetNegativeSound()
         {
-            return _negativeSound != null ? _negativeSound : _interactableSoundConfig.NegativeSound;
+            return _negativeSound != null ? _negativeSound : _uiAudioPalette.InactiveInteractableElementClicked;
         }
     }
 }

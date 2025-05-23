@@ -1,4 +1,5 @@
 ﻿using System;
+using Plugins.UIManager.Scripts.Data;
 using slowBulletGames.MemoryValley;
 using TMPro;
 using UnityEngine;
@@ -37,7 +38,7 @@ namespace PetrushevskiApps.UIManager
         
         // Injected
         private ISoundSystem _soundSystem;
-        private IPopupSoundConfiguration _popupSoundConfiguration;
+        private IUiAudioPalette _uiAudioPalette;
         protected INavigationController NavigationController;
         
         protected abstract IPopupViewModel GetPopupViewModel();
@@ -45,11 +46,11 @@ namespace PetrushevskiApps.UIManager
         [Inject]
         public void Initialize(
             ISoundSystem soundSystem,
-            IPopupSoundConfiguration popupSoundConfiguration,
+            IUiAudioPalette uiAudioPalette,
             INavigationController navigationController)
         {
             _soundSystem = soundSystem;
-            _popupSoundConfiguration = popupSoundConfiguration;
+            _uiAudioPalette = uiAudioPalette;
             NavigationController = navigationController;
         }
         
@@ -72,7 +73,7 @@ namespace PetrushevskiApps.UIManager
                 GetPopupViewModel().Message?.Subscribe(SetMessage, triggerOnSubscribe: true);
             }
             gameObject.SetActive(true);
-            PlaySfx(_popupSoundConfiguration.PopupShown);
+            PlaySfx(_uiAudioPalette.PopupShown);
             PauseGame(true);
         }
         
@@ -95,7 +96,7 @@ namespace PetrushevskiApps.UIManager
         public virtual void Close()
         {
             PopupScreenClosedEvent?.Invoke(this, EventArgs.Empty);
-            PlaySfx(_popupSoundConfiguration.PopupHidden);
+            PlaySfx(_uiAudioPalette.PopupHidden);
             Hide();
         }
 
