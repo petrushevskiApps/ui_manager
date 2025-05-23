@@ -21,21 +21,21 @@ namespace PetrushevskiApps.UIManager
         private AudioClip _negativeSound;
 
         // Injected
-        private ISoundSystem _soundSystem;
+        private IUiSoundSystem _uiSoundSystem;
         private IUiAudioPalette _uiAudioPalette;
 
         [Inject]
         public void Initialize(
-            ISoundSystem soundSystem,
+            IUiSoundSystem uiSoundSystem,
             IUiAudioPalette uiAudioPalette)
         {
-            _soundSystem = soundSystem;
+            _uiSoundSystem = uiSoundSystem;
             _uiAudioPalette = uiAudioPalette;
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            _soundSystem?.PlaySoundEffect(Selectable.interactable
+            _uiSoundSystem?.PlaySoundEffect(Selectable.interactable
                 ? GetPositiveSound()
                 : GetNegativeSound());
         }

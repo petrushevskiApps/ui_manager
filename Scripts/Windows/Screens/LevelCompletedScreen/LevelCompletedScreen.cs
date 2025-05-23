@@ -76,6 +76,7 @@ namespace slowBulletGames.MemoryValley
             ViewModel.EarnedStars.Unsubscribe(_stars.SetData);
             ViewModel.Title.Unsubscribe(_title.SetData);
             ViewModel.EarnedCoinsText.Subscribe(_earnedCoinsText.SetData);
+            ViewModel.ScreenHidden();
         }
 
         public override void OnBackTriggered()

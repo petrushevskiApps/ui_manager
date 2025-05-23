@@ -36,6 +36,7 @@ namespace slowBulletGames.MemoryValley
             _homeButton.OnClick.AddListener(ViewModel.HomeButtonClicked);
             _settingsButton.OnClick.AddListener(ViewModel.SettingsClicked);
             _uiHapticsController.LevelFailed();
+            ViewModel.ScreenShown();
         }
 
         public override void Hide()
@@ -45,6 +46,7 @@ namespace slowBulletGames.MemoryValley
             _replayButton.OnClick.RemoveListener(ViewModel.ReplayButtonClicked);
             _homeButton.OnClick.RemoveListener(ViewModel.HomeButtonClicked);
             _settingsButton.OnClick.RemoveListener(ViewModel.SettingsClicked);
+            ViewModel.ScreenHidden();
         }
         
         public override void OnBackTriggered()

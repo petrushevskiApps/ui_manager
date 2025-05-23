@@ -7,5 +7,7 @@
         void ReviveButtonClicked();
         void SettingsClicked();
         void OnBackTriggered();
+        void ScreenShown();
+        void ScreenHidden();
     }
 }

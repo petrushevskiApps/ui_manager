@@ -37,7 +37,7 @@ namespace PetrushevskiApps.UIManager
         public event EventHandler PopupScreenClosedEvent;
         
         // Injected
-        private ISoundSystem _soundSystem;
+        private IUiSoundSystem _uiSoundSystem;
         private IUiAudioPalette _uiAudioPalette;
         protected INavigationController NavigationController;
         
@@ -45,11 +45,11 @@ namespace PetrushevskiApps.UIManager
         
         [Inject]
         public void Initialize(
-            ISoundSystem soundSystem,
+            IUiSoundSystem uiSoundSystem,
             IUiAudioPalette uiAudioPalette,
             INavigationController navigationController)
         {
-            _soundSystem = soundSystem;
+            _uiSoundSystem = uiSoundSystem;
             _uiAudioPalette = uiAudioPalette;
             NavigationController = navigationController;
         }
@@ -104,7 +104,7 @@ namespace PetrushevskiApps.UIManager
         {
             if (sfxClip != null)
             {
-                _soundSystem?.PlaySoundEffect(sfxClip);
+                _uiSoundSystem?.PlaySoundEffect(sfxClip);
             }
         }
         

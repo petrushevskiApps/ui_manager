@@ -16,26 +16,38 @@ namespace slowBulletGames.MemoryValley
         private readonly IScreenNavigation _screenNavigation;
         private readonly IPopupNavigation _popupNavigation;
         private readonly IUILevelController _uiLevelController;
+        private readonly IBackgroundMusicAudioPalette _musicAudioPalette;
+        private readonly IUiSoundSystem _uiSoundSystem;
 
 
         public LevelCompletedScreenViewModel(
             IScreenNavigation screenNavigation,
             IPopupNavigation popupNavigation,
-            IUILevelController uiLevelController)
+            IUILevelController uiLevelController,
+            IBackgroundMusicAudioPalette musicAudioPalette,
+            IUiSoundSystem uiSoundSystem) 
         {
             _screenNavigation = screenNavigation;
             _popupNavigation = popupNavigation;
             _uiLevelController = uiLevelController;
+            _musicAudioPalette = musicAudioPalette;
+            _uiSoundSystem = uiSoundSystem;
 
             Title = new ReactiveProperty<string>("Level Completed");
             EarnedStars = new ReactiveProperty<int>();
             EarnedCoinsText = new ReactiveProperty<string>();
         }
 
-        public void ScreenResumed()
+        public virtual void ScreenResumed()
         {
             EarnedStars = new ReactiveProperty<int>();
             EarnedCoinsText = new ReactiveProperty<string>();
+            _uiSoundSystem.PlayBackgroundMusic(_musicAudioPalette.LevelCompletedBackgroundMusic);
+        }
+
+        public virtual void ScreenHidden()
+        {
+            _uiSoundSystem.StopBackgroundMusic();
         }
 
         public void OnBackTriggered()
