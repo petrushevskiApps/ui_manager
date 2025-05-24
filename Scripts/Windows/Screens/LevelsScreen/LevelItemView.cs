@@ -36,7 +36,9 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation.Screens.LevelsScreen
             _button.OnClick.AddListener(OnButtonClicked);
         }
 
-        public void SetData(IUiHapticsController uiHapticsController, IUILevelData levelData,
+        public void SetData(
+            IUiHapticsController uiHapticsController, 
+            IUILevelData levelData,
             Action<int, int> onItemClicked)
         {
             _levelData = levelData;
