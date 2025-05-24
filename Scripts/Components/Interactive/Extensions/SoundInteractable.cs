@@ -35,7 +35,7 @@ namespace PetrushevskiApps.UIManager
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            _uiSoundSystem?.PlaySoundEffect(Selectable.interactable
+            _uiSoundSystem?.PlayUiSoundEffect(Selectable.interactable
                 ? GetPositiveSound()
                 : GetNegativeSound());
         }

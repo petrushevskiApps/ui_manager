@@ -2,7 +2,8 @@ using UnityEngine;
 
 public interface IUiSoundSystem
 {
-    void PlaySoundEffect(AudioClip clip);
-    void PlayBackgroundMusic(AudioClip levelFailedBackgroundMusic);
-    void StopBackgroundMusic();
+    void PlayUiSoundEffect(AudioClip clip, bool isLooping = false, float pitch = 1);
+    void PlayBackgroundMusic(AudioClip audio, bool isLoop = true, bool isInMenu = true);
+    void StopBackgroundMusic(bool isInMenu = true);
+    void StopUiSoundEffects();
 }

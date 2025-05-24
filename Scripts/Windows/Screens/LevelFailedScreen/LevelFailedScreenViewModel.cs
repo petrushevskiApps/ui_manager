@@ -42,7 +42,7 @@ namespace slowBulletGames.MemoryValley
             _uiSoundSystem.PlayBackgroundMusic(_musicAudioPalette.MainScreenBackgroundMusic);
             if (!_isSfxPlayed)
             {
-                _uiSoundSystem.PlaySoundEffect(_uiAudioPalette.LevelFailedBackgroundMusic);
+                _uiSoundSystem.PlayUiSoundEffect(_uiAudioPalette.LevelFailedBackgroundMusic);
                 _isSfxPlayed = true;
             }
         }

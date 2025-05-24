@@ -104,7 +104,7 @@ namespace PetrushevskiApps.UIManager
         {
             if (sfxClip != null)
             {
-                _uiSoundSystem?.PlaySoundEffect(sfxClip);
+                _uiSoundSystem?.PlayUiSoundEffect(sfxClip);
             }
         }
         
