@@ -22,5 +22,6 @@ namespace slowBulletGames.MemoryValley
         void SetEarnedStars(int earnedStars);
         void ScreenResumed();
         void ScreenHidden();
+        void ScreenClosed();
     }
 }

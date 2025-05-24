@@ -1,5 +1,6 @@
 ﻿using MenuManager.Scripts.Utilitis;
 using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
+using Plugins.UIManager.Scripts.Data;
 
 namespace slowBulletGames.MemoryValley
 {
@@ -12,11 +13,15 @@ namespace slowBulletGames.MemoryValley
 
         protected int EarnedCoins { get; private set; }
 
+        // Internal
+        private bool _isSfxPlayed;
+        
         // Injected
         private readonly IScreenNavigation _screenNavigation;
         private readonly IPopupNavigation _popupNavigation;
         private readonly IUILevelController _uiLevelController;
         private readonly IBackgroundMusicAudioPalette _musicAudioPalette;
+        private readonly IUiAudioPalette _uiAudioPalette;
         private readonly IUiSoundSystem _uiSoundSystem;
 
 
@@ -25,12 +30,14 @@ namespace slowBulletGames.MemoryValley
             IPopupNavigation popupNavigation,
             IUILevelController uiLevelController,
             IBackgroundMusicAudioPalette musicAudioPalette,
+            IUiAudioPalette uiAudioPalette,
             IUiSoundSystem uiSoundSystem) 
         {
             _screenNavigation = screenNavigation;
             _popupNavigation = popupNavigation;
             _uiLevelController = uiLevelController;
             _musicAudioPalette = musicAudioPalette;
+            _uiAudioPalette = uiAudioPalette;
             _uiSoundSystem = uiSoundSystem;
 
             Title = new ReactiveProperty<string>("Level Completed");
@@ -42,7 +49,13 @@ namespace slowBulletGames.MemoryValley
         {
             EarnedStars = new ReactiveProperty<int>();
             EarnedCoinsText = new ReactiveProperty<string>();
-            _uiSoundSystem.PlayBackgroundMusic(_musicAudioPalette.LevelCompletedBackgroundMusic);
+            
+            if (!_isSfxPlayed)
+            {
+                _uiSoundSystem.PlaySoundEffect(_uiAudioPalette.LevelCompletedBackgroundMusic);
+                _isSfxPlayed = true;
+            }
+            _uiSoundSystem.PlayBackgroundMusic(_musicAudioPalette.MainScreenBackgroundMusic);
         }
 
         public virtual void ScreenHidden()
@@ -50,6 +63,11 @@ namespace slowBulletGames.MemoryValley
             _uiSoundSystem.StopBackgroundMusic();
         }
 
+        public void ScreenClosed()
+        {
+            _isSfxPlayed = false;
+        }
+        
         public void OnBackTriggered()
         {
             _uiLevelController.CollectReward();

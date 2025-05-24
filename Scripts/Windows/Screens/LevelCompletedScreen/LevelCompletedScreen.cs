@@ -79,6 +79,12 @@ namespace slowBulletGames.MemoryValley
             ViewModel.ScreenHidden();
         }
 
+        public override void Close()
+        {
+            base.Close();
+            ViewModel.ScreenClosed();
+        }
+
         public override void OnBackTriggered()
         {
             ViewModel.OnBackTriggered();
