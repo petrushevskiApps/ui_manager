@@ -12,6 +12,7 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation.Navigation
         }
         public void ShowMainScreen()
         {
+            _navigationController.ClearAllStackScreens();
             _navigationController.ShowScreen<MainScreen>();
         }
 

@@ -21,4 +21,5 @@ public interface INavigationController
     void ShowPopup<T>() where T : IScreen;
     event EventHandler AllScreensClosedEvent;
     IBackHandler GetActiveBackHandler();
+    void ClearAllStackScreens();
 }

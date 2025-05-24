@@ -79,8 +79,11 @@ public class NavigationController : INavigationController
 
         if (screen != null)
         {
-            if (!_screenBackStack.IsEmpty() && !(screen.IsPopup ^ _screenBackStack.Peek().IsPopup))
+            if (!_screenBackStack.IsEmpty() && (_screenBackStack.Peek().IsPopup || !screen.IsPopup))
             {
+                // We skip hiding the current screen only if
+                // there is no active screen on the stack or
+                // the current screen is Screen and the new is Popup.
                 HideCurrentScreenIn(_screenBackStack);
             }
             
@@ -126,6 +129,14 @@ public class NavigationController : INavigationController
                 stack.Pop().Close();
             }
             else break;
+        }
+    }
+
+    public void ClearAllStackScreens()
+    {
+        while (!_screenBackStack.IsEmpty())
+        {
+            _screenBackStack.Pop().Close();
         }
     }
 }
