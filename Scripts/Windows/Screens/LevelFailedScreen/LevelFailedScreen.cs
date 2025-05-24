@@ -48,7 +48,13 @@ namespace slowBulletGames.MemoryValley
             _settingsButton.OnClick.RemoveListener(ViewModel.SettingsClicked);
             ViewModel.ScreenHidden();
         }
-        
+
+        public override void Close()
+        {
+            base.Close();
+            ViewModel.ScreenClosed();
+        }
+
         public override void OnBackTriggered()
         {
             ViewModel.OnBackTriggered();

@@ -9,5 +9,6 @@
         void OnBackTriggered();
         void ScreenShown();
         void ScreenHidden();
+        void ScreenClosed();
     }
 }
