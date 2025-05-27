@@ -31,11 +31,11 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation.Screens.LevelsScreen
         private Action<int, int> _onItemClicked;
         private IUILevelData _levelData;
 
-        private void OnEnable()
+        private void Awake()
         {
             _button.OnClick.AddListener(OnButtonClicked);
         }
-
+        
         public void SetData(
             IUiHapticsController uiHapticsController, 
             IUILevelData levelData,

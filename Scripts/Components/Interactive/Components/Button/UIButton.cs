@@ -33,6 +33,12 @@ namespace PetrushevskiApps.UIManager
         protected void Awake()
         {
             _button = GetComponent<Button>();
+            _button.onClick.AddListener(ButtonClicked);
+        }
+
+        private void OnDestroy()
+        {
+            _button.onClick.RemoveListener(ButtonClicked);
         }
 
         public void SetHaptics(IUiHapticsController hapticsController)
@@ -53,16 +59,6 @@ namespace PetrushevskiApps.UIManager
             }
 
             _button.interactable = viewData.IsInteractive;
-        }
-
-        private void OnEnable()
-        {
-            _button.onClick.AddListener(ButtonClicked);
-        }
-
-        protected void OnDisable()
-        {
-            _button.onClick.RemoveAllListeners();
         }
 
         private void ButtonClicked()
