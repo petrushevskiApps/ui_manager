@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb52f4892634d9d973a80c02d034fd5, type: 3}
   m_Name: UIManagerScriptableObjectInstaller
   m_EditorClassIdentifier: 
-  _scriptableObjectsToBind:
-  - {fileID: 11400000, guid: ee9d7a19a084e2041a5c4f2cb2468436, type: 2}
+  _scriptableObjectsToBind: []
