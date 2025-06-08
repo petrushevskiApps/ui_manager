@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FixedJoystick : Joystick
+namespace TwoOneTwoGames.UIManager.Plugins.JoystickPlugin
 {
+    public class FixedJoystick : Joystick
+    {
 
+    }
 }

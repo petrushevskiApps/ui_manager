@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace PetrushevskiApps.UIManager
+namespace TwoOneTwoGames.UIManager.Components.Interactive
 {
     public abstract class SelectableExtension : MonoBehaviour
     {
@@ -11,6 +11,5 @@ namespace PetrushevskiApps.UIManager
         {
             Selectable = GetComponent<Selectable>();
         }
-
     }
 }

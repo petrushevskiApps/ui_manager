@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace MenuManager.Scripts.Components.NonInteractive
+namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 {
     public static class UIComponentsDiExtension
     {

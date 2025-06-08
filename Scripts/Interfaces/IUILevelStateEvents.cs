@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Interfaces
 {
     public interface IUILevelStateEvents
     {

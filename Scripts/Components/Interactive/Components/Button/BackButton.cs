@@ -1,21 +1,15 @@
 ﻿using System;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
 using Zenject;
 
-namespace PetrushevskiApps.UIManager
+namespace TwoOneTwoGames.UIManager.Components.Interactive
 {
     public class BackButton : MonoBehaviour
     {
-        public event EventHandler BackButtonClickedEvent;
-        
         private UIButton _backButton;
         private INavigationController _navigationController;
 
-        [Inject]
-        private void Initialize(INavigationController navigationController)
-        {
-            _navigationController = navigationController;
-        }
         private void Awake()
         {
             _backButton = gameObject.GetComponent<UIButton>();
@@ -23,18 +17,20 @@ namespace PetrushevskiApps.UIManager
 
         private void OnEnable()
         {
-            if (_backButton != null)
-            {
-                _backButton.OnClick.AddListener(OnClick);
-            }
+            if (_backButton != null) _backButton.OnClick.AddListener(OnClick);
         }
 
         private void OnDisable()
         {
-            if (_backButton != null)
-            {
-                _backButton.OnClick.RemoveListener(OnClick);
-            }
+            if (_backButton != null) _backButton.OnClick.RemoveListener(OnClick);
+        }
+
+        public event EventHandler BackButtonClickedEvent;
+
+        [Inject]
+        private void Initialize(INavigationController navigationController)
+        {
+            _navigationController = navigationController;
         }
 
         private void OnClick()
@@ -44,4 +40,3 @@ namespace PetrushevskiApps.UIManager
         }
     }
 }
-

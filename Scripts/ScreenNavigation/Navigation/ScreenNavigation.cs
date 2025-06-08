@@ -1,8 +1,8 @@
-﻿using slowBulletGames.MemoryValley;
+﻿using TwoOneTwoGames.UIManager.Windows;
 
-namespace PetrushevskiApps.UIManager.ScreenNavigation.Navigation
+namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
-    public class ScreenNavigation: IScreenNavigation
+    public class ScreenNavigation : IScreenNavigation
     {
         private readonly INavigationController _navigationController;
 
@@ -10,6 +10,7 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation.Navigation
         {
             _navigationController = navigationController;
         }
+
         public void ShowMainScreen()
         {
             _navigationController.ClearAllStackScreens();

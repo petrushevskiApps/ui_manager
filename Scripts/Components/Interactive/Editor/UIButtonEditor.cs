@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TwoOneTwoGames.UIManager.Utilities;
 using UnityEditor;
 using UnityEngine;
 
-namespace PetrushevskiApps.UIManager
+namespace TwoOneTwoGames.UIManager.Components.Interactive.Editor
 {
     [CustomEditor(typeof(UIButton), true)]
     [CanEditMultipleObjects]
-    public class UIButtonEditor : Editor
+    public class UIButtonEditor : UnityEditor.Editor
     {
         private readonly List<string> _extensionNames = new();
 

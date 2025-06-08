@@ -1,7 +1,6 @@
-﻿using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
-using Zenject;
+﻿using Zenject;
 
-namespace PetrushevskiApps.UIManager.ScreenNavigation
+namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
     public static class NavigationDiExtension
     {
@@ -29,9 +28,10 @@ namespace PetrushevskiApps.UIManager.ScreenNavigation
         {
             container
                 .Bind<IScreenNavigation>()
-                .To<Navigation.ScreenNavigation>()
+                .To<ScreenNavigation>()
                 .AsSingle();
         }
+
         public static void BindPopupNavigationDependencies(this DiContainer container)
         {
             container

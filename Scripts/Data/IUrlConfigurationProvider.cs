@@ -1,6 +1,9 @@
-﻿public interface IUrlConfigurationProvider
+﻿namespace TwoOneTwoGames.UIManager.Data
 {
-    string PrivacySettingsUrl { get; }
-    string PrivacyPolicyUrl { get; }
-    string TermsOfUseUrl { get; }
+    public interface IUrlConfigurationProvider
+    {
+        string PrivacySettingsUrl { get; }
+        string PrivacyPolicyUrl { get; }
+        string TermsOfUseUrl { get; }
+    }
 }

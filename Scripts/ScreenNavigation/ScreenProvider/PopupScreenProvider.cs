@@ -1,39 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using PetrushevskiApps.UIManager;
-using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
 using UnityEngine;
 using Zenject;
 
-public class PopupScreenProvider : MonoBehaviour, IScreenProvider
+namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
-    [SerializeField]
-    [Tooltip("List of screens to be provided to Navigation Controller")]
-    private List<UIPopup> _popups = new();
-    
-    [Inject]
-    private INavigationController _navigationController;
-
-    [Inject]
-    private IPopupNavigation _popupNavigation;
-    
-    private void Awake()
+    public class PopupScreenProvider : MonoBehaviour, IScreenProvider
     {
-        _navigationController.AllScreensClosedEvent += OnAllScreensClosed;
-    }
+        [SerializeField]
+        [Tooltip("List of screens to be provided to Navigation Controller")]
+        private List<UIPopup> _popups = new();
 
-    private void OnDestroy()
-    {
-        _navigationController.AllScreensClosedEvent -= OnAllScreensClosed;
-    }
+        [Inject]
+        private INavigationController _navigationController;
 
-    private void OnAllScreensClosed(object sender, EventArgs e)
-    {
-        _popupNavigation.ShowExitGamePopup();
-    }
+        [Inject]
+        private IPopupNavigation _popupNavigation;
 
-    public IScreen GetScreen<T>() where T : IScreen
-    {
-        return _popups.Find(x => x.GetType() == typeof(T));
+        private void Awake()
+        {
+            _navigationController.AllScreensClosedEvent += OnAllScreensClosed;
+        }
+
+        private void OnDestroy()
+        {
+            _navigationController.AllScreensClosedEvent -= OnAllScreensClosed;
+        }
+
+        public IScreen GetScreen<T>() where T : IScreen
+        {
+            return _popups.Find(x => x.GetType() == typeof(T));
+        }
+
+        private void OnAllScreensClosed(object sender, EventArgs e)
+        {
+            _popupNavigation.ShowExitGamePopup();
+        }
     }
 }

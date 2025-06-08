@@ -1,11 +1,13 @@
 ﻿using System;
-using Plugins.UIManager.Scripts.Data;
-using slowBulletGames.MemoryValley;
 using TMPro;
+using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Data;
+using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.Windows;
 using UnityEngine;
 using Zenject;
 
-namespace PetrushevskiApps.UIManager
+namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
     public abstract class UIPopup : MonoBehaviour, IScreen, IPopupScreenEvents
     {
@@ -15,45 +17,34 @@ namespace PetrushevskiApps.UIManager
 
         [SerializeField]
         [Tooltip("True: When this popup is shown the Game Time is set to 0. False: Ignores this setting.")]
-        private bool _pauseGameWhenActive = false;
+        private bool _pauseGameWhenActive;
 
         [SerializeField]
         [Tooltip("Clickable background which disposes the popup when clicked.Same as the Back Button.")]
         private UIButton _popupClickableBackground;
-        
+
         [Header("Popup Properties")]
         [SerializeField]
         private TextMeshProUGUI _title;
+
         [SerializeField]
         private TextMeshProUGUI _message;
-        
-        public bool IsPopup => true;
-        public bool IsBackStackable => _isBackStackable;
-        
+
+        private IUiAudioPalette _uiAudioPalette;
+
+        // Injected
+        private IUiSoundSystem _uiSoundSystem;
+        protected INavigationController NavigationController;
+
         // Events
         public event EventHandler PopupScreenShownEvent;
         public event EventHandler PopupScreenResumedEvent;
         public event EventHandler PopupScreenHiddenEvent;
         public event EventHandler PopupScreenClosedEvent;
-        
-        // Injected
-        private IUiSoundSystem _uiSoundSystem;
-        private IUiAudioPalette _uiAudioPalette;
-        protected INavigationController NavigationController;
-        
-        protected abstract IPopupViewModel GetPopupViewModel();
-        
-        [Inject]
-        public void Initialize(
-            IUiSoundSystem uiSoundSystem,
-            IUiAudioPalette uiAudioPalette,
-            INavigationController navigationController)
-        {
-            _uiSoundSystem = uiSoundSystem;
-            _uiAudioPalette = uiAudioPalette;
-            NavigationController = navigationController;
-        }
-        
+
+        public bool IsPopup => true;
+        public bool IsBackStackable => _isBackStackable;
+
         public void Show<TArguments>(TArguments navArguments)
         {
             PopupScreenShownEvent?.Invoke(this, EventArgs.Empty);
@@ -64,32 +55,20 @@ namespace PetrushevskiApps.UIManager
         {
             PopupScreenResumedEvent?.Invoke(this, EventArgs.Empty);
             _popupClickableBackground.OnClick.AddListener(GetPopupViewModel().BackgroundClicked);
-            if (_title != null)
-            {
-                GetPopupViewModel().Title?.Subscribe(SetTitle, triggerOnSubscribe: true);
-            }
-            if (_message != null)
-            {
-                GetPopupViewModel().Message?.Subscribe(SetMessage, triggerOnSubscribe: true);
-            }
+            if (_title != null) GetPopupViewModel().Title?.Subscribe(SetTitle, true);
+            if (_message != null) GetPopupViewModel().Message?.Subscribe(SetMessage, true);
             gameObject.SetActive(true);
             PlaySfx(_uiAudioPalette.PopupShown);
             PauseGame(true);
         }
-        
+
         public virtual void Hide()
         {
             PopupScreenHiddenEvent?.Invoke(this, EventArgs.Empty);
             _popupClickableBackground.OnClick.RemoveListener(GetPopupViewModel().BackgroundClicked);
             gameObject.SetActive(false);
-            if (_title != null)
-            {
-                GetPopupViewModel().Title?.Unsubscribe(SetTitle);
-            }
-            if (_message != null)
-            {
-                GetPopupViewModel().Message?.Unsubscribe(SetMessage);
-            }
+            if (_title != null) GetPopupViewModel().Title?.Unsubscribe(SetTitle);
+            if (_message != null) GetPopupViewModel().Message?.Unsubscribe(SetMessage);
             PauseGame(false);
         }
 
@@ -100,14 +79,29 @@ namespace PetrushevskiApps.UIManager
             Hide();
         }
 
+        public void OnBackTriggered()
+        {
+            NavigationController.GoBack();
+        }
+
+        protected abstract IPopupViewModel GetPopupViewModel();
+
+        [Inject]
+        public void Initialize(
+            IUiSoundSystem uiSoundSystem,
+            IUiAudioPalette uiAudioPalette,
+            INavigationController navigationController)
+        {
+            _uiSoundSystem = uiSoundSystem;
+            _uiAudioPalette = uiAudioPalette;
+            NavigationController = navigationController;
+        }
+
         private void PlaySfx(AudioClip sfxClip)
         {
-            if (sfxClip != null)
-            {
-                _uiSoundSystem?.PlayUiSoundEffect(sfxClip);
-            }
+            if (sfxClip != null) _uiSoundSystem?.PlayUiSoundEffect(sfxClip);
         }
-        
+
         private void SetTitle(string title)
         {
             if (string.IsNullOrWhiteSpace(title))
@@ -115,9 +109,11 @@ namespace PetrushevskiApps.UIManager
                 _title.gameObject.SetActive(false);
                 return;
             }
+
             _title.gameObject.SetActive(true);
             _title.text = title;
         }
+
         private void SetMessage(string message)
         {
             if (string.IsNullOrWhiteSpace(message))
@@ -125,21 +121,14 @@ namespace PetrushevskiApps.UIManager
                 _message.gameObject.SetActive(false);
                 return;
             }
+
             _message.gameObject.SetActive(true);
             _message.text = message;
         }
 
         private void PauseGame(bool pause)
         {
-            if (_pauseGameWhenActive)
-            {
-                Time.timeScale = pause ? 0 : 1;
-            }
-        }
-
-        public void OnBackTriggered()
-        {
-            NavigationController.GoBack();
+            if (_pauseGameWhenActive) Time.timeScale = pause ? 0 : 1;
         }
     }
 }

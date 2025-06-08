@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
-public interface IJoystick
+namespace TwoOneTwoGames.UIManager.Plugins.JoystickPlugin
 {
-    float Horizontal { get; }
-    float Vertical { get; }
-    Vector3 Direction { get; }
+    public interface IJoystick
+    {
+        float Horizontal { get; }
+        float Vertical { get; }
+        Vector3 Direction { get; }
+    }
 }

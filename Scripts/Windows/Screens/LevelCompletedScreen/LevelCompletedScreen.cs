@@ -1,35 +1,44 @@
-using MenuManager.Scripts.Components.NonInteractive.Extensions;
-using PetrushevskiApps.UIManager;
 using TMPro;
+using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive;
+using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
 using Zenject;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class LevelCompletedScreen : UIScreen
     {
-        [SerializeField] 
+        [SerializeField]
         private UIStars _stars;
-        [SerializeField] 
+
+        [SerializeField]
         private TextMeshProUGUI _title;
-        [SerializeField] 
+
+        [SerializeField]
         private TextMeshProUGUI _earnedCoinsText;
-        
-        [Header("Buttons")] 
-        [SerializeField] 
+
+        [Header("Buttons")]
+        [SerializeField]
         private UIButton _replayButton;
-        [SerializeField] 
+
+        [SerializeField]
         private UIButton _homeButton;
-        [SerializeField] 
+
+        [SerializeField]
         private UIButton _settingsButton;
-        [SerializeField] 
+
+        [SerializeField]
         private UIButton _nextButton;
-        [SerializeField] 
+
+        [SerializeField]
         private UIButton _doubleRewardButton;
+
+        private IUiHapticsController _uiHapticsController;
 
         // Injected
         protected ILevelCompletedScreenViewModel ViewModel;
-        private IUiHapticsController _uiHapticsController;
 
         [Inject]
         private void Initialize(

@@ -1,17 +1,19 @@
-﻿using MenuManager.Scripts.Components.NonInteractive;
-using Plugins.UIManager.Scripts.Components.NonInteractive.UITimer;
-using Plugins.UIManager.Scripts.CustomJoystick;
-using TinyRiftGames.UIManager.Scripts.InfiniteScrollList;
+﻿using TwoOneTwoGames.UIManager.Components.NonInteractive;
+using TwoOneTwoGames.UIManager.InfiniteScrollList;
+using TwoOneTwoGames.UIManager.JoystickController;
 using Zenject;
 
-public class UIComponentInstaller : MonoInstaller
+namespace TwoOneTwoGames.UIManager.Di
 {
-    public override void InstallBindings()
+    public class UIComponentInstaller : MonoInstaller
     {
-        Container.BindNonInteractiveComponentDependencies();
-        Container.BindTimerColoringDependencies();
-        Container.BindTimerFormattingDependencies();
-        Container.BindJoystickDependencies();
-        Container.BindInfiniteScrollListDependencies();
+        public override void InstallBindings()
+        {
+            Container.BindNonInteractiveComponentDependencies();
+            Container.BindTimerColoringDependencies();
+            Container.BindTimerFormattingDependencies();
+            Container.BindJoystickDependencies();
+            Container.BindInfiniteScrollListDependencies();
+        }
     }
 }

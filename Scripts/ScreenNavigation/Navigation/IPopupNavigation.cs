@@ -1,4 +1,4 @@
-﻿namespace PetrushevskiApps.UIManager.ScreenNavigation.Navigation
+﻿namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
     public interface IPopupNavigation
     {

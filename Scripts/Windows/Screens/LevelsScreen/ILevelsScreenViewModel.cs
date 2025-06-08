@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
-using MenuManager.Scripts.Utilitis;
-using slowBulletGames.MemoryValley;
+using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
-public interface ILevelsScreenViewModel
+namespace TwoOneTwoGames.UIManager.Windows
 {
-    public event EventHandler<PageLoadedEventArguments> PageLoadedEvent;
-    IReactiveProperty<string> Title { get; }
-    public List<IUILevelData> Levels { get; }
-    public void ScreenResumed();
-    void OnBackTriggered();
-    void LoadNextPage();
-    void OnLevelClicked(int funnelId, int levelId);
+    public interface ILevelsScreenViewModel
+    {
+        IReactiveProperty<string> Title { get; }
+        public List<IUILevelData> Levels { get; }
+        public event EventHandler<PageLoadedEventArguments> PageLoadedEvent;
+        public void ScreenResumed();
+        void OnBackTriggered();
+        void LoadNextPage();
+        void OnLevelClicked(int funnelId, int levelId);
+    }
 }

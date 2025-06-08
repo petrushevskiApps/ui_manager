@@ -2,20 +2,24 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace Plugins.UIManager.Scripts.Components.NonInteractive.UITimer
+namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class UITimerLabel : MonoBehaviour
     {
-        private TextMeshProUGUI _label;
-        
         // Internal
         private string _animationState;
-        
+        private TextMeshProUGUI _label;
+
         // Injected
         private ITimerColoringStrategy _timerColoringStrategy;
         private ITimerFormattingStrategy _timerFormattingStrategy;
-        
+
+        private void Awake()
+        {
+            _label = GetComponent<TextMeshProUGUI>();
+        }
+
         [Inject]
         public void Initialize(
             ITimerColoringStrategy timerColoringStrategy,
@@ -25,20 +29,12 @@ namespace Plugins.UIManager.Scripts.Components.NonInteractive.UITimer
             _timerFormattingStrategy = timerFormattingStrategy;
         }
 
-        private void Awake()
-        {
-            _label = GetComponent<TextMeshProUGUI>();
-        }
-
         public void SetData(UITimerData data)
         {
             gameObject.SetActive(data.IsVisible);
-            if (!data.IsVisible)
-            {
-                return;
-            }
-            int minutes = GetMinutes(data.Seconds);
-            int seconds = GetSeconds(minutes, data.Seconds);
+            if (!data.IsVisible) return;
+            var minutes = GetMinutes(data.Seconds);
+            var seconds = GetSeconds(minutes, data.Seconds);
             SetLabel(minutes, seconds);
         }
 
@@ -47,7 +43,7 @@ namespace Plugins.UIManager.Scripts.Components.NonInteractive.UITimer
             _label.text = $"{_timerFormattingStrategy.GetFormattedTimer(minutes, seconds)}";
             _label.color = _timerColoringStrategy.GetTimerLabelColor(minutes, seconds);
         }
-    
+
         private int GetMinutes(int totalSeconds)
         {
             return totalSeconds / 60;
@@ -55,7 +51,7 @@ namespace Plugins.UIManager.Scripts.Components.NonInteractive.UITimer
 
         private int GetSeconds(int minutes, int totalSeconds)
         {
-            return totalSeconds - (minutes * 60);
+            return totalSeconds - minutes * 60;
         }
     }
 }

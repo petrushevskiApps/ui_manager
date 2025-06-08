@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace PetrushevskiApps.UIManager.Utilities
+namespace TwoOneTwoGames.UIManager.Utilities
 {
     [CreateAssetMenu(
         fileName = "ScriptableObjectInstaller",
@@ -14,7 +14,7 @@ namespace PetrushevskiApps.UIManager.Utilities
 
         public override void InstallBindings()
         {
-            foreach (ScriptableObject scriptableObject in _scriptableObjectsToBind)
+            foreach (var scriptableObject in _scriptableObjectsToBind)
             {
                 Container
                     .BindInterfacesTo(scriptableObject.GetType())

@@ -1,14 +1,16 @@
-﻿using com.petrushevskiapps.menumanager;
-using MenuManager.Scripts.Utilitis;
-using slowBulletGames.MemoryValley;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
-public interface ISettingsPopupViewModel : IPopupViewModel
+namespace TwoOneTwoGames.UIManager.Windows
 {
-    void RateUsClicked();
-    void TermsOfUseClicked();
-    void PrivacyPolicyClicked();
-    void PrivacySettingsClicked();
-    IReadOnlyReactiveProperty<ToggleViewData> AudioToggle { get; }
-    IReadOnlyReactiveProperty<ToggleViewData> MusicToggle { get; }
-    IReadOnlyReactiveProperty<ToggleViewData> VibrationToggle { get; }
+    public interface ISettingsPopupViewModel : IPopupViewModel
+    {
+        IReadOnlyReactiveProperty<ToggleViewData> AudioToggle { get; }
+        IReadOnlyReactiveProperty<ToggleViewData> MusicToggle { get; }
+        IReadOnlyReactiveProperty<ToggleViewData> VibrationToggle { get; }
+        void RateUsClicked();
+        void TermsOfUseClicked();
+        void PrivacyPolicyClicked();
+        void PrivacySettingsClicked();
+    }
 }

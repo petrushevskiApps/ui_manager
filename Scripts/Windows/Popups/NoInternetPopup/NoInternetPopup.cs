@@ -1,33 +1,39 @@
-using PetrushevskiApps.UIManager;
-using slowBulletGames.MemoryValley;
+using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
 using Zenject;
 
-public class NoInternetPopup : UIPopup
+namespace TwoOneTwoGames.UIManager.Windows
 {
-    [SerializeField]
-    private UIButton _okButton;
-    
-    // Injected
-    private INoInternetPopupViewModel _viewModel;
-
-    protected override IPopupViewModel GetPopupViewModel() => _viewModel;
-        
-    [Inject]
-    private void Initialize(INoInternetPopupViewModel viewModel)
+    public class NoInternetPopup : UIPopup
     {
-        _viewModel = viewModel;
-    }
+        [SerializeField]
+        private UIButton _okButton;
 
-    public override void Resume()
-    {
-        base.Resume();
-        _okButton.OnClick.AddListener(_viewModel.OkButtonClicked);
-    }
+        // Injected
+        private INoInternetPopupViewModel _viewModel;
 
-    public override void Hide()
-    {
-        base.Hide();
-        _okButton.OnClick.RemoveListener(_viewModel.OkButtonClicked);
+        protected override IPopupViewModel GetPopupViewModel()
+        {
+            return _viewModel;
+        }
+
+        [Inject]
+        private void Initialize(INoInternetPopupViewModel viewModel)
+        {
+            _viewModel = viewModel;
+        }
+
+        public override void Resume()
+        {
+            base.Resume();
+            _okButton.OnClick.AddListener(_viewModel.OkButtonClicked);
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            _okButton.OnClick.RemoveListener(_viewModel.OkButtonClicked);
+        }
     }
 }

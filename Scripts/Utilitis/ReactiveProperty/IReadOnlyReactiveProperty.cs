@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MenuManager.Scripts.Utilitis
+namespace TwoOneTwoGames.UIManager.Utilities.ReactiveProperty
 {
     public interface IReadOnlyReactiveProperty<out T>
     {

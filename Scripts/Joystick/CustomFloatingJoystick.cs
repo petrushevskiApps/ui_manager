@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace SlowBulletGames.UI
+namespace TwoOneTwoGames.UIManager.JoystickController
 {
-    public class CustomFloatingJoystick : Joystick
+    public class CustomFloatingJoystick : Plugins.JoystickPlugin.Joystick
     {
         private Vector3 _originalJoystickPosition;
         public event EventHandler ClickedEvent;

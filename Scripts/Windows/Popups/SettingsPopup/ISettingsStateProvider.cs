@@ -1,6 +1,9 @@
-﻿public interface ISettingsStateProvider
+﻿namespace TwoOneTwoGames.UIManager.Windows
 {
-    public bool IsSoundEffectsActive { get; }
-    public bool IsMusicActive { get; }
-    public bool IsVibrationsActive { get; }
+    public interface ISettingsStateProvider
+    {
+        public bool IsSoundEffectsActive { get; }
+        public bool IsMusicActive { get; }
+        public bool IsVibrationsActive { get; }
+    }
 }

@@ -1,4 +1,6 @@
-﻿public class NavigationArguments
+﻿namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
-    
+    public class NavigationArguments
+    {
+    }
 }

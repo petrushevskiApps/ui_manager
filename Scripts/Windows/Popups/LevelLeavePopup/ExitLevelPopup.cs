@@ -1,8 +1,9 @@
-using PetrushevskiApps.UIManager;
+using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
 using Zenject;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class ExitLevelPopup : UIPopup
     {
@@ -15,14 +16,17 @@ namespace slowBulletGames.MemoryValley
         // Injected
         private IExitLevelPopupViewModel _viewModel;
 
-        protected override IPopupViewModel GetPopupViewModel() => _viewModel;
-        
+        protected override IPopupViewModel GetPopupViewModel()
+        {
+            return _viewModel;
+        }
+
         [Inject]
         private void Initialize(IExitLevelPopupViewModel viewModel)
         {
             _viewModel = viewModel;
         }
-        
+
         public override void Resume()
         {
             base.Resume();

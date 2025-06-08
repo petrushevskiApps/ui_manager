@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class BackController: MonoBehaviour
+namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
-    [Inject]
-    private INavigationController _navigationController;
-
-    private void Update()
+    public class BackController : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        [Inject]
+        private INavigationController _navigationController;
+
+        private void Update()
         {
-            _navigationController.GetActiveBackHandler()?.OnBackTriggered();
+            if (Input.GetKeyDown(KeyCode.Escape)) _navigationController.GetActiveBackHandler()?.OnBackTriggered();
         }
     }
-
 }

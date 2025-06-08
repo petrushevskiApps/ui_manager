@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Plugins.UIManager.Scripts.Data
+namespace TwoOneTwoGames.UIManager.Data
 {
     public interface IUiAudioPalette
     {

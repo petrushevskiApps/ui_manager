@@ -1,8 +1,9 @@
-using PetrushevskiApps.UIManager;
+using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
 using Zenject;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class PausePopup : UIPopup
     {
@@ -22,14 +23,17 @@ namespace slowBulletGames.MemoryValley
         // Injected
         private IPausePopupViewModel _viewModel;
 
-        protected override IPopupViewModel GetPopupViewModel() => _viewModel;
-        
+        protected override IPopupViewModel GetPopupViewModel()
+        {
+            return _viewModel;
+        }
+
         [Inject]
         private void Initialize(IPausePopupViewModel viewModel)
         {
             _viewModel = viewModel;
         }
-        
+
         public override void Resume()
         {
             base.Resume();

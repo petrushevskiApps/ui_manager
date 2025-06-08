@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-public interface IBackgroundMusicAudioPalette
+namespace TwoOneTwoGames.UIManager.Data
 {
-    AudioClip MainScreenBackgroundMusic { get; }
-    AudioClip InGameBackgroundMusic { get; }
+    public interface IBackgroundMusicAudioPalette
+    {
+        AudioClip MainScreenBackgroundMusic { get; }
+        AudioClip InGameBackgroundMusic { get; }
+    }
 }

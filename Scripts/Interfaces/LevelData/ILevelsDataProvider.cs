@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Interfaces
 {
     public interface ILevelsDataProvider
     {

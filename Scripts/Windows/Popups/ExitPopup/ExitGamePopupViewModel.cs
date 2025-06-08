@@ -1,16 +1,15 @@
-using MenuManager.Scripts.Utilitis;
+using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class ExitGamePopupViewModel : IExitGamePopupViewModel
     {
-        // Reactive Properties
-        public IReactiveProperty<string> Title { get; protected set; }
-        public IReactiveProperty<string> Message { get; protected set; }
+        private readonly IExitAppController _exitAppController;
 
         // Injected
         private readonly INavigationController _navigationController;
-        private readonly IExitAppController _exitAppController;
 
         public ExitGamePopupViewModel(
             INavigationController navigationController,
@@ -19,6 +18,10 @@ namespace slowBulletGames.MemoryValley
             _navigationController = navigationController;
             _exitAppController = exitAppController;
         }
+
+        // Reactive Properties
+        public IReactiveProperty<string> Title { get; protected set; }
+        public IReactiveProperty<string> Message { get; protected set; }
 
         public void BackgroundClicked()
         {

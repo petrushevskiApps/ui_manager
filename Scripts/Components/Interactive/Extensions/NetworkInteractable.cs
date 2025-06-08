@@ -1,66 +1,63 @@
-using PetrushevskiApps.UIManager;
+using TwoOneTwoGames.UIManager.Interfaces;
 using UnityEngine;
 using Zenject;
 
-/// <summary>
-/// This component extends the functionality of a Selectable
-/// component ( for example: Buttons, Toggles, Input Fields )
-/// and changes their interactivity depending on the Network
-/// connectivity state.
-/// </summary>
-[RequireComponent(typeof(InteractivityMonitor))]
-public class NetworkInteractable : SelectableExtension
+namespace TwoOneTwoGames.UIManager.Components.Interactive
 {
-    private IConnectionListener _connectionListener;
-    private InteractivityMonitor _interactivityMonitor;
-
-    public bool IsConnected { get; private set; }
-
-    [Inject]
-    public void Initialize(IConnectionListener connectionListener)
+    /// <summary>
+    ///     This component extends the functionality of a Selectable
+    ///     component ( for example: Buttons, Toggles, Input Fields )
+    ///     and changes their interactivity depending on the Network
+    ///     connectivity state.
+    /// </summary>
+    [RequireComponent(typeof(InteractivityMonitor))]
+    public class NetworkInteractable : SelectableExtension
     {
-        _connectionListener = connectionListener;
-    }
+        private IConnectionListener _connectionListener;
+        private InteractivityMonitor _interactivityMonitor;
 
-    protected new void Awake()
-    {
-        base.Awake();
-        _interactivityMonitor = GetComponent<InteractivityMonitor>();
-    }
-    private void Start()
-    {
-        _connectionListener?.RegisterToConnectionChanges(OnConnectionChange);
-        if (_interactivityMonitor != null)
+        public bool IsConnected { get; private set; }
+
+        protected new void Awake()
         {
-            _interactivityMonitor.InteractivityChangedEvent.AddListener(OnInteractivityChange);
+            base.Awake();
+            _interactivityMonitor = GetComponent<InteractivityMonitor>();
         }
-    }
 
-    private void OnDestroy()
-    {
-        _connectionListener?.UnregisterToConnectionChanges(OnConnectionChange);
-        if (_interactivityMonitor != null)
+        private void Start()
         {
-            _interactivityMonitor.InteractivityChangedEvent.RemoveListener(OnInteractivityChange);
+            _connectionListener?.RegisterToConnectionChanges(OnConnectionChange);
+            if (_interactivityMonitor != null)
+                _interactivityMonitor.InteractivityChangedEvent.AddListener(OnInteractivityChange);
         }
-    }
 
-    private void OnInteractivityChange(bool isInteractive)
-    {
-        SetConnectivityStatus();
-    }
-
-    private void OnConnectionChange(bool isConnected)
-    {
-        IsConnected = isConnected;
-        SetConnectivityStatus();
-    }
-
-    private void SetConnectivityStatus()
-    {
-        if (Selectable != null)
+        private void OnDestroy()
         {
-            Selectable.interactable &= IsConnected;
+            _connectionListener?.UnregisterToConnectionChanges(OnConnectionChange);
+            if (_interactivityMonitor != null)
+                _interactivityMonitor.InteractivityChangedEvent.RemoveListener(OnInteractivityChange);
+        }
+
+        [Inject]
+        public void Initialize(IConnectionListener connectionListener)
+        {
+            _connectionListener = connectionListener;
+        }
+
+        private void OnInteractivityChange(bool isInteractive)
+        {
+            SetConnectivityStatus();
+        }
+
+        private void OnConnectionChange(bool isConnected)
+        {
+            IsConnected = isConnected;
+            SetConnectivityStatus();
+        }
+
+        private void SetConnectivityStatus()
+        {
+            if (Selectable != null) Selectable.interactable &= IsConnected;
         }
     }
 }

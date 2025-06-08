@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenProvider : MonoBehaviour, IScreenProvider
+namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
-    [SerializeField]
-    [Tooltip("List of screens to be provided to Navigation Controller")]
-    private List<UIScreen> _screens = new();
-
-    public IScreen GetScreen<T>() where T : IScreen
+    public class ScreenProvider : MonoBehaviour, IScreenProvider
     {
-        return _screens.Find(x => x.GetType() == typeof(T));
+        [SerializeField]
+        [Tooltip("List of screens to be provided to Navigation Controller")]
+        private List<UIScreen> _screens = new();
+
+        public IScreen GetScreen<T>() where T : IScreen
+        {
+            return _screens.Find(x => x.GetType() == typeof(T));
+        }
     }
 }

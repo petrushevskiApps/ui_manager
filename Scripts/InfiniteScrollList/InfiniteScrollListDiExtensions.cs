@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
+namespace TwoOneTwoGames.UIManager.InfiniteScrollList
 {
     public static class InfiniteScrollListDiExtensions
     {

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
+namespace TwoOneTwoGames.UIManager.InfiniteScrollList
 {
     public class ItemViewPool : IItemViewPool, IDisposable
     {
@@ -11,29 +12,28 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         private GameObject _prefab;
 
+        public void Dispose()
+        {
+            Clear();
+            _pooledObjects.Clear();
+        }
+
         public void SetPrefab(GameObject prefab, int poolSize = 1)
         {
             _prefab = prefab;
             Create(poolSize);
         }
 
-        private void Create(int count = 1)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                _pooledObjects.Enqueue(GameObject.Instantiate(_prefab));
-            }
-        }
-
         public IItemView Spawn(Transform parent, bool activateOnSpawn = true)
         {
-            if (_pooledObjects.TryDequeue(out GameObject result))
+            if (_pooledObjects.TryDequeue(out var result))
             {
                 result.transform.SetParent(parent, false);
                 result.SetActive(activateOnSpawn);
                 _assignedObjects.Add(result);
                 return result.GetComponent<IItemView>();
             }
+
             Create();
             return Spawn(parent, activateOnSpawn);
         }
@@ -44,24 +44,23 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
             _assignedObjects.Remove(item);
         }
 
-        private void DespawnWithoutListModification(GameObject item)
-        {
-            item.GetComponent<ISpawnable>()?.OnDespawnInitiated();
-            item.SetActive(false);
-            item.transform.SetParent(null, false);
-            _pooledObjects.Enqueue(item);
-        }
-
         public void Clear()
         {
             _assignedObjects.ForEach(DespawnWithoutListModification);
             _assignedObjects.Clear();
         }
 
-        public void Dispose()
+        private void Create(int count = 1)
         {
-            Clear();
-            _pooledObjects.Clear();
+            for (var i = 0; i < count; i++) _pooledObjects.Enqueue(Object.Instantiate(_prefab));
+        }
+
+        private void DespawnWithoutListModification(GameObject item)
+        {
+            item.GetComponent<ISpawnable>()?.OnDespawnInitiated();
+            item.SetActive(false);
+            item.transform.SetParent(null, false);
+            _pooledObjects.Enqueue(item);
         }
     }
 }

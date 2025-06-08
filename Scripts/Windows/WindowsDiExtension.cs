@@ -1,7 +1,6 @@
-﻿using slowBulletGames.MemoryValley;
-using Zenject;
+﻿using Zenject;
 
-namespace PetrushevskiApps.UIManager.ScreenNavigation
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public static class WindowsDiExtension
     {

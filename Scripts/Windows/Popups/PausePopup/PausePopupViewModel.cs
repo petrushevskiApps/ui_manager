@@ -1,18 +1,15 @@
-﻿using MenuManager.Scripts.Utilitis;
-using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
-using UnityEngine;
+﻿using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class PausePopupViewModel : IPausePopupViewModel
     {
-        // Reactive Properties
-        public IReactiveProperty<string> Title { get; protected set; }
-        public IReactiveProperty<string> Message { get; protected set;}
+        private readonly INavigationController _navigationController;
 
         // Injected
         private readonly IPopupNavigation _popupNavigation;
-        private readonly INavigationController _navigationController;
         private readonly IUILevelController _uiLevelController;
 
         public PausePopupViewModel(
@@ -26,8 +23,12 @@ namespace slowBulletGames.MemoryValley
 
 
             Title = new ReactiveProperty<string>("Pause");
-            Message = new ReactiveProperty<string>(null);
+            Message = new ReactiveProperty<string>();
         }
+
+        // Reactive Properties
+        public IReactiveProperty<string> Title { get; protected set; }
+        public IReactiveProperty<string> Message { get; protected set; }
 
         public virtual void RestartClicked()
         {

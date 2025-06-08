@@ -1,6 +1,6 @@
 ﻿using TMPro;
 
-namespace MenuManager.Scripts.Components.NonInteractive.Extensions
+namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 {
     public static class TextExtensions
     {
@@ -11,6 +11,7 @@ namespace MenuManager.Scripts.Components.NonInteractive.Extensions
                 textMeshProUGUI.gameObject.SetActive(false);
                 return;
             }
+
             textMeshProUGUI.text = text;
             textMeshProUGUI.gameObject.SetActive(true);
         }

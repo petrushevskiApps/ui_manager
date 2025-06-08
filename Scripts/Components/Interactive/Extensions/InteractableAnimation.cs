@@ -2,16 +2,17 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace PetrushevskiApps.UIManager
+namespace TwoOneTwoGames.UIManager.Components.Interactive
 {
     public class InteractableAnimation : SelectableExtension, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField]
         private InteractableAnimationConfig _animationConfig;
 
+        private Vector3 _defaultScale = Vector3.one;
+
         // Internal
         private RectTransform _rectTransform;
-        private Vector3 _defaultScale = Vector3.one;
         private Coroutine _scaleDownCoroutine;
 
         protected new void Awake()
@@ -49,7 +50,7 @@ namespace PetrushevskiApps.UIManager
 
         private IEnumerator Scale(Vector3 newScale)
         {
-            Vector3 lScale = _rectTransform.localScale;
+            var lScale = _rectTransform.localScale;
 
             while (Vector3.Distance(lScale, newScale) >= 0.01f)
             {

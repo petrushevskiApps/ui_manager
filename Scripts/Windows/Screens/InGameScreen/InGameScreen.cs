@@ -1,16 +1,20 @@
-using PetrushevskiApps.UIManager;
 using TMPro;
+using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
 using Zenject;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class InGameScreen : UIScreen
     {
         [SerializeField]
         private TextMeshProUGUI _levelTitle;
+
         [SerializeField]
         private UIProgressBar _progressBar;
+
         [SerializeField]
         private UIButton _pauseButton;
 
@@ -19,7 +23,7 @@ namespace slowBulletGames.MemoryValley
 
         // Injected
         protected IInGameScreenViewModel ViewModel;
-        
+
         [Inject]
         public void Initialize(IInGameScreenViewModel viewModel)
         {

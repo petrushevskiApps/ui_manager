@@ -1,4 +1,4 @@
-﻿namespace com.petrushevskiapps.menumanager
+﻿namespace TwoOneTwoGames.UIManager.Components.Interactive
 {
     public record ViewData
     {

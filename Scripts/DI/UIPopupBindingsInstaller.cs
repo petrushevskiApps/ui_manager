@@ -1,10 +1,13 @@
-﻿using PetrushevskiApps.UIManager.ScreenNavigation;
+﻿using TwoOneTwoGames.UIManager.Windows;
 using Zenject;
 
-public class UIPopupBindingsInstaller : MonoInstaller
+namespace TwoOneTwoGames.UIManager.Di
 {
-    public override void InstallBindings()
+    public class UIPopupBindingsInstaller : MonoInstaller
     {
-        Container.BindPopupDependencies();
+        public override void InstallBindings()
+        {
+            Container.BindPopupDependencies();
+        }
     }
 }

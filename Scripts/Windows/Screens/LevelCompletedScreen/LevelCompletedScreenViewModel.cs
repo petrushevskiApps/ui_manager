@@ -1,28 +1,23 @@
-﻿using MenuManager.Scripts.Utilitis;
-using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
-using Plugins.UIManager.Scripts.Data;
+﻿using TwoOneTwoGames.UIManager.Data;
+using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class LevelCompletedScreenViewModel : ILevelCompletedScreenViewModel
     {
-        // Reactive Properties
-        public IReactiveProperty<int> EarnedStars { get; private set; }
-        public IReactiveProperty<string> Title { get;  private set;}
-        public IReactiveProperty<string> EarnedCoinsText { get;  private set;}
+        private readonly IBackgroundMusicAudioPalette _musicAudioPalette;
+        private readonly IPopupNavigation _popupNavigation;
 
-        protected int EarnedCoins { get; private set; }
+        // Injected
+        private readonly IScreenNavigation _screenNavigation;
+        private readonly IUiAudioPalette _uiAudioPalette;
+        private readonly IUILevelController _uiLevelController;
+        private readonly IUiSoundSystem _uiSoundSystem;
 
         // Internal
         private bool _isSfxPlayed;
-        
-        // Injected
-        private readonly IScreenNavigation _screenNavigation;
-        private readonly IPopupNavigation _popupNavigation;
-        private readonly IUILevelController _uiLevelController;
-        private readonly IBackgroundMusicAudioPalette _musicAudioPalette;
-        private readonly IUiAudioPalette _uiAudioPalette;
-        private readonly IUiSoundSystem _uiSoundSystem;
 
 
         public LevelCompletedScreenViewModel(
@@ -31,7 +26,7 @@ namespace slowBulletGames.MemoryValley
             IUILevelController uiLevelController,
             IBackgroundMusicAudioPalette musicAudioPalette,
             IUiAudioPalette uiAudioPalette,
-            IUiSoundSystem uiSoundSystem) 
+            IUiSoundSystem uiSoundSystem)
         {
             _screenNavigation = screenNavigation;
             _popupNavigation = popupNavigation;
@@ -45,16 +40,24 @@ namespace slowBulletGames.MemoryValley
             EarnedCoinsText = new ReactiveProperty<string>();
         }
 
+        protected int EarnedCoins { get; private set; }
+
+        // Reactive Properties
+        public IReactiveProperty<int> EarnedStars { get; private set; }
+        public IReactiveProperty<string> Title { get; }
+        public IReactiveProperty<string> EarnedCoinsText { get; private set; }
+
         public virtual void ScreenResumed()
         {
             EarnedStars = new ReactiveProperty<int>();
             EarnedCoinsText = new ReactiveProperty<string>();
-            
+
             if (!_isSfxPlayed)
             {
                 _uiSoundSystem.PlayUiSoundEffect(_uiAudioPalette.LevelCompletedBackgroundMusic);
                 _isSfxPlayed = true;
             }
+
             _uiSoundSystem.PlayBackgroundMusic(_musicAudioPalette.MainScreenBackgroundMusic);
         }
 
@@ -67,7 +70,7 @@ namespace slowBulletGames.MemoryValley
         {
             _isSfxPlayed = false;
         }
-        
+
         public void OnBackTriggered()
         {
             _uiLevelController.CollectReward();

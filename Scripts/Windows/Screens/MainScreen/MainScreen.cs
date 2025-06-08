@@ -1,8 +1,8 @@
-using PetrushevskiApps.UIManager;
+using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
-using Zenject;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class MainScreen : UIScreen
     {
@@ -15,8 +15,8 @@ namespace slowBulletGames.MemoryValley
 
         // Injected
         private IMainScreenViewModel _viewModel;
+
         
-        [Inject]
         public void Initialize(IMainScreenViewModel viewModel)
         {
             _viewModel = viewModel;

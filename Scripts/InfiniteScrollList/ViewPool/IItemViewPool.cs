@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
+namespace TwoOneTwoGames.UIManager.InfiniteScrollList
 {
     public interface IItemViewPool
     {

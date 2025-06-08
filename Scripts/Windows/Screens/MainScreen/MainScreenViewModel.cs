@@ -1,8 +1,9 @@
-﻿using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
+﻿using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
-    public class MainScreenViewModel: IMainScreenViewModel
+    public class MainScreenViewModel : IMainScreenViewModel
     {
         // Injected
         private readonly IPopupNavigation _popupNavigation;

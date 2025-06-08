@@ -1,14 +1,17 @@
-﻿using PetrushevskiApps.UIManager.ScreenNavigation;
+﻿using TwoOneTwoGames.UIManager.Windows;
 using Zenject;
 
-public class UIScreenBindingsInstaller : MonoInstaller
+namespace TwoOneTwoGames.UIManager.Di
 {
-    public override void InstallBindings()
+    public class UIScreenBindingsInstaller : MonoInstaller
     {
-        Container.BindMainScreenDependencies();
-        Container.BindInGameScreenDependencies();
-        Container.BindLevelFailedScreenDependencies();
-        Container.BindLevelCompletedScreenDependencies();
-        Container.BindLevelsScreenDependencies();
+        public override void InstallBindings()
+        {
+            Container.BindMainScreenDependencies();
+            Container.BindInGameScreenDependencies();
+            Container.BindLevelFailedScreenDependencies();
+            Container.BindLevelCompletedScreenDependencies();
+            Container.BindLevelsScreenDependencies();
+        }
     }
 }

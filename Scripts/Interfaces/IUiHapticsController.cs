@@ -1,4 +1,4 @@
-﻿namespace slowBulletGames.MemoryValley
+﻿namespace TwoOneTwoGames.UIManager.Interfaces
 {
     public interface IUiHapticsController
     {

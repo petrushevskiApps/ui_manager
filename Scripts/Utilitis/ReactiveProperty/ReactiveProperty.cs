@@ -1,27 +1,11 @@
 ﻿using System;
 
-namespace MenuManager.Scripts.Utilitis
+namespace TwoOneTwoGames.UIManager.Utilities.ReactiveProperty
 {
     public class ReactiveProperty<T> : IReactiveProperty<T>
     {
-        private T _value;
         private readonly bool _alwaysUpdate;
-
-        public T Value
-        {
-            get => _value;
-            set
-            {
-                if (!_alwaysUpdate && Equals(_value, value))
-                {
-                    return;
-                }
-                _value = value;
-                ValueChanged?.Invoke(_value);
-            }
-        }
-
-        public event Action<T> ValueChanged;
+        private T _value;
 
         public ReactiveProperty(T initialValue = default, bool alwaysUpdate = false)
         {
@@ -29,18 +13,28 @@ namespace MenuManager.Scripts.Utilitis
             _alwaysUpdate = alwaysUpdate;
         }
 
+        public T Value
+        {
+            get => _value;
+            set
+            {
+                if (!_alwaysUpdate && Equals(_value, value)) return;
+                _value = value;
+                ValueChanged?.Invoke(_value);
+            }
+        }
+
         public void Subscribe(Action<T> onValueChangeListener, bool triggerOnSubscribe = true)
         {
             ValueChanged += onValueChangeListener;
-            if (triggerOnSubscribe)
-            {
-                onValueChangeListener?.Invoke(Value);
-            }
+            if (triggerOnSubscribe) onValueChangeListener?.Invoke(Value);
         }
 
         public void Unsubscribe(Action<T> onValueChangeListener)
         {
             ValueChanged -= onValueChangeListener;
         }
+
+        public event Action<T> ValueChanged;
     }
 }

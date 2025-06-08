@@ -1,28 +1,31 @@
-﻿using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
-using Plugins.UIManager.Scripts.Data;
+﻿using TwoOneTwoGames.UIManager.Data;
+using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class LevelFailedScreenViewModel : ILevelFailedScreenViewModel
     {
-        // Internal
-        private bool _isSfxPlayed;
-        
+        private readonly IBackgroundMusicAudioPalette _musicAudioPalette;
+        private readonly IPopupNavigation _popupNavigation;
+
         // Injected
         private readonly IScreenNavigation _screenNavigation;
-        private readonly IPopupNavigation _popupNavigation;
-        private readonly IUILevelController _uiLevelController;
-        private readonly IBackgroundMusicAudioPalette _musicAudioPalette;
         private readonly IUiAudioPalette _uiAudioPalette;
+        private readonly IUILevelController _uiLevelController;
+
         private readonly IUiSoundSystem _uiSoundSystem;
-        
+
+        // Internal
+        private bool _isSfxPlayed;
+
         public LevelFailedScreenViewModel(
             IScreenNavigation screenNavigation,
             IPopupNavigation popupNavigation,
             IUILevelController uiLevelController,
             IBackgroundMusicAudioPalette musicAudioPalette,
             IUiAudioPalette uiAudioPalette,
-            IUiSoundSystem uiSoundSystem) 
+            IUiSoundSystem uiSoundSystem)
         {
             _screenNavigation = screenNavigation;
             _popupNavigation = popupNavigation;
@@ -31,7 +34,7 @@ namespace slowBulletGames.MemoryValley
             _uiAudioPalette = uiAudioPalette;
             _uiSoundSystem = uiSoundSystem;
         }
-        
+
         public virtual void OnBackTriggered()
         {
             _screenNavigation.ShowMainScreen();

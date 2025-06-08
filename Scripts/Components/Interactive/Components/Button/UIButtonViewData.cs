@@ -1,4 +1,4 @@
-﻿namespace PetrushevskiApps.UIManager
+﻿namespace TwoOneTwoGames.UIManager.Components.Interactive
 {
     public struct UIButtonViewData
     {

@@ -1,14 +1,11 @@
-﻿using MenuManager.Scripts.Components.NonInteractive;
-using MenuManager.Scripts.Utilitis;
-using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
+﻿using TwoOneTwoGames.UIManager.Components.NonInteractive;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public sealed class InGameScreenViewModel : IInGameScreenViewModel
     {
-        public IReactiveProperty<string> LevelTitle { get; protected set; }
-        public IReactiveProperty<UIProgressBarData> ProgressBarData { get; protected set;}
-        
         // Injected
         private readonly IPopupNavigation _popupNavigation;
 
@@ -18,7 +15,10 @@ namespace slowBulletGames.MemoryValley
             LevelTitle = new ReactiveProperty<string>("");
             ProgressBarData = new ReactiveProperty<UIProgressBarData>();
         }
-        
+
+        public IReactiveProperty<string> LevelTitle { get; }
+        public IReactiveProperty<UIProgressBarData> ProgressBarData { get; }
+
         public void PauseClicked()
         {
             _popupNavigation.ShowPausePopup();

@@ -3,27 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
+namespace TwoOneTwoGames.UIManager.InfiniteScrollList
 {
     public class InfiniteScrollController : MonoBehaviour
     {
-        public event EventHandler<IItemView> ScrollPageCompleted;
-        public event EventHandler ListViewsReadyEvent;
-        public event EventHandler ListEndEvent;
-
         [SerializeField]
         private InfiniteScrollList _scrollList;
+
         [SerializeField]
         private GameObject _headerPrefab;
+
         [SerializeField]
         private GameObject _listItemPrefab;
+
         [SerializeField]
         private Transform _listItemsParent;
 
+        private readonly SortedDictionary<int, IItemView> _itemViews = new();
+
         private float _headerHeight;
         private float _itemHeight;
-
-        private readonly SortedDictionary<int, IItemView> _itemViews = new();
         private IItemViewPool _itemViewPool;
         private IListDataSource _listDataSource;
         public IScrollableList ScrollableList => _scrollList;
@@ -31,16 +30,18 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
         private void Awake()
         {
             _itemHeight = _listItemPrefab.GetComponent<RectTransform>().rect.height;
-            if (_headerPrefab != null)
-            {
-                _headerHeight = _headerPrefab.GetComponent<RectTransform>().rect.height;
-            }
+            if (_headerPrefab != null) _headerHeight = _headerPrefab.GetComponent<RectTransform>().rect.height;
             SetPrefabAnchors();
 
             _scrollList.RowVisibleEvent += OnRowVisible;
             _scrollList.RowHiddenEvent += OnRowHidden;
             _scrollList.RowsVisibilityUpdatedEvent += OnRowsVisibilityUpdated;
             _scrollList.OnListEndEvent += OnListEndEvent;
+        }
+
+        private void Start()
+        {
+            _scrollList.Initialize(_headerHeight, _itemHeight);
         }
 
         private void OnDestroy()
@@ -51,14 +52,13 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
             _scrollList.OnListEndEvent -= OnListEndEvent;
         }
 
+        public event EventHandler<IItemView> ScrollPageCompleted;
+        public event EventHandler ListViewsReadyEvent;
+        public event EventHandler ListEndEvent;
+
         private void OnListEndEvent(object sender, EventArgs e)
         {
             ListEndEvent?.Invoke(sender, e);
-        }
-
-        private void Start()
-        {
-            _scrollList.Initialize(_headerHeight, _itemHeight);
         }
 
         public void Setup(
@@ -72,11 +72,8 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         private void OnRowVisible(object sender, ListRow row)
         {
-            if (_itemViews.ContainsKey(row.Index))
-            {
-                return;
-            }
-            IItemView itemView = _itemViewPool.Spawn(_listItemsParent);
+            if (_itemViews.ContainsKey(row.Index)) return;
+            var itemView = _itemViewPool.Spawn(_listItemsParent);
             SetPositionOnItemView(itemView.View, row.Position);
             _itemViews.Add(row.Index, itemView);
 
@@ -86,10 +83,7 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         private void OnRowHidden(object sender, ListRow row)
         {
-            if (!_itemViews.ContainsKey(row.Index))
-            {
-                return;
-            }
+            if (!_itemViews.ContainsKey(row.Index)) return;
             _itemViewPool.Despawn(_itemViews[row.Index].View);
             _itemViews.Remove(row.Index);
         }
@@ -170,23 +164,17 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         public void ScrollPageDown()
         {
-            if (_scrollList.IsScrolledToBottom)
-            {
-                return;
-            }
+            if (_scrollList.IsScrolledToBottom) return;
             ScrollableList.ScrollingCompletedEvent += OnPageScrollingCompleted;
-            int index = GetFirstFullyVisibleItemView().Index;
+            var index = GetFirstFullyVisibleItemView().Index;
             ScrollableList.ToElement(index + GetVisiblePageElementsCount());
         }
 
         public void ScrollPageUp()
         {
-            if (_scrollList.IsScrolledToTop)
-            {
-                return;
-            }
+            if (_scrollList.IsScrolledToTop) return;
             ScrollableList.ScrollingCompletedEvent += OnPageScrollingCompleted;
-            int index = GetFirstFullyVisibleItemView().Index;
+            var index = GetFirstFullyVisibleItemView().Index;
             ScrollableList.ToElement(index - GetVisiblePageElementsCount());
         }
 
@@ -198,12 +186,9 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         private int GetVisiblePageElementsCount()
         {
-            float visibilityOfLastElement = _scrollList.RowsInView % 1;
-            int fullyVisibleElementsCount = (int)_scrollList.RowsInView;
-            if (visibilityOfLastElement >= 0.9f)
-            {
-                fullyVisibleElementsCount++;
-            }
+            var visibilityOfLastElement = _scrollList.RowsInView % 1;
+            var fullyVisibleElementsCount = (int) _scrollList.RowsInView;
+            if (visibilityOfLastElement >= 0.9f) fullyVisibleElementsCount++;
             return fullyVisibleElementsCount;
         }
     }

@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-public interface IInteractableSoundConfig
+namespace TwoOneTwoGames.UIManager.Components.Interactive
 {
-    AudioClip PositiveSound { get; }
-    AudioClip NegativeSound { get; }
+    public interface IInteractableSoundConfig
+    {
+        AudioClip PositiveSound { get; }
+        AudioClip NegativeSound { get; }
+    }
 }

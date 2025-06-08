@@ -1,13 +1,11 @@
-﻿using System;
-using slowBulletGames.MemoryValley;
-using TMPro;
+﻿using TMPro;
+using TwoOneTwoGames.UIManager.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
-namespace PetrushevskiApps.UIManager
+namespace TwoOneTwoGames.UIManager.Components.Interactive
 {
     [RequireComponent(typeof(Button))]
     public class UIButton : MonoBehaviour
@@ -17,19 +15,14 @@ namespace PetrushevskiApps.UIManager
 
         [SerializeField]
         private bool _ignoreHaptics;
-        
-        private Button _button;
 
         public UnityEvent OnClick;
-        
+
+        private Button _button;
+
         // Injected
         private IUiHapticsController _uiHapticsController;
 
-        [Inject]
-        public void Initialize(IUiHapticsController uiHapticsController)
-        {
-            _uiHapticsController = uiHapticsController;
-        }
         protected void Awake()
         {
             _button = GetComponent<Button>();
@@ -41,10 +34,17 @@ namespace PetrushevskiApps.UIManager
             _button.onClick.RemoveListener(ButtonClicked);
         }
 
+        [Inject]
+        public void Initialize(IUiHapticsController uiHapticsController)
+        {
+            _uiHapticsController = uiHapticsController;
+        }
+
         public void SetHaptics(IUiHapticsController hapticsController)
         {
             _uiHapticsController = hapticsController;
         }
+
         public void SetData(UIButtonViewData viewData)
         {
             gameObject.SetActive(viewData.IsVisible);
@@ -53,7 +53,7 @@ namespace PetrushevskiApps.UIManager
                 _label.gameObject.SetActive(true);
                 _label.text = viewData.Label;
             }
-            else if(viewData.Label == null && _label != null)
+            else if (viewData.Label == null && _label != null)
             {
                 _label.gameObject.SetActive(false);
             }
@@ -64,10 +64,8 @@ namespace PetrushevskiApps.UIManager
         private void ButtonClicked()
         {
             OnClick?.Invoke();
-            if (_ignoreHaptics)
-            {
-                return;
-            }
+            if (_ignoreHaptics) return;
+
             _uiHapticsController.ButtonClick();
         }
     }

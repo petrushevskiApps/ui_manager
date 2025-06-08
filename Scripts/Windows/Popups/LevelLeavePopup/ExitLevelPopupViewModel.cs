@@ -1,14 +1,11 @@
-﻿using MenuManager.Scripts.Utilitis;
-using PetrushevskiApps.UIManager.ScreenNavigation.Navigation;
+﻿using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
-    class ExitLevelPopupViewModel : IExitLevelPopupViewModel
+    internal class ExitLevelPopupViewModel : IExitLevelPopupViewModel
     {
-        // Reactive Properties
-        public IReactiveProperty<string> Title { get; }
-        public IReactiveProperty<string> Message { get; }
-
         // Injected
         private readonly INavigationController _navigationController;
         private readonly IScreenNavigation _screenNavigation;
@@ -26,6 +23,10 @@ namespace slowBulletGames.MemoryValley
             Title = new ReactiveProperty<string>("Exit Level");
             Message = new ReactiveProperty<string>("Are you sure? \nYour progress will be lost.");
         }
+
+        // Reactive Properties
+        public IReactiveProperty<string> Title { get; }
+        public IReactiveProperty<string> Message { get; }
 
         public void BackgroundClicked()
         {

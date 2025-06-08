@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MenuManager.Scripts.Components.NonInteractive.Extensions
+namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 {
     public static class AnimatorExtensions
     {
@@ -11,6 +11,7 @@ namespace MenuManager.Scripts.Components.NonInteractive.Extensions
                 animator.enabled = false;
                 return;
             }
+
             animator.enabled = true;
             animator.SetTrigger(triggerState);
         }

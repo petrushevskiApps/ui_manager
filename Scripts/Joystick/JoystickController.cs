@@ -1,27 +1,23 @@
 ﻿using System;
-using slowBulletGames.MemoryValley;
-using SlowBulletGames.UI;
+using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.JoystickController;
 using UnityEngine;
 using Zenject;
 
-namespace UI
+namespace TwoOneTwoGames.UIManager.Joystick
 {
-    public class JoystickController: MonoBehaviour
+    public class JoystickController : MonoBehaviour
     {
         [SerializeField]
-        private CustomFloatingJoystick _joystick;
-        [SerializeField]
         private GameObject _joystickVisual;
+
         [SerializeField]
         private GameObject _tutorialHand;
-        
-        private IUILevelStateEvents _levelStateEvents;
 
-        [Inject]
-        public void Initialize(IUILevelStateEvents levelStateEvents)
-        {
-            _levelStateEvents = levelStateEvents;
-        }
+        [SerializeField]
+        private CustomFloatingJoystick _joystick;
+
+        private IUILevelStateEvents _levelStateEvents;
 
         private void Awake()
         {
@@ -39,6 +35,12 @@ namespace UI
         private void OnDisable()
         {
             _joystick.ClickedEvent -= OnJoystickClicked;
+        }
+
+        [Inject]
+        public void Initialize(IUILevelStateEvents levelStateEvents)
+        {
+            _levelStateEvents = levelStateEvents;
         }
 
         private void OnJoystickClicked(object sender, EventArgs e)

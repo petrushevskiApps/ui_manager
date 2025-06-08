@@ -1,4 +1,7 @@
-﻿public interface IBackHandler
+﻿namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
-    void OnBackTriggered();
+    public interface IBackHandler
+    {
+        void OnBackTriggered();
+    }
 }

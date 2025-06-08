@@ -1,8 +1,8 @@
-namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
+namespace TwoOneTwoGames.UIManager.InfiniteScrollList
 {
     public struct ListRow
     {
-        public int Index { get; private set; }
+        public int Index { get; }
         public float Position { get; }
 
         public ListRow(int index, float position)

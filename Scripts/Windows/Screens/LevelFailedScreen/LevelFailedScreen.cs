@@ -1,24 +1,30 @@
-using PetrushevskiApps.UIManager;
+using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Interfaces;
+using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
 using Zenject;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public class LevelFailedScreen : UIScreen
     {
         [SerializeField]
         private UIButton _reviveButton;
+
         [SerializeField]
         private UIButton _replayButton;
+
         [SerializeField]
         private UIButton _homeButton;
+
         [SerializeField]
         private UIButton _settingsButton;
 
+        private IUiHapticsController _uiHapticsController;
+
         // Injected
         protected ILevelFailedScreenViewModel ViewModel;
-        private IUiHapticsController _uiHapticsController;
-        
+
         [Inject]
         private void Initialize(
             ILevelFailedScreenViewModel viewModel,

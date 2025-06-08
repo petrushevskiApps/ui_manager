@@ -1,14 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
+namespace TwoOneTwoGames.UIManager.InfiniteScrollList
 {
     public class RectHeightListener : MonoBehaviour
     {
-        public event EventHandler<float> HeightUpdatedEvent;
+        private float _previousHeight;
 
         private RectTransform _rectTransform;
-        private float _previousHeight;
 
         private void Awake()
         {
@@ -17,12 +16,11 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         private void OnRectTransformDimensionsChange()
         {
-            if (_rectTransform == null || !(Math.Abs(_rectTransform.rect.height - _previousHeight) > 0.000001f))
-            {
-                return;
-            }
+            if (_rectTransform == null || !(Math.Abs(_rectTransform.rect.height - _previousHeight) > 0.000001f)) return;
             _previousHeight = _rectTransform.rect.height;
             HeightUpdatedEvent?.Invoke(this, _previousHeight);
         }
+
+        public event EventHandler<float> HeightUpdatedEvent;
     }
 }

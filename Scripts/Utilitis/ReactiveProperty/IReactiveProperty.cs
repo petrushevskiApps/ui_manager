@@ -1,4 +1,4 @@
-﻿namespace MenuManager.Scripts.Utilitis
+﻿namespace TwoOneTwoGames.UIManager.Utilities.ReactiveProperty
 {
     public interface IReactiveProperty<T> : IReadOnlyReactiveProperty<T>
     {

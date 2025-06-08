@@ -1,4 +1,4 @@
-﻿namespace Plugins.UIManager.Scripts.Components.NonInteractive.UITimer
+﻿namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 {
     public struct UITimerData
     {

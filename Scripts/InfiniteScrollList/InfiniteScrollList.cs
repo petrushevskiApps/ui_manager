@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
+namespace TwoOneTwoGames.UIManager.InfiniteScrollList
 {
     /// <summary>
-    /// Concrete implementation of <see cref="IInfiniteScrollList"/>.
+    ///     Concrete implementation of <see cref="IInfiniteScrollList" />.
     /// </summary>
     public class InfiniteScrollList : MonoBehaviour, IInfiniteScrollList
     {
@@ -15,80 +15,71 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         [SerializeField]
         private RectTransform _container;
+
         [SerializeField]
         private RectTransform _viewPort;
+
         [SerializeField]
         private ScrollRect _scrollRect;
+
         [SerializeField]
         private float _verticalSpacing;
+
         [SerializeField]
         private float _scrollSpeed = 100f;
+
         [SerializeField]
         private float _scrollLength = 300f;
+
         [SerializeField]
         private float _bottomPadding;
-        
-        // Events
-        public event EventHandler OnListEndEvent;
-        public event EventHandler ScrolledToTopEvent;
-        public event EventHandler ScrolledToBottomEvent;
-        public event EventHandler<ListRow> RowVisibleEvent;
-        public event EventHandler<ListRow> RowHiddenEvent;
-        public event EventHandler RowsVisibilityUpdatedEvent;
-        public event EventHandler ScrollingCompletedEvent;
 
-        // Coroutines
-        private Coroutine _scrollUpCoroutine;
-        private Coroutine _scrollDownCoroutine;
-        private Coroutine _scrollCheckCoroutine;
-
-        private Vector2 _previousScrollPercent = new(1f, 1f);
         private readonly List<ListRow> _rows = new();
 
         private float _headerSize;
-        private float _rowHeight;
-        private float _scrollThreshold;
-        private bool _lockScroll = true;
         private bool _isScrollActive;
-        private bool _isScrollTop;
         private bool _isScrollBottom;
+        private bool _isScrollTop;
+        private bool _lockScroll = true;
+
+        private Vector2 _previousScrollPercent = new(1f, 1f);
+        private float _rowHeight;
+        private Coroutine _scrollCheckCoroutine;
+        private Coroutine _scrollDownCoroutine;
+        private float _scrollThreshold;
+
+        // Coroutines
+        private Coroutine _scrollUpCoroutine;
+        private RectHeightListener _viewportHeightListener;
 
         public bool IsScrolledToTop
         {
             get => _isScrollTop;
             set
             {
-                if (value != _isScrollTop)
-                {
-                    ScrolledToTopEvent?.Invoke(this, EventArgs.Empty);
-                }
+                if (value != _isScrollTop) ScrolledToTopEvent?.Invoke(this, EventArgs.Empty);
                 _isScrollTop = value;
             }
         }
+
         public bool IsScrolledToBottom
         {
             get => _isScrollBottom;
             set
             {
-                if (value != _isScrollBottom)
-                {
-                    ScrolledToBottomEvent?.Invoke(this, EventArgs.Empty);
-                }
+                if (value != _isScrollBottom) ScrolledToBottomEvent?.Invoke(this, EventArgs.Empty);
                 _isScrollBottom = value;
             }
         }
 
         private float ViewPortHeight => _scrollRect.viewport.rect.height;
-        private RectHeightListener _viewportHeightListener;
         public float RowsInView { get; private set; }
 
         private void Awake()
         {
             _viewportHeightListener = _scrollRect.viewport.gameObject.GetComponent<RectHeightListener>();
             if (_viewportHeightListener == null)
-            {
                 _viewportHeightListener = _scrollRect.viewport.gameObject.AddComponent<RectHeightListener>();
-            }
             _viewportHeightListener.HeightUpdatedEvent += OnViewportHeightUpdated;
             _scrollRect.onValueChanged.AddListener(OnScrolling);
         }
@@ -99,13 +90,16 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
             _scrollRect.onValueChanged.RemoveListener(OnScrolling);
         }
 
-        private void OnViewportHeightUpdated(object sender, float viewportHeight)
-        {
-            UpdateContainerSize(_rows.Count);
-            NotifyRowsVisibility();
-        }
+        // Events
+        public event EventHandler OnListEndEvent;
+        public event EventHandler ScrolledToTopEvent;
+        public event EventHandler ScrolledToBottomEvent;
+        public event EventHandler<ListRow> RowVisibleEvent;
+        public event EventHandler<ListRow> RowHiddenEvent;
+        public event EventHandler RowsVisibilityUpdatedEvent;
+        public event EventHandler ScrollingCompletedEvent;
 
-        ///<inheritdoc cref="IInfiniteScrollList.Initialize"/>
+        /// <inheritdoc cref="IInfiniteScrollList.Initialize" />
         public void Initialize(
             float headerSize,
             float elementHeight)
@@ -114,7 +108,7 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
             _rowHeight = elementHeight;
         }
 
-        ///<inheritdoc cref="IInfiniteScrollList.AddRows"/>
+        /// <inheritdoc cref="IInfiniteScrollList.AddRows" />
         public void AddRows(int rowsPerPage, int scrollToRow = -1)
         {
             if (!gameObject.activeInHierarchy)
@@ -122,28 +116,26 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
                 Debug.LogWarning("Rows can not be added. List is not active in hierarchy");
                 return;
             }
+
             StartCoroutine(
                 WaitForViewPortHeight(
                     () =>
                     {
                         var newRows = new List<ListRow>();
-                        for (int i = _rows.Count; i < _rows.Count + rowsPerPage; i++)
+                        for (var i = _rows.Count; i < _rows.Count + rowsPerPage; i++)
                         {
-                            float position = CalculateRowPosition(i);
+                            var position = CalculateRowPosition(i);
                             newRows.Add(new ListRow(i, position));
                         }
 
                         _rows.AddRange(newRows);
                         UpdateContainerSize(_rows.Count);
-                        if (scrollToRow >= 0)
-                        {
-                            ToElement(scrollToRow);
-                        }
+                        if (scrollToRow >= 0) ToElement(scrollToRow);
                         NotifyRowsVisibility();
                     }));
         }
 
-        ///<inheritdoc cref="IInfiniteScrollList.ClearList"/>
+        /// <inheritdoc cref="IInfiniteScrollList.ClearList" />
         public void ClearList()
         {
             StopAllScrollCoroutines();
@@ -152,88 +144,96 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
             UpdateContainerSize(_rows.Count);
         }
 
-        ///<inheritdoc cref="IInfiniteScrollList.ScrollUp"/>
+        /// <inheritdoc cref="IInfiniteScrollList.ScrollUp" />
         public void ScrollUp()
         {
-            if (_scrollUpCoroutine != null || !gameObject.activeInHierarchy)
-            {
-                return;
-            }
+            if (_scrollUpCoroutine != null || !gameObject.activeInHierarchy) return;
             StopActiveCoroutine(ref _scrollDownCoroutine);
             _scrollUpCoroutine = StartCoroutine(Scroll(-1));
         }
 
-        ///<inheritdoc cref="IInfiniteScrollList.ScrollDown"/>
+        /// <inheritdoc cref="IInfiniteScrollList.ScrollDown" />
         public void ScrollDown()
         {
-            if (_scrollDownCoroutine != null)
-            {
-                return;
-            }
+            if (_scrollDownCoroutine != null) return;
             StopActiveCoroutine(ref _scrollUpCoroutine);
             _scrollDownCoroutine = StartCoroutine(Scroll(1));
         }
 
-        ///<inheritdoc cref="IInfiniteScrollList.ToTop"/>
+        /// <inheritdoc cref="IInfiniteScrollList.ToTop" />
         public void ToTop()
         {
             StopAllScrollCoroutines();
             _container.anchoredPosition = GetContainerPosition(0);
         }
 
-        ///<inheritdoc cref="IInfiniteScrollList.ToBottom"/>
+        /// <inheritdoc cref="IInfiniteScrollList.ToBottom" />
         public void ToBottom()
         {
             StopAllScrollCoroutines();
             _container.anchoredPosition = GetMaximumContainerPosition();
         }
 
-        ///<inheritdoc cref="IInfiniteScrollList.ToElement"/>
+        /// <inheritdoc cref="IInfiniteScrollList.ToElement" />
         public void ToElement(int rowIndex, AlignAt elementAlignment = AlignAt.Top)
         {
-            if (!_isScrollActive || rowIndex >= _rows.Count)
-            {
-                return;
-            }
+            if (!_isScrollActive || rowIndex >= _rows.Count) return;
             StopAllScrollCoroutines();
-            int index = Mathf.Clamp(rowIndex, 0, int.MaxValue);
+            var index = Mathf.Clamp(rowIndex, 0, int.MaxValue);
 
             float offset = 0;
             if (index == 0 || elementAlignment == AlignAt.Top)
-            {
                 offset = _rowHeight / 2;
-            }
-            else if(elementAlignment == AlignAt.Bottom)
-            {
-                offset = _rowHeight * RowsInView - (_rowHeight / 2);
-            }
-            float rowPosition = (CalculateRowPosition(index) + offset) * -1;
+            else if (elementAlignment == AlignAt.Bottom) offset = _rowHeight * RowsInView - _rowHeight / 2;
+            var rowPosition = (CalculateRowPosition(index) + offset) * -1;
             // When we reach the end of the content we can Over-Scroll
             // which will cause weird behavior on the scrollbar.
             // That is why we need to remove the extra scroll size.
-            float normalize = rowPosition-(Mathf.Max(0, (ViewPortHeight + rowPosition)-_container.sizeDelta.y));
+            var normalize = rowPosition - Mathf.Max(0, ViewPortHeight + rowPosition - _container.sizeDelta.y);
             _container.anchoredPosition = GetContainerPosition(Mathf.Max(0, normalize));
+        }
+
+        public bool IsViewFullyVisible(RectTransform rect)
+        {
+            // Get the world corners of the target RectTransform
+            var targetCorners = new Vector3[4];
+            rect.GetWorldCorners(targetCorners);
+
+            // Get the world corners of the viewport
+            var viewportCorners = new Vector3[4];
+            _viewPort.GetWorldCorners(viewportCorners);
+
+            // Expand viewport bounds vertically to account for tolerance
+            var minY = viewportCorners[0].y - VISIBILITY_TOLERANCE; // Bottom boundary
+            var maxY = viewportCorners[1].y + VISIBILITY_TOLERANCE; // Top boundary
+
+            // Check the bottom-left and top-left corners of the target
+            var bottomLeftInside = targetCorners[0].y >= minY && targetCorners[0].y <= maxY; // Bottom-left corner
+            var topLeftInside = targetCorners[1].y >= minY && targetCorners[1].y <= maxY; // Top-left corner
+
+            // Both corners must be inside the vertical bounds
+            return bottomLeftInside && topLeftInside;
+        }
+
+        private void OnViewportHeightUpdated(object sender, float viewportHeight)
+        {
+            UpdateContainerSize(_rows.Count);
+            NotifyRowsVisibility();
         }
 
         private void NotifyRowsVisibility()
         {
-            foreach (ListRow row in _rows)
-            {
+            foreach (var row in _rows)
                 if (IsCenterInViewPort(row.Position))
-                {
                     RowVisibleEvent?.Invoke(this, row);
-                }
                 else
-                {
                     RowHiddenEvent?.Invoke(this, row);
-                }
-            }
             RowsVisibilityUpdatedEvent?.Invoke(this, EventArgs.Empty);
         }
 
         private void UpdateContainerSize(int rowsCount)
         {
-            float containerHeight = _headerSize + rowsCount * (_verticalSpacing + _rowHeight) + _bottomPadding;
+            var containerHeight = _headerSize + rowsCount * (_verticalSpacing + _rowHeight) + _bottomPadding;
             _container.sizeDelta = new Vector2(_container.sizeDelta.x, containerHeight);
             RowsInView = ViewPortHeight / _rowHeight;
             _scrollThreshold = RowsInView / _container.rect.height;
@@ -250,6 +250,7 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
                 NotifyRowsVisibility();
                 _scrollCheckCoroutine ??= StartCoroutine(ScrollingCheck());
             }
+
             if (float.IsInfinity(_scrollThreshold))
             {
                 _previousScrollPercent = scrollPercent;
@@ -259,6 +260,7 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
                 _lockScroll = true;
                 OnListEndEvent?.Invoke(this, EventArgs.Empty);
             }
+
             SetScrollNavigationState();
         }
 
@@ -278,9 +280,9 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         private float CalculateRowPosition(int index)
         {
-            float totalSpacing = _headerSize + (index + 1) * _verticalSpacing;
-            float prevRow = (index) * _rowHeight;
-            float rowCenter = _rowHeight / 2f;
+            var totalSpacing = _headerSize + (index + 1) * _verticalSpacing;
+            var prevRow = index * _rowHeight;
+            var rowCenter = _rowHeight / 2f;
 
             return (totalSpacing + prevRow + rowCenter) * -1;
         }
@@ -288,19 +290,19 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
         private IEnumerator Scroll(int direction)
         {
             Vector3 currentPos = _container.anchoredPosition;
-            float maxYPosition = GetMaximumContainerPosition().y;
-            float targetPositionY = Mathf.Clamp(currentPos.y + _scrollLength * direction, 0, maxYPosition);
+            var maxYPosition = GetMaximumContainerPosition().y;
+            var targetPositionY = Mathf.Clamp(currentPos.y + _scrollLength * direction, 0, maxYPosition);
             var targetPos = new Vector3(currentPos.x, targetPositionY, currentPos.z);
-            float distance = Vector3.Distance(currentPos, targetPos);
+            var distance = Vector3.Distance(currentPos, targetPos);
 
-            float duration = distance / _scrollSpeed;
+            var duration = distance / _scrollSpeed;
 
             var timePassed = 0f;
 
             while (timePassed < duration)
             {
                 // always a factor between 0 and 1
-                float factor = timePassed / duration;
+                var factor = timePassed / duration;
 
                 _container.anchoredPosition = Vector3.Lerp(currentPos, targetPos, factor);
 
@@ -335,16 +337,16 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
         private bool IsCenterInViewPort(float rowPosition)
         {
             // Convert the point's Y position in content to world space
-            Vector3 worldPoint = _container.TransformPoint(new Vector3(0, rowPosition, 0));
+            var worldPoint = _container.TransformPoint(new Vector3(0, rowPosition, 0));
 
             // Convert the world space position to the local space of the viewport
-            Vector3 localPointInViewport = _viewPort.InverseTransformPoint(worldPoint);
+            var localPointInViewport = _viewPort.InverseTransformPoint(worldPoint);
 
             // Get the vertical bounds of the viewport and add a tolerance of third of the row height.
-            float tolerance = _rowHeight;
-            Rect viewPortRect = _viewPort.rect;
-            float viewportMinY = viewPortRect.yMin - tolerance;
-            float viewportMaxY = viewPortRect.yMax + tolerance;
+            var tolerance = _rowHeight;
+            var viewPortRect = _viewPort.rect;
+            var viewportMinY = viewPortRect.yMin - tolerance;
+            var viewportMaxY = viewPortRect.yMax + tolerance;
 
             // Check if the Y position is within the viewport's vertical bounds
             return localPointInViewport.y >= viewportMinY && localPointInViewport.y <= viewportMaxY;
@@ -365,34 +367,9 @@ namespace TinyRiftGames.UIManager.Scripts.InfiniteScrollList
 
         private void StopActiveCoroutine(ref Coroutine activeCoroutine)
         {
-            if (activeCoroutine == null)
-            {
-                return;
-            }
+            if (activeCoroutine == null) return;
             StopCoroutine(activeCoroutine);
             activeCoroutine = null;
-        }
-
-        public bool IsViewFullyVisible(RectTransform rect)
-        {
-            // Get the world corners of the target RectTransform
-            var targetCorners = new Vector3[4];
-            rect.GetWorldCorners(targetCorners);
-
-            // Get the world corners of the viewport
-            var viewportCorners = new Vector3[4];
-            _viewPort.GetWorldCorners(viewportCorners);
-
-            // Expand viewport bounds vertically to account for tolerance
-            float minY = viewportCorners[0].y - VISIBILITY_TOLERANCE; // Bottom boundary
-            float maxY = viewportCorners[1].y + VISIBILITY_TOLERANCE; // Top boundary
-
-            // Check the bottom-left and top-left corners of the target
-            bool bottomLeftInside = targetCorners[0].y >= minY && targetCorners[0].y <= maxY; // Bottom-left corner
-            bool topLeftInside = targetCorners[1].y >= minY && targetCorners[1].y <= maxY; // Top-left corner
-
-            // Both corners must be inside the vertical bounds
-            return bottomLeftInside && topLeftInside;
         }
     }
 }

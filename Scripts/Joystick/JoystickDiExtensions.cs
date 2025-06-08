@@ -1,6 +1,7 @@
-﻿using Zenject;
+﻿using TwoOneTwoGames.UIManager.Plugins.JoystickPlugin;
+using Zenject;
 
-namespace Plugins.UIManager.Scripts.CustomJoystick
+namespace TwoOneTwoGames.UIManager.JoystickController
 {
     public static class JoystickDiExtensions
     {
@@ -8,7 +9,7 @@ namespace Plugins.UIManager.Scripts.CustomJoystick
         {
             container
                 .Bind<IJoystick>()
-                .To<Joystick>()
+                .To<Plugins.JoystickPlugin.Joystick>()
                 .FromComponentInHierarchy()
                 .AsSingle();
         }

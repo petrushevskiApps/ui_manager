@@ -1,9 +1,12 @@
 ﻿using System;
 
-public interface IPopupScreenEvents
+namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
-    event EventHandler PopupScreenShownEvent;
-    event EventHandler PopupScreenResumedEvent;
-    event EventHandler PopupScreenHiddenEvent;
-    event EventHandler PopupScreenClosedEvent;
+    public interface IPopupScreenEvents
+    {
+        event EventHandler PopupScreenShownEvent;
+        event EventHandler PopupScreenResumedEvent;
+        event EventHandler PopupScreenHiddenEvent;
+        event EventHandler PopupScreenClosedEvent;
+    }
 }

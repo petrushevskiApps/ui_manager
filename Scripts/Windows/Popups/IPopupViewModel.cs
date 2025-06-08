@@ -1,6 +1,6 @@
-﻿using MenuManager.Scripts.Utilitis;
+﻿using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
-namespace slowBulletGames.MemoryValley
+namespace TwoOneTwoGames.UIManager.Windows
 {
     public interface IPopupViewModel
     {

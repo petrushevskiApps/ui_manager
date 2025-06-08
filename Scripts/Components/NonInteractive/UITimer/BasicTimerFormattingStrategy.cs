@@ -1,12 +1,12 @@
 ﻿using System.Text;
 
-namespace Plugins.UIManager.Scripts.Components.NonInteractive.UITimer
+namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 {
     public class BasicTimerFormattingStrategy : ITimerFormattingStrategy
     {
         public string GetFormattedTimer(int minutes, int seconds)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.Append(minutes > 9 ? $"{minutes}" : $"0{minutes}");
             sb.Append(":");

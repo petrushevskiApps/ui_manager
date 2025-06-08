@@ -1,6 +1,6 @@
-﻿using slowBulletGames.MemoryValley;
+﻿using TwoOneTwoGames.UIManager.Windows;
 
-namespace PetrushevskiApps.UIManager.ScreenNavigation.Navigation
+namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
     public interface IScreenNavigation
     {

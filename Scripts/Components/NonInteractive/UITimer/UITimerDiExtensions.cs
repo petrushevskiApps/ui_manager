@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace Plugins.UIManager.Scripts.Components.NonInteractive.UITimer
+namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 {
     public static class UITimerDiExtensions
     {
@@ -11,7 +11,7 @@ namespace Plugins.UIManager.Scripts.Components.NonInteractive.UITimer
                 .To<BasicTimerFormattingStrategy>()
                 .AsSingle();
         }
-    
+
         public static void BindTimerColoringDependencies(this DiContainer container)
         {
             container

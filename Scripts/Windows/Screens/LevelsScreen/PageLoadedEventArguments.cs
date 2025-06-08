@@ -1,14 +1,17 @@
 ﻿using System;
 
-public class PageLoadedEventArguments : EventArgs
+namespace TwoOneTwoGames.UIManager.Windows
 {
-    public int ElementsInPage { get; }
-
-    public int IndexOfLastCompletedLevel { get; }
-
-    public PageLoadedEventArguments(int indexOfLastCompletedLevel, int elementsInPage)
+    public class PageLoadedEventArguments : EventArgs
     {
-        IndexOfLastCompletedLevel = indexOfLastCompletedLevel;
-        ElementsInPage = elementsInPage;
+        public int ElementsInPage { get; }
+
+        public int IndexOfLastCompletedLevel { get; }
+
+        public PageLoadedEventArguments(int indexOfLastCompletedLevel, int elementsInPage)
+        {
+            IndexOfLastCompletedLevel = indexOfLastCompletedLevel;
+            ElementsInPage = elementsInPage;
+        }
     }
 }
