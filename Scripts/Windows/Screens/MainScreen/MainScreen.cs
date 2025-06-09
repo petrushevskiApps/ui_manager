@@ -10,9 +10,10 @@ namespace TwoOneTwoGames.UIManager.Windows
         [Header("Buttons")]
         [SerializeField]
         private UIButton _settingsButton;
-
         [SerializeField]
         private UIButton _startButton;
+        [SerializeField]
+        private UIButton _levelsButton;
 
         // Injected
         private IMainScreenViewModel _viewModel;
@@ -26,15 +27,42 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Resume()
         {
             base.Resume();
-            _settingsButton.OnClick.AddListener(_viewModel.SettingsClicked);
-            _startButton.OnClick.AddListener(_viewModel.StartLevelClicked);
+            
+            if (_levelsButton != null)
+            {
+                _levelsButton.OnClick.AddListener(_viewModel.LevelsButtonClicked);
+            }
+            if (_settingsButton != null)
+            {
+                _settingsButton.OnClick.AddListener(_viewModel.SettingsClicked);
+            }
+            if (_startButton != null)
+            {
+                _startButton.OnClick.AddListener(_viewModel.StartLevelClicked);
+                _viewModel.PlayButton.Subscribe(_startButton.SetData);
+            }
+            
+            _viewModel.ScreenResumed();
         }
 
         public override void Hide()
         {
             base.Hide();
-            _settingsButton.OnClick.RemoveListener(_viewModel.SettingsClicked);
-            _startButton.OnClick.RemoveListener(_viewModel.StartLevelClicked);
+            
+            if (_levelsButton != null)
+            {
+                _levelsButton.OnClick.RemoveListener(_viewModel.LevelsButtonClicked);
+            }
+            if (_startButton != null)
+            {
+                _startButton.OnClick.RemoveListener(_viewModel.StartLevelClicked);
+                _viewModel.PlayButton.Unsubscribe(_startButton.SetData);
+            }
+            if (_settingsButton != null)
+            {
+                _settingsButton.OnClick.RemoveListener(_viewModel.SettingsClicked);
+            }
+            _viewModel.ScreenHidden();
         }
 
         public override void OnBackTriggered()
