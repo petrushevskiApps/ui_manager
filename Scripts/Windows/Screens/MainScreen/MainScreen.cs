@@ -1,6 +1,7 @@
 using TwoOneTwoGames.UIManager.Components.Interactive;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
+using Zenject;
 
 namespace TwoOneTwoGames.UIManager.Windows
 {
@@ -16,7 +17,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         // Injected
         private IMainScreenViewModel _viewModel;
 
-        
+        [Inject]
         public void Initialize(IMainScreenViewModel viewModel)
         {
             _viewModel = viewModel;
