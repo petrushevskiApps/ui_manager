@@ -1,6 +1,7 @@
 using TMPro;
 using TwoOneTwoGames.UIManager.Components.Interactive;
 using TwoOneTwoGames.UIManager.Components.NonInteractive;
+using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
 using Zenject;
@@ -25,7 +26,9 @@ namespace TwoOneTwoGames.UIManager.Windows
         protected IInGameScreenViewModel ViewModel;
 
         [Inject]
-        public void Initialize(IInGameScreenViewModel viewModel)
+        public void Initialize(
+            IInGameScreenViewModel viewModel,
+            IUILevelController uiLevelController)
         {
             ViewModel = viewModel;
         }
@@ -36,6 +39,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             _pauseButton.OnClick.AddListener(ViewModel.PauseClicked);
             ViewModel.LevelTitle.Subscribe(SetLevelTitle);
             ViewModel.ProgressBarData.Subscribe(_progressBar.SetData);
+            ViewModel.ScreenResumed();
         }
 
         public override void Hide()
@@ -44,6 +48,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             _pauseButton.OnClick.RemoveListener(ViewModel.PauseClicked);
             ViewModel.LevelTitle.Unsubscribe(SetLevelTitle);
             ViewModel.ProgressBarData.Unsubscribe(_progressBar.SetData);
+            ViewModel.ScreenHidden();
         }
 
         private void SetLevelTitle(string title)

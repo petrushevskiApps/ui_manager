@@ -9,5 +9,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         IReactiveProperty<UIProgressBarData> ProgressBarData { get; }
         void PauseClicked();
         void OnBackTriggered();
+        void ScreenResumed();
+        void ScreenHidden();
     }
 }
