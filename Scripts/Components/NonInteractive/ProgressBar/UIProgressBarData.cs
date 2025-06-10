@@ -8,5 +8,6 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive
         public float Minimum;
         public float Maximum;
         public Color? Color;
+        public bool IsVisible;
     }
 }

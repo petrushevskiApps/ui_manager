@@ -25,6 +25,12 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 
         public void SetData(UIProgressBarData progressBarData)
         {
+            if (!progressBarData.IsVisible)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            gameObject.SetActive(true);
             _slider.minValue = progressBarData.Minimum;
             _slider.maxValue = progressBarData.Maximum;
             UpdateProgress(progressBarData.Current);
