@@ -18,7 +18,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         void DoubleRewardButtonClicked();
         void SettingsButtonClicked();
         void OnBackTriggered();
-        void SetEarnedCoins(int coins);
+        void SetEarnedPoints(int points);
         void SetEarnedStars(int earnedStars);
         void ScreenResumed();
         void ScreenHidden();

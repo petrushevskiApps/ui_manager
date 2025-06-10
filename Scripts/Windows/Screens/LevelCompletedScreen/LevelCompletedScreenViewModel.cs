@@ -9,6 +9,13 @@ namespace TwoOneTwoGames.UIManager.Windows
     {
         private readonly IBackgroundMusicAudioPalette _musicAudioPalette;
         private readonly IPopupNavigation _popupNavigation;
+        
+        protected int EarnedPoints { get; private set; }
+
+        // Reactive Properties
+        public IReactiveProperty<int> EarnedStars { get; private set; }
+        public IReactiveProperty<string> Title { get; }
+        public IReactiveProperty<string> EarnedCoinsText { get; private set; }
 
         // Injected
         private readonly IScreenNavigation _screenNavigation;
@@ -39,14 +46,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             EarnedStars = new ReactiveProperty<int>();
             EarnedCoinsText = new ReactiveProperty<string>();
         }
-
-        protected int EarnedCoins { get; private set; }
-
-        // Reactive Properties
-        public IReactiveProperty<int> EarnedStars { get; private set; }
-        public IReactiveProperty<string> Title { get; }
-        public IReactiveProperty<string> EarnedCoinsText { get; private set; }
-
+        
         public virtual void ScreenResumed()
         {
             EarnedStars = new ReactiveProperty<int>();
@@ -77,9 +77,9 @@ namespace TwoOneTwoGames.UIManager.Windows
             _screenNavigation.ShowMainScreen();
         }
 
-        public virtual void SetEarnedCoins(int coins)
+        public virtual void SetEarnedPoints(int points)
         {
-            EarnedCoins = coins;
+            EarnedPoints = points;
         }
 
         public virtual void SetEarnedStars(int earnedStars)

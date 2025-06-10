@@ -54,7 +54,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             base.Show(navArguments);
             if (navArguments is LevelCompletedArguments arguments)
             {
-                ViewModel.SetEarnedCoins(arguments.EarnedPoints);
+                ViewModel.SetEarnedPoints(arguments.EarnedPoints);
                 ViewModel.SetEarnedStars(arguments.EarnedStars);
                 _uiHapticsController.LevelCompleted();
             }
