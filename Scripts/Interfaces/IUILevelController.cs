@@ -14,5 +14,6 @@ namespace TwoOneTwoGames.UIManager.Interfaces
         void LeaveLevel();
         void StartNextLevel();
         void SetLastUnlockedLevel();
+        event EventHandler<string> LevelStartedEvent;
     }
 }
