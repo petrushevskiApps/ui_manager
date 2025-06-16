@@ -17,6 +17,15 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 
         private IUiSoundSystem _uiSoundSystem;
 
+        [Inject]
+        public void Setup(
+            IUiSoundSystem uiSoundSystem,
+            IUiAudioPalette uiAudioPalette)
+        {
+            _uiSoundSystem = uiSoundSystem;
+            _uiAudioPalette = uiAudioPalette;
+        }
+
         private void Awake()
         {
             ClearStars();
@@ -25,15 +34,6 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive
         private void OnDisable()
         {
             ClearStars();
-        }
-
-        [Inject]
-        public void Setup(
-            IUiSoundSystem uiSoundSystem,
-            IUiAudioPalette uiAudioPalette)
-        {
-            _uiSoundSystem = uiSoundSystem;
-            _uiAudioPalette = uiAudioPalette;
         }
 
         public void SetData(int starsCount)
