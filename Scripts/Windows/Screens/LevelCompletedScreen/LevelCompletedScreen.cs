@@ -71,7 +71,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             _doubleRewardButton.OnClick.AddListener(ViewModel.DoubleRewardButtonClicked);
             ViewModel.EarnedStars.Subscribe(_stars.SetData);
             ViewModel.Title.Subscribe(_title.SetData);
-            ViewModel.EarnedCoinsText.Subscribe(_earnedCoinsText.SetData);
+            if (_earnedCoinsText != null)
+            {
+                ViewModel.EarnedCoinsText.Subscribe(_earnedCoinsText.SetData);
+            }
         }
 
         public override void Hide()
@@ -84,7 +87,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             _doubleRewardButton.OnClick.RemoveListener(ViewModel.DoubleRewardButtonClicked);
             ViewModel.EarnedStars.Unsubscribe(_stars.SetData);
             ViewModel.Title.Unsubscribe(_title.SetData);
-            ViewModel.EarnedCoinsText.Subscribe(_earnedCoinsText.SetData);
+            if (_earnedCoinsText != null)
+            {
+                ViewModel.EarnedCoinsText.Subscribe(_earnedCoinsText.SetData);
+            }
             ViewModel.ScreenHidden();
         }
 
