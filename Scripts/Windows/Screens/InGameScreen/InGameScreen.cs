@@ -38,7 +38,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             base.Resume();
             _pauseButton.OnClick.AddListener(ViewModel.PauseClicked);
             ViewModel.LevelTitle.Subscribe(SetLevelTitle);
-            ViewModel.ProgressBarData.Subscribe(_progressBar.SetData);
+            if (_progressBar != null)
+            {
+                ViewModel.ProgressBarData.Subscribe(_progressBar.SetData);
+            }
             ViewModel.ScreenResumed();
         }
 
@@ -47,7 +50,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             base.Hide();
             _pauseButton.OnClick.RemoveListener(ViewModel.PauseClicked);
             ViewModel.LevelTitle.Unsubscribe(SetLevelTitle);
-            ViewModel.ProgressBarData.Unsubscribe(_progressBar.SetData);
+            if (_progressBar != null)
+            {
+                ViewModel.ProgressBarData.Unsubscribe(_progressBar.SetData);
+            }
             ViewModel.ScreenHidden();
         }
 
