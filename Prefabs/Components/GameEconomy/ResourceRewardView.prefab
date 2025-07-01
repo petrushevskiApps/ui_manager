@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 9088551688915607972}
   - component: {fileID: 7024586873523671856}
   m_Layer: 5
-  m_Name: EconomyResourceView
+  m_Name: ResourceRewardView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

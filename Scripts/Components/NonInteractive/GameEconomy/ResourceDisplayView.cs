@@ -1,15 +1,15 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using TMPro;
 using TwoOneTwoGames.UIManager.Data.IconPalette;
 using TwoOneTwoGames.UIManager.Interfaces;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
 namespace TwoOneTwoGames.UIManager.Components.NonInteractive.GameEconomy
 {
-    public class EconomyResourceView: MonoBehaviour
+    public class ResourceDisplayView: MonoBehaviour
     {
         [SerializeField]
         private int _resourceId;
@@ -29,22 +29,31 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive.GameEconomy
         {
             _uiGameEconomyIconPalette = uiGameEconomyIconPalette;
             _gameEconomyPresenter = gameEconomyPresenter;
-            _gameEconomyPresenter.EarnedResourceEvent += OnEarnedReward;
-        }
-        
-        private void OnDestroy()
-        {
-            _gameEconomyPresenter.EarnedResourceEvent -= OnEarnedReward;
         }
 
-        private void OnEarnedReward(object sender, (int id, float value) resource)
+        private void OnEnable()
         {
-            if (_resourceId != resource.id)
+            _gameEconomyPresenter.UsedResourceEvent += OnResourceUsed;
+            SetResource();
+        }
+
+        private void OnDisable()
+        {
+            _gameEconomyPresenter.UsedResourceEvent -= OnResourceUsed;
+        }
+
+        private void OnResourceUsed(object sender, (int id, float value) resource)
+        {
+            if (_resourceId == resource.id)
             {
-                return;
+                SetResource();
             }
-            SetValue(resource.value);
-            SetIcon(resource.id);
+        }
+
+        private void SetResource()
+        {
+            SetValue(_gameEconomyPresenter.GetResourceValueWithId(_resourceId));
+            SetIcon(_resourceId);
         }
 
         private void SetValue(float value)
