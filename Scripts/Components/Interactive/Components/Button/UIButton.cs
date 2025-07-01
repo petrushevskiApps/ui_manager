@@ -58,6 +58,10 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
                 _label.gameObject.SetActive(false);
             }
 
+            if (viewData.TextColor != null)
+            {
+                _label.color = viewData.TextColor.Value;
+            }
             _button.interactable = viewData.IsInteractive;
         }
 
