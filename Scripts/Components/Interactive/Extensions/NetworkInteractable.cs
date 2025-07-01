@@ -28,14 +28,18 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
         {
             _connectionListener?.RegisterToConnectionChanges(OnConnectionChange);
             if (_interactivityMonitor != null)
+            {
                 _interactivityMonitor.InteractivityChangedEvent.AddListener(OnInteractivityChange);
+            }
         }
 
         private void OnDestroy()
         {
             _connectionListener?.UnregisterToConnectionChanges(OnConnectionChange);
             if (_interactivityMonitor != null)
+            {
                 _interactivityMonitor.InteractivityChangedEvent.RemoveListener(OnInteractivityChange);
+            }
         }
 
         [Inject]
@@ -57,7 +61,10 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
 
         private void SetConnectivityStatus()
         {
-            if (Selectable != null) Selectable.interactable &= IsConnected;
+            if (Selectable != null)
+            {
+                Selectable.interactable &= IsConnected;
+            }
         }
     }
 }
