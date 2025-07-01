@@ -4,7 +4,7 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 {
     public static class TextExtensions
     {
-        public static void SetData(this TextMeshProUGUI textMeshProUGUI, string text)
+        public static void SetData(this TextMeshProUGUI textMeshProUGUI, string text = null)
         {
             if (text == null)
             {
