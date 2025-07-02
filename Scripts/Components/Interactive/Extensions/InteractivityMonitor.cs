@@ -7,8 +7,10 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
     public class InteractivityMonitor : SelectableExtension
     {
         public UnityEvent<bool> InteractivityChangedEvent = new();
+        public bool IsInteractive => _currentStatus;
+        
+        // Internal
         private Coroutine _checkCoroutine;
-
         private bool _currentStatus;
 
         private void OnEnable()
@@ -25,12 +27,16 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
         {
             StopCheck();
             _currentStatus = Selectable.interactable;
+            InteractivityChangedEvent.Invoke(_currentStatus);
             _checkCoroutine = StartCoroutine(InteractivityCheck());
         }
 
         private void StopCheck()
         {
-            if (_checkCoroutine == null) return;
+            if (_checkCoroutine == null)
+            {
+                return;
+            }
             StopCoroutine(_checkCoroutine);
             _checkCoroutine = null;
         }
