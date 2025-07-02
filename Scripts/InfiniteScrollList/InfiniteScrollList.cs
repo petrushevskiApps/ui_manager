@@ -224,10 +224,16 @@ namespace TwoOneTwoGames.UIManager.InfiniteScrollList
         private void NotifyRowsVisibility()
         {
             foreach (var row in _rows)
+            {
                 if (IsCenterInViewPort(row.Position))
+                {
                     RowVisibleEvent?.Invoke(this, row);
+                }
                 else
+                {
                     RowHiddenEvent?.Invoke(this, row);
+                }
+            }
             RowsVisibilityUpdatedEvent?.Invoke(this, EventArgs.Empty);
         }
 

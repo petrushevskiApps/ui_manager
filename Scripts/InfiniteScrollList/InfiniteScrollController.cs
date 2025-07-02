@@ -72,7 +72,10 @@ namespace TwoOneTwoGames.UIManager.InfiniteScrollList
 
         private void OnRowVisible(object sender, ListRow row)
         {
-            if (_itemViews.ContainsKey(row.Index)) return;
+            if (_itemViews.ContainsKey(row.Index))
+            {
+                return;
+            }
             var itemView = _itemViewPool.Spawn(_listItemsParent);
             SetPositionOnItemView(itemView.View, row.Position);
             _itemViews.Add(row.Index, itemView);
