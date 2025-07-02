@@ -4,6 +4,7 @@ using TwoOneTwoGames.UIManager.Components.NonInteractive;
 using TwoOneTwoGames.UIManager.InfiniteScrollList;
 using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
+using TwoOneTwoGames.UIManager.Utilities.Extensions;
 using UnityEngine;
 using Zenject;
 
@@ -17,21 +18,23 @@ namespace TwoOneTwoGames.UIManager.Windows
         [SerializeField]
         private InfiniteScrollController _infiniteScrollController;
 
-        private IItemViewPool _itemViewPool;
-        private IUiHapticsController _uiHapticsController;
+        // Internal
+        private int _columnCount = 1;
 
         // Injected
         protected ILevelsScreenViewModel ViewModel;
+        private IItemViewPool _itemViewPool;
+        private IUiHapticsController _uiHapticsController;
 
         public void SetItemViewData(IItemView rowView)
         {
-            if (rowView.Index >= ViewModel.Levels.Count) return;
-            var item = rowView.View.GetComponent<LevelItemView>();
+            var row = rowView.View.GetComponent<ListRowView>();
+            _columnCount = row.ColumnCount;
 
-            item.SetData(
+            row.SetData(
                 _uiHapticsController,
-                ViewModel.Levels[rowView.Index],
-                ViewModel.OnLevelClicked);
+                ViewModel.OnLevelClicked,
+                ViewModel.Levels.SafeGetRange(rowView.Index * row.ColumnCount, row.ColumnCount).ToArray());
         }
 
         [Inject]
@@ -76,7 +79,9 @@ namespace TwoOneTwoGames.UIManager.Windows
 
         private void OnLevelsPageReady(object sender, PageLoadedEventArguments args)
         {
-            _infiniteScrollController.AddPageAndScrollTo(args.ElementsInPage, args.IndexOfLastCompletedLevel);
+            _infiniteScrollController.AddPageAndScrollTo(
+                Mathf.CeilToInt((float) args.ElementsInPage / _columnCount),
+                args.IndexOfLastCompletedLevel);
         }
 
         public override void OnBackTriggered()
