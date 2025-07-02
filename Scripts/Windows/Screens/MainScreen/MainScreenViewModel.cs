@@ -19,11 +19,13 @@ namespace TwoOneTwoGames.UIManager.Windows
         private readonly IUiSoundSystem _uiSoundSystem;
 
         public MainScreenViewModel(
+            IScreenNavigation screenNavigation,
             IPopupNavigation popupNavigation,
             IUILevelController uiLevelController,
             IBackgroundMusicAudioPalette musicAudioPalette,
             IUiSoundSystem uiSoundSystem)
         {
+            _screenNavigation = screenNavigation;
             _popupNavigation = popupNavigation;
             _uiLevelController = uiLevelController;
             _musicAudioPalette = musicAudioPalette;
