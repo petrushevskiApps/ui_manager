@@ -6,6 +6,10 @@ namespace TwoOneTwoGames.UIManager.Windows
 {
     internal class ExitLevelPopupViewModel : IExitLevelPopupViewModel
     {
+        // Reactive Properties
+        public IReactiveProperty<string> Title { get; }
+        public IReactiveProperty<string> Message { get; }
+
         // Injected
         private readonly INavigationController _navigationController;
         private readonly IScreenNavigation _screenNavigation;
@@ -23,10 +27,6 @@ namespace TwoOneTwoGames.UIManager.Windows
             Title = new ReactiveProperty<string>("Exit Level");
             Message = new ReactiveProperty<string>("Are you sure? \nYour progress will be lost.");
         }
-
-        // Reactive Properties
-        public IReactiveProperty<string> Title { get; }
-        public IReactiveProperty<string> Message { get; }
 
         public void BackgroundClicked()
         {
