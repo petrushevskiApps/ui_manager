@@ -87,9 +87,9 @@ MonoBehaviour:
   _activateSafeArea: 1
   _isBackStackable: 1
   _globalUiElements: []
-  _columns: 0
   _title: {fileID: 4492425414405298157}
   _infiniteScrollController: {fileID: 145780036284820127}
+  _columnCount: 2
 --- !u!1 &2234055085402228300
 GameObject:
   m_ObjectHideFlags: 0

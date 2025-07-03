@@ -18,7 +18,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         [SerializeField]
         private InfiniteScrollController _infiniteScrollController;
 
-        // Internal
+        [SerializeField]
         private int _columnCount = 1;
 
         // Injected
@@ -29,12 +29,11 @@ namespace TwoOneTwoGames.UIManager.Windows
         public void SetItemViewData(IItemView rowView)
         {
             var row = rowView.View.GetComponent<ListRowView>();
-            _columnCount = row.ColumnCount;
 
             row.SetData(
                 _uiHapticsController,
                 ViewModel.OnLevelClicked,
-                ViewModel.Levels.SafeGetRange(rowView.Index * row.ColumnCount, row.ColumnCount).ToArray());
+                ViewModel.Levels.SafeGetRange(rowView.Index * _columnCount, _columnCount).ToArray());
         }
 
         [Inject]
