@@ -17,7 +17,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         private UIButton _button;
 
         [SerializeField]
-        private Image _background;
+        protected Image _background;
 
         [SerializeField]
         private GameObject _lockIcon;
@@ -35,6 +35,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         private IUILevelData _levelData;
 
         private Action<int, int> _onItemClicked;
+        private bool _isFunnelUnlocked;
 
         private void Awake()
         {
@@ -44,13 +45,15 @@ namespace TwoOneTwoGames.UIManager.Windows
         public int Index { get; set; }
         public GameObject View => gameObject;
 
-        public void SetData(
+        public virtual void SetData(
             IUiHapticsController uiHapticsController,
             IUILevelData levelData,
+            bool isFunnelUnlocked,
             Action<int, int> onItemClicked)
         {
+            _isFunnelUnlocked = isFunnelUnlocked;
             _levelData = levelData;
-
+            
             gameObject.name = $"Level-{_levelData.Id + 1}";
             _onItemClicked = onItemClicked;
             _button.SetHaptics(uiHapticsController);
@@ -60,7 +63,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         private void SetState()
         {
             var visualLevelId = _levelData.Id + 1;
-            if (_levelData.IsCompleted)
+            if (_isFunnelUnlocked && _levelData.IsCompleted)
             {
                 _background.sprite = _completedBackground;
                 _lockIcon.SetActive(false);
@@ -72,7 +75,7 @@ namespace TwoOneTwoGames.UIManager.Windows
                 });
                 _stars.SetData(_levelData.Stars);
             }
-            else if (_levelData.IsUnlocked)
+            else if (_isFunnelUnlocked && _levelData.IsUnlocked)
             {
                 _background.sprite = _unlockedBackground;
                 _lockIcon.SetActive(false);

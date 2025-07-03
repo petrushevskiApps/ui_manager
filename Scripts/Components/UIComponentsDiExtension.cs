@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive.LevelsList;
+using Zenject;
 
 namespace TwoOneTwoGames.UIManager.Components.NonInteractive
 {
@@ -10,6 +11,10 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive
                 .Bind<IUIObjectPresenter>()
                 .To<UIObjectPresenter>()
                 .FromComponentInHierarchy()
+                .AsSingle();
+            container
+                .Bind<ILevelsListViewModel>()
+                .To<LevelsListViewModel>()
                 .AsSingle();
         }
     }
