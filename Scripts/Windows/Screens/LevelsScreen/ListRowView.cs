@@ -14,10 +14,10 @@ namespace TwoOneTwoGames.UIManager.Windows
         public int Index { get; set; }
         public GameObject View => gameObject;
 
-        public int ColumnCount => _rowViews.Count;
         public void SetData(
             IUiHapticsController uiHapticsController, 
             Action<int, int> onClick,
+            bool isFunnelUnlocked,
             params IUILevelData[] levels)
         {
             if (levels.Length > _rowViews.Count)
@@ -31,6 +31,7 @@ namespace TwoOneTwoGames.UIManager.Windows
                 _rowViews[i].SetData(
                     uiHapticsController,
                     levels[i],
+                    isFunnelUnlocked,
                     onClick);
             }
         }
