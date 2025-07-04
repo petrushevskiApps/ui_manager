@@ -13,8 +13,20 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive
         [SerializeField]
         private List<GameObject> _stars;
 
-        private IUiAudioPalette _uiAudioPalette;
+        [SerializeField]
+        [Tooltip("Delay the start of the Stars fill up in seconds.")]
+        private float _delayPresentationStart = 1f;
 
+        [SerializeField]
+        [Tooltip("Should SFX be played when the star is filled.")]
+        private bool _playSfx = true;
+
+        [SerializeField]
+        [Tooltip("Should the star fills be with delay or instantly.")]
+        private bool _instantStarsFill = true;
+        
+        // Injected
+        private IUiAudioPalette _uiAudioPalette;
         private IUiSoundSystem _uiSoundSystem;
 
         [Inject]
@@ -39,15 +51,23 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive
         public void SetData(int starsCount)
         {
             gameObject.SetActive(true);
-            for (var i = 0; i < starsCount; i++)
+            StartCoroutine(DelayInvoke(() =>
             {
-                var index = i;
-                StartCoroutine(DelayInvoke(() =>
+                float baseDelay = _instantStarsFill ? 0 : 0.4f;
+                for (var i = 0; i < starsCount; i++)
                 {
-                    _stars[index].SetActive(true);
-                    _uiSoundSystem?.PlayUiSoundEffect(_uiAudioPalette.StarShown);
-                }, 0.4f * index));
-            }
+                    var index = i;
+                    StartCoroutine(DelayInvoke(() =>
+                    {
+                        _stars[index].SetActive(true);
+                        if (_playSfx)
+                        {
+                            _uiSoundSystem?.PlayUiSoundEffect(_uiAudioPalette.StarShown);
+                        }
+                    },  baseDelay * index));
+                }
+            }, _delayPresentationStart));
+            
         }
 
         private IEnumerator DelayInvoke(Action action, float delaySeconds)
