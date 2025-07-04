@@ -35,6 +35,7 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
         // Injected
         private IUiSoundSystem _uiSoundSystem;
         protected INavigationController NavigationController;
+        private IPauseGameController _pauseGameController;
 
         // Events
         public event EventHandler PopupScreenShownEvent;
@@ -44,6 +45,19 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
 
         public bool IsPopup => true;
         public bool IsBackStackable => _isBackStackable;
+
+        [Inject]
+        public void Initialize(
+            IUiSoundSystem uiSoundSystem,
+            IUiAudioPalette uiAudioPalette,
+            INavigationController navigationController, 
+            IPauseGameController pauseGameController)
+        {
+            _uiSoundSystem = uiSoundSystem;
+            _uiAudioPalette = uiAudioPalette;
+            NavigationController = navigationController;
+            _pauseGameController = pauseGameController;
+        }
 
         public void Show<TArguments>(TArguments navArguments)
         {
@@ -86,17 +100,6 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
 
         protected abstract IPopupViewModel GetPopupViewModel();
 
-        [Inject]
-        public void Initialize(
-            IUiSoundSystem uiSoundSystem,
-            IUiAudioPalette uiAudioPalette,
-            INavigationController navigationController)
-        {
-            _uiSoundSystem = uiSoundSystem;
-            _uiAudioPalette = uiAudioPalette;
-            NavigationController = navigationController;
-        }
-
         private void PlaySfx(AudioClip sfxClip)
         {
             if (sfxClip != null) _uiSoundSystem?.PlayUiSoundEffect(sfxClip);
@@ -128,7 +131,10 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
 
         private void PauseGame(bool pause)
         {
-            if (_pauseGameWhenActive) Time.timeScale = pause ? 0 : 1;
+            if (_pauseGameWhenActive)
+            {
+                _pauseGameController.TogglePauseGame(pause);
+            }
         }
     }
 }
