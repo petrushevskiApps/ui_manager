@@ -1,4 +1,5 @@
 ﻿using TwoOneTwoGames.UIManager.Windows;
+using TwoOneTwoGames.ZenRings.UserInterface.Windows;
 
 namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
@@ -34,6 +35,11 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
         public void ShowExitGamePopup()
         {
             _navigationController.ShowPopup<ExitGamePopup>();
+        }
+        
+        public void ShowIconMessagePopup(IconMessagePopupArguments args)
+        {
+            _navigationController.ShowPopup<IconMessagePopup, IconMessagePopupArguments>(args);
         }
     }
 }

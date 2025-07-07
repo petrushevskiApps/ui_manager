@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using TwoOneTwoGames.ZenRings.UserInterface.Windows;
+using Zenject;
 
 namespace TwoOneTwoGames.UIManager.Windows
 {
@@ -60,6 +61,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             container
                 .Bind<IExitGamePopupViewModel>()
                 .To<ExitGamePopupViewModel>()
+                .AsSingle();
+            container
+                .Bind<IIconMessagePopupViewModel>()
+                .To<IconMessagePopupViewModel>()
                 .AsSingle();
         }
     }

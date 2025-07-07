@@ -1,4 +1,6 @@
-﻿namespace TwoOneTwoGames.UIManager.ScreenNavigation
+﻿using TwoOneTwoGames.ZenRings.UserInterface.Windows;
+
+namespace TwoOneTwoGames.UIManager.ScreenNavigation
 {
     public interface IPopupNavigation
     {
@@ -7,5 +9,6 @@
         public void ShowExitLevelPopup();
         public void ShowSettingsPopup();
         public void ShowExitGamePopup();
+        public void ShowIconMessagePopup(IconMessagePopupArguments args);
     }
 }
