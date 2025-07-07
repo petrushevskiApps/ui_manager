@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TwoOneTwoGames.UIManager.Components.Interactive;
 using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
@@ -49,12 +48,6 @@ namespace TwoOneTwoGames.ZenRings.UserInterface.Windows
             {
                 ButtonViews.Add(new ReactiveProperty<UIButtonViewData>(viewData));
             }
-            // buttonsViewData.Zip(ButtonViews, (data, view) => (data, view))
-            //     .ToList()
-            //     .ForEach(pair =>
-            //     {
-            //         pair.view.Value = pair.data;
-            //     });
         }
 
         public void BackgroundClicked()
