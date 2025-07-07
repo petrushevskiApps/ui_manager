@@ -1,4 +1,5 @@
 ﻿using System;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using UnityEngine;
 
 namespace TwoOneTwoGames.UIManager.Components.Interactive
@@ -10,11 +11,15 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
         public string Label { get; }
         public Color? TextColor { get; }
         public Action ClickAction { get; }
+        public ImageViewData? FirstIcon { get; }
+        public ImageViewData? SecondIcon { get; }
 
         public UIButtonViewData(
             string label = null, 
             Color? textColor = null, 
             Action clickAction = null,
+            ImageViewData? firstIcon = null,
+            ImageViewData? secondIcon = null,
             bool isInteractive = true,
             bool isVisible = true)
         {
@@ -23,6 +28,8 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
             Label = label;
             TextColor = textColor;
             ClickAction = clickAction;
+            FirstIcon = firstIcon;
+            SecondIcon = secondIcon;
         }
     }
 }

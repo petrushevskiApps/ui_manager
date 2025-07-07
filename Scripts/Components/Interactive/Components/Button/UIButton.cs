@@ -1,5 +1,6 @@
 ﻿using System;
 using TMPro;
+using TwoOneTwoGames.UIManager.Components.NonInteractive;
 using TwoOneTwoGames.UIManager.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,11 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
     {
         [SerializeField]
         private TextMeshProUGUI _label;
-
+        [SerializeField]
+        private Image _firstIcon;
+        [SerializeField]
+        private Image _secondIcon;
+        
         [SerializeField]
         private bool _ignoreHaptics;
 
@@ -63,6 +68,16 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
                 _label.color = viewData.TextColor.Value;
             }
 
+            if (_firstIcon != null && viewData.FirstIcon.HasValue)
+            {
+                _firstIcon.SetData(viewData.FirstIcon.Value);
+            }
+            
+            if (_secondIcon != null && viewData.SecondIcon.HasValue)
+            {
+                _secondIcon.SetData(viewData.SecondIcon.Value);
+            }
+            
             OnClick = viewData.ClickAction;
             _button.interactable = viewData.IsInteractive;
         }
