@@ -120,8 +120,8 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
                 else
                 {
                     stack.Pop().Close();
+                    HideCurrentScreenIn(stack);
                 }
-                HideCurrentScreenIn(stack);
             }
             else
             {
