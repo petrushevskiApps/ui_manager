@@ -1,4 +1,5 @@
 ﻿using TwoOneTwoGames.UIManager.Windows;
+using TwoOneTwoGames.UIManager.Windows.Popups;
 using TwoOneTwoGames.ZenRings.UserInterface.Windows;
 
 namespace TwoOneTwoGames.UIManager.ScreenNavigation
@@ -40,6 +41,10 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
         public void ShowIconMessagePopup(IconMessagePopupArguments args)
         {
             _navigationController.ShowPopup<IconMessagePopup, IconMessagePopupArguments>(args);
+        }
+        public void ShowBuyBoosterPopup(BuyBoosterPopupArguments args)
+        {
+            _navigationController.ShowPopup<BuyBoosterPopup, BuyBoosterPopupArguments>(args);
         }
     }
 }

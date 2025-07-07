@@ -1,4 +1,5 @@
-﻿using TwoOneTwoGames.ZenRings.UserInterface.Windows;
+﻿using TwoOneTwoGames.UIManager.Windows.Popups;
+using TwoOneTwoGames.ZenRings.UserInterface.Windows;
 using Zenject;
 
 namespace TwoOneTwoGames.UIManager.Windows
@@ -65,6 +66,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             container
                 .Bind<IIconMessagePopupViewModel>()
                 .To<IconMessagePopupViewModel>()
+                .AsSingle();
+            container
+                .Bind<IBuyBoosterPopupViewModel>()
+                .To<BuyBoosterPopupViewModel>()
                 .AsSingle();
         }
     }
