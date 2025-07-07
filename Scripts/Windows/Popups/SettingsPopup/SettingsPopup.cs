@@ -47,10 +47,11 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Resume()
         {
             base.Resume();
-            _privacySettingsButton.OnClick.AddListener(OnPrivacySettingsClick);
-            _privacyPolicyButton.OnClick.AddListener(OnPrivacyPolicyClick);
-            _termsOfUseButton.OnClick.AddListener(OnTermsOfUseClick);
-            _rateUsButton.OnClick.AddListener(OnRateUsClick);
+            
+            _viewModel.PrivacySettingsButton.Subscribe(_privacySettingsButton.SetData);
+            _viewModel.PrivacyPolicyButton.Subscribe(_privacyPolicyButton.SetData);
+            _viewModel.TermsOfUseButton.Subscribe(_termsOfUseButton.SetData);
+            _viewModel.RateUsButton.Subscribe(_rateUsButton.SetData);
 
             _viewModel.AudioToggle.Subscribe(_audioToggle.SetData);
             _viewModel.MusicToggle.Subscribe(_musicToggle.SetData);
@@ -60,34 +61,15 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Hide()
         {
             base.Hide();
-            _privacySettingsButton.OnClick.RemoveListener(OnPrivacySettingsClick);
-            _privacyPolicyButton.OnClick.RemoveListener(OnPrivacyPolicyClick);
-            _termsOfUseButton.OnClick.RemoveListener(OnTermsOfUseClick);
-            _rateUsButton.OnClick.RemoveListener(OnRateUsClick);
+            
+            _viewModel.PrivacySettingsButton.Unsubscribe(_privacySettingsButton.SetData);
+            _viewModel.PrivacyPolicyButton.Unsubscribe(_privacyPolicyButton.SetData);
+            _viewModel.TermsOfUseButton.Unsubscribe(_termsOfUseButton.SetData);
+            _viewModel.RateUsButton.Unsubscribe(_rateUsButton.SetData);
 
             _viewModel.AudioToggle.Unsubscribe(_audioToggle.SetData);
             _viewModel.MusicToggle.Unsubscribe(_musicToggle.SetData);
             _viewModel.VibrationToggle.Unsubscribe(_vibrationToggle.SetData);
-        }
-
-        private void OnRateUsClick()
-        {
-            _viewModel.RateUsClicked();
-        }
-
-        private void OnTermsOfUseClick()
-        {
-            _viewModel.TermsOfUseClicked();
-        }
-
-        private void OnPrivacyPolicyClick()
-        {
-            _viewModel.PrivacyPolicyClicked();
-        }
-
-        private void OnPrivacySettingsClick()
-        {
-            _viewModel.PrivacySettingsClicked();
         }
     }
 }

@@ -30,25 +30,15 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Resume()
         {
             base.Resume();
-            _confirmButton.OnClick.AddListener(ConfirmButtonClicked);
-            _discardButton.OnClick.AddListener(DiscardButtonClicked);
+            _viewModel.ConfirmButton.Subscribe(_confirmButton.SetData);
+            _viewModel.DiscardButton.Subscribe(_discardButton.SetData);
         }
 
         public override void Hide()
         {
             base.Hide();
-            _confirmButton.OnClick.RemoveAllListeners();
-            _discardButton.OnClick.RemoveAllListeners();
-        }
-
-        private void ConfirmButtonClicked()
-        {
-            _viewModel.ExitApp();
-        }
-
-        private void DiscardButtonClicked()
-        {
-            _viewModel.DiscardPopupClicked();
+            _viewModel.ConfirmButton.Unsubscribe(_confirmButton.SetData);
+            _viewModel.DiscardButton.Unsubscribe(_discardButton.SetData);
         }
     }
 }

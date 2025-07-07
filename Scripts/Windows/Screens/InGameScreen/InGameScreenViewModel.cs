@@ -1,4 +1,5 @@
-﻿using TwoOneTwoGames.UIManager.Components.NonInteractive;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive;
 using TwoOneTwoGames.UIManager.Data;
 using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
@@ -11,6 +12,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         // Reactive Properties
         public IReactiveProperty<string> LevelTitle { get; }
         public IReactiveProperty<UIProgressBarData> ProgressBarData { get; }
+        public IReactiveProperty<UIButtonViewData> PauseButton { get; }
 
         // Injected
         private readonly IPopupNavigation _popupNavigation;
@@ -31,6 +33,8 @@ namespace TwoOneTwoGames.UIManager.Windows
 
             LevelTitle = new ReactiveProperty<string>("");
             ProgressBarData = new ReactiveProperty<UIProgressBarData>();
+            PauseButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: PauseClicked));
         }
 
         public void ScreenResumed()

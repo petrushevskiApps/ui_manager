@@ -1,4 +1,5 @@
-﻿using TwoOneTwoGames.UIManager.Interfaces;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
@@ -6,11 +7,19 @@ namespace TwoOneTwoGames.UIManager.Windows
 {
     public class PausePopupViewModel : IPausePopupViewModel
     {
-        private readonly INavigationController _navigationController;
-
+        
+        // Reactive Properties
+        public IReactiveProperty<string> Title { get; protected set; }
+        public IReactiveProperty<string> Message { get; protected set; }
+        public IReactiveProperty<UIButtonViewData> RestartButton { get; }
+        public IReactiveProperty<UIButtonViewData> HomeButton { get; }
+        public IReactiveProperty<UIButtonViewData> PlayButton { get; }
+        public IReactiveProperty<UIButtonViewData> SettingsButton { get; }
+        
         // Injected
         private readonly IPopupNavigation _popupNavigation;
         private readonly IUILevelController _uiLevelController;
+        private readonly INavigationController _navigationController;
 
         public PausePopupViewModel(
             IPopupNavigation popupNavigation,
@@ -24,28 +33,33 @@ namespace TwoOneTwoGames.UIManager.Windows
 
             Title = new ReactiveProperty<string>("Pause");
             Message = new ReactiveProperty<string>();
+            
+            RestartButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: RestartClicked));
+            HomeButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: HomeClicked));
+            PlayButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: PlayClicked));
+            SettingsButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: SettingsClicked));
         }
 
-        // Reactive Properties
-        public IReactiveProperty<string> Title { get; protected set; }
-        public IReactiveProperty<string> Message { get; protected set; }
-
-        public virtual void RestartClicked()
+        protected virtual void RestartClicked()
         {
             _uiLevelController.RestartLevel();
         }
 
-        public virtual void HomeClicked()
+        protected virtual void HomeClicked()
         {
             _popupNavigation.ShowExitLevelPopup();
         }
 
-        public virtual void PlayClicked()
+        protected virtual void PlayClicked()
         {
             _navigationController.GoBack();
         }
 
-        public virtual void SettingsClicked()
+        protected virtual void SettingsClicked()
         {
             _popupNavigation.ShowSettingsPopup();
         }

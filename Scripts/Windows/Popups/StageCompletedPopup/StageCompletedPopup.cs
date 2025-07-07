@@ -32,13 +32,13 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Resume()
         {
             base.Resume();
-            _homeButton.OnClick.AddListener(OnHomeClicked);
+            _homeButton.OnClick += OnHomeClicked;
         }
 
         public override void Hide()
         {
             base.Hide();
-            _homeButton.OnClick.RemoveAllListeners();
+            _homeButton.OnClick -= OnHomeClicked;
         }
 
         private void OnHomeClicked()

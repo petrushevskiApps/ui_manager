@@ -1,4 +1,5 @@
-﻿using TwoOneTwoGames.UIManager.Components.NonInteractive;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive;
 using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
 namespace TwoOneTwoGames.UIManager.Windows
@@ -7,6 +8,7 @@ namespace TwoOneTwoGames.UIManager.Windows
     {
         IReactiveProperty<string> LevelTitle { get; }
         IReactiveProperty<UIProgressBarData> ProgressBarData { get; }
+        IReactiveProperty<UIButtonViewData> PauseButton { get; }
         void PauseClicked();
         void OnBackTriggered();
         void ScreenResumed();

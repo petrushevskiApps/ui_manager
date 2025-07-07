@@ -9,6 +9,17 @@ namespace TwoOneTwoGames.UIManager.Windows
 {
     public class SettingsPopupViewModel : ISettingsPopupViewModel
     {
+        // Reactive Properties
+        public IReactiveProperty<string> Title { get; protected set; }
+        public IReactiveProperty<string> Message { get; protected set; }
+        public IReadOnlyReactiveProperty<ToggleViewData> AudioToggle => _audioToggle;
+        public IReadOnlyReactiveProperty<ToggleViewData> MusicToggle => _musicToggle;
+        public IReadOnlyReactiveProperty<ToggleViewData> VibrationToggle => _vibrationToggle;
+        public IReactiveProperty<UIButtonViewData> PrivacyPolicyButton { get; }
+        public IReactiveProperty<UIButtonViewData> PrivacySettingsButton { get; }
+        public IReactiveProperty<UIButtonViewData> TermsOfUseButton { get; }
+        public IReactiveProperty<UIButtonViewData> RateUsButton { get; }
+        
         // Internal
         private readonly IReactiveProperty<ToggleViewData> _audioToggle;
         private readonly IReactiveProperty<ToggleViewData> _musicToggle;
@@ -39,16 +50,17 @@ namespace TwoOneTwoGames.UIManager.Windows
 
             Title = new ReactiveProperty<string>("Settings");
             Message = new ReactiveProperty<string>("Thank you for playing our game.");
+            
+            PrivacyPolicyButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: PrivacyPolicyClicked));
+            PrivacySettingsButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: PrivacySettingsClicked));
+            TermsOfUseButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: TermsOfUseClicked));
+            RateUsButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: RateUsClicked));
         }
-
-        // Reactive Properties
-        public IReactiveProperty<string> Title { get; protected set; }
-        public IReactiveProperty<string> Message { get; protected set; }
-
-        public IReadOnlyReactiveProperty<ToggleViewData> AudioToggle => _audioToggle;
-        public IReadOnlyReactiveProperty<ToggleViewData> MusicToggle => _musicToggle;
-        public IReadOnlyReactiveProperty<ToggleViewData> VibrationToggle => _vibrationToggle;
-
+        
         public virtual void RateUsClicked()
         {
             throw new NotImplementedException();

@@ -1,4 +1,6 @@
-﻿using TwoOneTwoGames.UIManager.Windows;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
+using TwoOneTwoGames.UIManager.Windows;
 
 namespace TwoOneTwoGames.UIManager
 {
@@ -11,5 +13,7 @@ namespace TwoOneTwoGames.UIManager
     {
         void ExitLevel();
         void DiscardPopupClicked();
+        IReactiveProperty<UIButtonViewData> ConfirmButton { get; }
+        IReactiveProperty<UIButtonViewData> DiscardButton { get; }
     }
 }

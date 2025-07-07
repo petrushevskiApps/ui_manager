@@ -30,15 +30,14 @@ namespace TwoOneTwoGames.UIManager.Windows
             
             if (_levelsButton != null)
             {
-                _levelsButton.OnClick.AddListener(_viewModel.LevelsButtonClicked);
+                _viewModel.LevelsButton.Subscribe(_levelsButton.SetData);
             }
             if (_settingsButton != null)
             {
-                _settingsButton.OnClick.AddListener(_viewModel.SettingsClicked);
+                _viewModel.SettingsButton.Subscribe(_settingsButton.SetData);
             }
             if (_startButton != null)
             {
-                _startButton.OnClick.AddListener(_viewModel.StartLevelClicked);
                 _viewModel.PlayButton.Subscribe(_startButton.SetData);
             }
             
@@ -51,16 +50,15 @@ namespace TwoOneTwoGames.UIManager.Windows
             
             if (_levelsButton != null)
             {
-                _levelsButton.OnClick.RemoveListener(_viewModel.LevelsButtonClicked);
-            }
-            if (_startButton != null)
-            {
-                _startButton.OnClick.RemoveListener(_viewModel.StartLevelClicked);
-                _viewModel.PlayButton.Unsubscribe(_startButton.SetData);
+                _viewModel.LevelsButton.Unsubscribe(_levelsButton.SetData);
             }
             if (_settingsButton != null)
             {
-                _settingsButton.OnClick.RemoveListener(_viewModel.SettingsClicked);
+                _viewModel.SettingsButton.Unsubscribe(_settingsButton.SetData);
+            }
+            if (_startButton != null)
+            {
+                _viewModel.PlayButton.Unsubscribe(_startButton.SetData);
             }
             _viewModel.ScreenHidden();
         }

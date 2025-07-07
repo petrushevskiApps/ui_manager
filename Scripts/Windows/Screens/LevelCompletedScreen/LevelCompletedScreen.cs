@@ -64,11 +64,13 @@ namespace TwoOneTwoGames.UIManager.Windows
         {
             base.Resume();
             ViewModel.ScreenResumed();
-            _replayButton.OnClick.AddListener(ViewModel.ReplayButtonClicked);
-            _homeButton.OnClick.AddListener(ViewModel.HomeButtonClicked);
-            _settingsButton.OnClick.AddListener(ViewModel.SettingsButtonClicked);
-            _nextButton.OnClick.AddListener(ViewModel.NextLevelButtonClicked);
-            _doubleRewardButton.OnClick.AddListener(ViewModel.DoubleRewardButtonClicked);
+            
+            ViewModel.ReplayButton.Subscribe(_replayButton.SetData);
+            ViewModel.HomeButton.Subscribe(_homeButton.SetData);
+            ViewModel.SettingsButton.Subscribe(_settingsButton.SetData);
+            ViewModel.NextButton.Subscribe(_nextButton.SetData);
+            ViewModel.DoubleRewardButton.Subscribe(_doubleRewardButton.SetData);
+            
             ViewModel.EarnedStars.Subscribe(_stars.SetData);
             ViewModel.Title.Subscribe(_title.SetData);
             if (_earnedCoinsText != null)
@@ -80,11 +82,13 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Hide()
         {
             base.Hide();
-            _replayButton.OnClick.RemoveListener(ViewModel.ReplayButtonClicked);
-            _homeButton.OnClick.RemoveListener(ViewModel.HomeButtonClicked);
-            _settingsButton.OnClick.RemoveListener(ViewModel.SettingsButtonClicked);
-            _nextButton.OnClick.RemoveListener(ViewModel.NextLevelButtonClicked);
-            _doubleRewardButton.OnClick.RemoveListener(ViewModel.DoubleRewardButtonClicked);
+            
+            ViewModel.ReplayButton.Unsubscribe(_replayButton.SetData);
+            ViewModel.HomeButton.Unsubscribe(_homeButton.SetData);
+            ViewModel.SettingsButton.Unsubscribe(_settingsButton.SetData);
+            ViewModel.NextButton.Unsubscribe(_nextButton.SetData);
+            ViewModel.DoubleRewardButton.Unsubscribe(_doubleRewardButton.SetData);
+            
             ViewModel.EarnedStars.Unsubscribe(_stars.SetData);
             ViewModel.Title.Unsubscribe(_title.SetData);
             if (_earnedCoinsText != null)

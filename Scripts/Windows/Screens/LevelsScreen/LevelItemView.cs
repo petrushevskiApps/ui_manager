@@ -37,11 +37,6 @@ namespace TwoOneTwoGames.UIManager.Windows
         private Action<int, int> _onItemClicked;
         private bool _isFunnelUnlocked;
 
-        private void Awake()
-        {
-            _button.OnClick.AddListener(OnButtonClicked);
-        }
-
         public int Index { get; set; }
         public GameObject View => gameObject;
 
@@ -67,36 +62,28 @@ namespace TwoOneTwoGames.UIManager.Windows
             {
                 _background.sprite = _completedBackground;
                 _lockIcon.SetActive(false);
-                _button.SetData(new UIButtonViewData
-                {
-                    IsVisible = true,
-                    Label = visualLevelId.ToString(),
-                    IsInteractive = true
-                });
+                _button.SetData(new UIButtonViewData(
+                    visualLevelId.ToString(),
+                    clickAction:OnButtonClicked));
                 _stars.SetData(_levelData.Stars);
             }
             else if (_isFunnelUnlocked && _levelData.IsUnlocked)
             {
                 _background.sprite = _unlockedBackground;
                 _lockIcon.SetActive(false);
-                _button.SetData(new UIButtonViewData
-                {
-                    IsVisible = true,
-                    Label = visualLevelId.ToString(),
-                    IsInteractive = true
-                });
+                _button.SetData(new UIButtonViewData(
+                    visualLevelId.ToString(),
+                    clickAction:OnButtonClicked));
                 _stars.SetData(_levelData.Stars);
             }
             else
             {
                 _background.sprite = _lockedBackground;
                 _lockIcon.SetActive(true);
-                _button.SetData(new UIButtonViewData
-                {
-                    IsVisible = true,
-                    Label = null,
-                    IsInteractive = false
-                });
+                _button.SetData(new UIButtonViewData(
+                    null, 
+                    isInteractive: false,
+                    clickAction:OnButtonClicked));
                 _stars.gameObject.SetActive(false);
             }
         }

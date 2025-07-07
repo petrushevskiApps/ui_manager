@@ -37,10 +37,12 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Resume()
         {
             base.Resume();
-            _reviveButton.OnClick.AddListener(ViewModel.ReviveButtonClicked);
-            _replayButton.OnClick.AddListener(ViewModel.ReplayButtonClicked);
-            _homeButton.OnClick.AddListener(ViewModel.HomeButtonClicked);
-            _settingsButton.OnClick.AddListener(ViewModel.SettingsClicked);
+            
+            ViewModel.ReplayButton.Subscribe(_reviveButton.SetData);
+            ViewModel.ReplayButton.Subscribe(_replayButton.SetData);
+            ViewModel.HomeButton.Subscribe(_homeButton.SetData);
+            ViewModel.SettingsButton.Subscribe(_settingsButton.SetData);
+            
             _uiHapticsController.LevelFailed();
             ViewModel.ScreenShown();
         }
@@ -48,10 +50,12 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Hide()
         {
             base.Hide();
-            _reviveButton.OnClick.RemoveListener(ViewModel.ReviveButtonClicked);
-            _replayButton.OnClick.RemoveListener(ViewModel.ReplayButtonClicked);
-            _homeButton.OnClick.RemoveListener(ViewModel.HomeButtonClicked);
-            _settingsButton.OnClick.RemoveListener(ViewModel.SettingsClicked);
+            
+            ViewModel.ReplayButton.Unsubscribe(_reviveButton.SetData);
+            ViewModel.ReplayButton.Unsubscribe(_replayButton.SetData);
+            ViewModel.HomeButton.Unsubscribe(_homeButton.SetData);
+            ViewModel.SettingsButton.Unsubscribe(_settingsButton.SetData);
+
             ViewModel.ScreenHidden();
         }
 

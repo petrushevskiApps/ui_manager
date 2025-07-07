@@ -1,4 +1,5 @@
-﻿using TwoOneTwoGames.UIManager.Data;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Data;
 using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
@@ -7,26 +8,28 @@ namespace TwoOneTwoGames.UIManager.Windows
 {
     public class LevelCompletedScreenViewModel : ILevelCompletedScreenViewModel
     {
-        private readonly IBackgroundMusicAudioPalette _musicAudioPalette;
-        private readonly IPopupNavigation _popupNavigation;
-        
-        protected int EarnedPoints { get; private set; }
-
         // Reactive Properties
         public IReactiveProperty<int> EarnedStars { get; private set; }
         public IReactiveProperty<string> Title { get; }
         public IReactiveProperty<string> EarnedCoinsText { get; private set; }
+        public IReactiveProperty<UIButtonViewData> ReplayButton { get; }
+        public IReactiveProperty<UIButtonViewData> HomeButton { get; }
+        public IReactiveProperty<UIButtonViewData> SettingsButton { get; }
+        public IReactiveProperty<UIButtonViewData> NextButton { get; }
+        public IReactiveProperty<UIButtonViewData> DoubleRewardButton { get; }
 
         // Injected
         private readonly IScreenNavigation _screenNavigation;
         private readonly IUiAudioPalette _uiAudioPalette;
         private readonly IUILevelController _uiLevelController;
         private readonly IUiSoundSystem _uiSoundSystem;
+        private readonly IBackgroundMusicAudioPalette _musicAudioPalette;
+        private readonly IPopupNavigation _popupNavigation;
 
         // Internal
         private bool _isSfxPlayed;
-
-
+        protected int EarnedPoints { get; private set; }
+        
         public LevelCompletedScreenViewModel(
             IScreenNavigation screenNavigation,
             IPopupNavigation popupNavigation,
@@ -45,6 +48,17 @@ namespace TwoOneTwoGames.UIManager.Windows
             Title = new ReactiveProperty<string>("Level Completed");
             EarnedStars = new ReactiveProperty<int>();
             EarnedCoinsText = new ReactiveProperty<string>();
+            
+            ReplayButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: ReplayButtonClicked));
+            HomeButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: HomeButtonClicked));
+            SettingsButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: SettingsButtonClicked));
+            NextButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: NextLevelButtonClicked));
+            DoubleRewardButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: DoubleRewardButtonClicked));
         }
         
         public virtual void ScreenResumed()
@@ -87,30 +101,30 @@ namespace TwoOneTwoGames.UIManager.Windows
             EarnedStars.Value = earnedStars;
         }
 
-        public virtual void NextLevelButtonClicked()
+        protected virtual void NextLevelButtonClicked()
         {
             _uiLevelController.CollectReward();
             _uiLevelController.StartNextLevel();
         }
 
-        public virtual void DoubleRewardButtonClicked()
+        protected virtual void DoubleRewardButtonClicked()
         {
             _uiLevelController.CollectDoubleReward();
             _uiLevelController.StartNextLevel();
         }
 
-        public virtual void ReplayButtonClicked()
+        protected virtual void ReplayButtonClicked()
         {
             _uiLevelController.RestartLevel();
         }
 
-        public virtual void HomeButtonClicked()
+        protected virtual void HomeButtonClicked()
         {
             _uiLevelController.CollectReward();
             _screenNavigation.ShowMainScreen();
         }
 
-        public virtual void SettingsButtonClicked()
+        protected virtual void SettingsButtonClicked()
         {
             _popupNavigation.ShowSettingsPopup();
         }

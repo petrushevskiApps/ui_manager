@@ -27,13 +27,13 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Resume()
         {
             base.Resume();
-            _okButton.OnClick.AddListener(_viewModel.OkButtonClicked);
+            _viewModel.OkButton.Subscribe(_okButton.SetData);
         }
 
         public override void Hide()
         {
             base.Hide();
-            _okButton.OnClick.RemoveListener(_viewModel.OkButtonClicked);
+            _viewModel.OkButton.Unsubscribe(_okButton.SetData);
         }
     }
 }

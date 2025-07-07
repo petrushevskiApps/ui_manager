@@ -1,7 +1,7 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using TwoOneTwoGames.UIManager.Interfaces;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
@@ -16,7 +16,7 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
         [SerializeField]
         private bool _ignoreHaptics;
 
-        public UnityEvent OnClick;
+        public Action OnClick;
 
         private Button _button;
 
@@ -62,15 +62,20 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
             {
                 _label.color = viewData.TextColor.Value;
             }
+
+            OnClick = viewData.ClickAction;
             _button.interactable = viewData.IsInteractive;
         }
 
         private void ButtonClicked()
         {
             OnClick?.Invoke();
-            if (_ignoreHaptics) return;
+            if (_ignoreHaptics)
+            {
+                return;
+            }
 
-            _uiHapticsController.ButtonClick();
+            _uiHapticsController?.ButtonClick();
         }
     }
 }

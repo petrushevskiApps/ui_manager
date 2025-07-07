@@ -8,6 +8,10 @@ namespace TwoOneTwoGames.UIManager.Windows
         IReadOnlyReactiveProperty<ToggleViewData> AudioToggle { get; }
         IReadOnlyReactiveProperty<ToggleViewData> MusicToggle { get; }
         IReadOnlyReactiveProperty<ToggleViewData> VibrationToggle { get; }
+        IReactiveProperty<UIButtonViewData> PrivacyPolicyButton { get; }
+        IReactiveProperty<UIButtonViewData> PrivacySettingsButton { get; }
+        IReactiveProperty<UIButtonViewData> TermsOfUseButton { get; }
+        IReactiveProperty<UIButtonViewData> RateUsButton { get; }
         void RateUsClicked();
         void TermsOfUseClicked();
         void PrivacyPolicyClicked();

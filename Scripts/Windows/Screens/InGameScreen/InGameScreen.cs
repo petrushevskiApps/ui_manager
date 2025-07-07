@@ -36,24 +36,25 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Resume()
         {
             base.Resume();
-            _pauseButton.OnClick.AddListener(ViewModel.PauseClicked);
             ViewModel.LevelTitle.Subscribe(SetLevelTitle);
             if (_progressBar != null)
             {
                 ViewModel.ProgressBarData.Subscribe(_progressBar.SetData);
             }
+
+            ViewModel.PauseButton.Subscribe(_pauseButton.SetData);
             ViewModel.ScreenResumed();
         }
 
         public override void Hide()
         {
             base.Hide();
-            _pauseButton.OnClick.RemoveListener(ViewModel.PauseClicked);
             ViewModel.LevelTitle.Unsubscribe(SetLevelTitle);
             if (_progressBar != null)
             {
                 ViewModel.ProgressBarData.Unsubscribe(_progressBar.SetData);
             }
+            ViewModel.PauseButton.Unsubscribe(_pauseButton.SetData);
             ViewModel.ScreenHidden();
         }
 

@@ -10,6 +10,8 @@ namespace TwoOneTwoGames.UIManager.Windows
     {
         // Reactive Properties
         public IReactiveProperty<UIButtonViewData> PlayButton { get; }
+        public IReactiveProperty<UIButtonViewData> LevelsButton { get; }
+        public IReactiveProperty<UIButtonViewData> SettingsButton { get; }
         
         // Injected
         private readonly IScreenNavigation _screenNavigation;
@@ -31,11 +33,11 @@ namespace TwoOneTwoGames.UIManager.Windows
             _musicAudioPalette = musicAudioPalette;
             _uiSoundSystem = uiSoundSystem;
             
-            PlayButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData()
-            {
-                IsVisible = false,
-                IsInteractive = true
-            });
+            PlayButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(isVisible: false));
+            LevelsButton = new ReactiveProperty<UIButtonViewData>(
+                new UIButtonViewData(isVisible: true, clickAction: LevelsButtonClicked));
+            SettingsButton = new ReactiveProperty<UIButtonViewData>(
+                new UIButtonViewData(isVisible: true, clickAction: SettingsClicked));
         }
 
         public void ScreenResumed()
@@ -52,25 +54,22 @@ namespace TwoOneTwoGames.UIManager.Windows
         
         private void OnLevelReady(object sender, string levelTitle)
         {
-            PlayButton.Value = new UIButtonViewData()
-            {
-                Label = $"Play Level {levelTitle}",
-                IsVisible = true,
-                IsInteractive = true
-            };
+            PlayButton.Value = new UIButtonViewData(
+                $"Play Level {levelTitle}",
+                clickAction: StartLevelClicked);
         }
-        
-        public void LevelsButtonClicked()
+
+        private void LevelsButtonClicked()
         {
             _screenNavigation.ShowLevelsScreen();
         }
         
-        public virtual void SettingsClicked()
+        protected virtual void SettingsClicked()
         {
             _popupNavigation.ShowSettingsPopup();
         }
 
-        public virtual void StartLevelClicked()
+        protected virtual void StartLevelClicked()
         {
             _uiLevelController.StartLevel();
         }

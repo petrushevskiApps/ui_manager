@@ -7,30 +7,24 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
 {
     public class BackButton : MonoBehaviour
     {
+        public event EventHandler BackButtonClickedEvent;
+        
         private UIButton _backButton;
         private INavigationController _navigationController;
-
-        private void Awake()
-        {
-            _backButton = gameObject.GetComponent<UIButton>();
-        }
-
-        private void OnEnable()
-        {
-            if (_backButton != null) _backButton.OnClick.AddListener(OnClick);
-        }
-
-        private void OnDisable()
-        {
-            if (_backButton != null) _backButton.OnClick.RemoveListener(OnClick);
-        }
-
-        public event EventHandler BackButtonClickedEvent;
 
         [Inject]
         private void Initialize(INavigationController navigationController)
         {
             _navigationController = navigationController;
+        }
+        
+        private void Awake()
+        {
+            _backButton = gameObject.GetComponent<UIButton>();
+            if (_backButton != null)
+            {
+                _backButton.SetData(new UIButtonViewData(clickAction: OnClick));
+            }
         }
 
         private void OnClick()

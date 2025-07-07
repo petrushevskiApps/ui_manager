@@ -1,3 +1,4 @@
+using TwoOneTwoGames.UIManager.Components.Interactive;
 using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
@@ -6,10 +7,16 @@ namespace TwoOneTwoGames.UIManager.Windows
 {
     public class ExitGamePopupViewModel : IExitGamePopupViewModel
     {
-        private readonly IExitAppController _exitAppController;
-
+        
+        // Reactive Properties
+        public IReactiveProperty<string> Title { get; protected set; }
+        public IReactiveProperty<string> Message { get; protected set; }
+        public IReactiveProperty<UIButtonViewData> ConfirmButton { get; }
+        public IReactiveProperty<UIButtonViewData> DiscardButton { get; }
+        
         // Injected
         private readonly INavigationController _navigationController;
+        private readonly IExitAppController _exitAppController;
 
         public ExitGamePopupViewModel(
             INavigationController navigationController,
@@ -17,23 +24,24 @@ namespace TwoOneTwoGames.UIManager.Windows
         {
             _navigationController = navigationController;
             _exitAppController = exitAppController;
-        }
 
-        // Reactive Properties
-        public IReactiveProperty<string> Title { get; protected set; }
-        public IReactiveProperty<string> Message { get; protected set; }
+            ConfirmButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: ExitApp));
+            DiscardButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: DiscardPopupClicked));
+        }
 
         public void BackgroundClicked()
         {
             _navigationController.GoBack();
         }
 
-        public void DiscardPopupClicked()
+        private void DiscardPopupClicked()
         {
             _navigationController.GoBack();
         }
 
-        public void ExitApp()
+        private void ExitApp()
         {
             _exitAppController.ExitApp();
         }

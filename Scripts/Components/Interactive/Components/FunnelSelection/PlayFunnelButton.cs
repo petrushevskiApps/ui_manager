@@ -40,13 +40,7 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive.FunnelSelection
 
         private void OnEnable()
         {
-            _button.OnClick.AddListener(OnButtonClicked);
             SetData();
-        }
-
-        private void OnDisable()
-        {
-            _button.OnClick.RemoveListener(OnButtonClicked);
         }
         
         private void OnFunnelLoaded(object sender, EventArgs e)
@@ -60,12 +54,10 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive.FunnelSelection
         
         private void SetData()
         {
-            _button.SetData(new UIButtonViewData()
-            {
-                Label = $"Play Level {_levelsDataProvider.GetLastUnlockedLevel().Id + 1}",
-                IsVisible = !_funnelPresenter.IsLockedFunnel(),
-                IsInteractive = true
-            });
+            _button.SetData(new UIButtonViewData(
+                label: $"Play Level {_levelsDataProvider.GetLastUnlockedLevel().Id + 1}",
+                clickAction:OnButtonClicked,
+                isVisible: !_funnelPresenter.IsLockedFunnel()));
         }
 
         private void OnButtonClicked()

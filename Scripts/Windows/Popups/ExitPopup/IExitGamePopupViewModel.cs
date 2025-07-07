@@ -1,4 +1,6 @@
-﻿using TwoOneTwoGames.UIManager.Windows;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
+using TwoOneTwoGames.UIManager.Windows;
 
 namespace TwoOneTwoGames.UIManager
 {
@@ -9,7 +11,7 @@ namespace TwoOneTwoGames.UIManager
     /// </summary>
     public interface IExitGamePopupViewModel : IPopupViewModel
     {
-        void DiscardPopupClicked();
-        void ExitApp();
+        IReactiveProperty<UIButtonViewData> ConfirmButton { get; }
+        IReactiveProperty<UIButtonViewData> DiscardButton { get; }
     }
 }

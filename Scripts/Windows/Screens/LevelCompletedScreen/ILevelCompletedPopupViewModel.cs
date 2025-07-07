@@ -1,4 +1,5 @@
-﻿using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
 namespace TwoOneTwoGames.UIManager.Windows
 {
@@ -12,11 +13,11 @@ namespace TwoOneTwoGames.UIManager.Windows
         IReactiveProperty<int> EarnedStars { get; }
         IReactiveProperty<string> Title { get; }
         IReactiveProperty<string> EarnedCoinsText { get; }
-        void NextLevelButtonClicked();
-        void ReplayButtonClicked();
-        void HomeButtonClicked();
-        void DoubleRewardButtonClicked();
-        void SettingsButtonClicked();
+        IReactiveProperty<UIButtonViewData> ReplayButton { get; }
+        IReactiveProperty<UIButtonViewData> HomeButton { get; }
+        IReactiveProperty<UIButtonViewData> SettingsButton { get; }
+        IReactiveProperty<UIButtonViewData> NextButton { get; }
+        IReactiveProperty<UIButtonViewData> DoubleRewardButton { get; }
         void OnBackTriggered();
         void SetEarnedPoints(int points);
         void SetEarnedStars(int earnedStars);

@@ -1,4 +1,7 @@
-﻿namespace TwoOneTwoGames.UIManager.Windows
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
+
+namespace TwoOneTwoGames.UIManager.Windows
 {
     /// <summary>
     ///     This is a interface for the Pause popup.
@@ -7,9 +10,9 @@
     /// </summary>
     public interface IPausePopupViewModel : IPopupViewModel
     {
-        void RestartClicked();
-        void HomeClicked();
-        void PlayClicked();
-        void SettingsClicked();
+        IReactiveProperty<UIButtonViewData> RestartButton { get; }
+        IReactiveProperty<UIButtonViewData> HomeButton { get; }
+        IReactiveProperty<UIButtonViewData> PlayButton { get; }
+        IReactiveProperty<UIButtonViewData> SettingsButton { get; }
     }
 }

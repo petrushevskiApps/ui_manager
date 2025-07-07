@@ -6,11 +6,10 @@ namespace TwoOneTwoGames.UIManager.Windows
     public interface IMainScreenViewModel
     {
         IReactiveProperty<UIButtonViewData> PlayButton { get; }
-        void SettingsClicked();
-        void StartLevelClicked();
+        IReactiveProperty<UIButtonViewData> LevelsButton { get; }
+        IReactiveProperty<UIButtonViewData> SettingsButton { get; }
         void OnBackTriggered();
         void ScreenResumed();
         void ScreenHidden();
-        void LevelsButtonClicked();
     }
 }

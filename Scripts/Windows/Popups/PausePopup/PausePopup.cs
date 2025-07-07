@@ -37,40 +37,20 @@ namespace TwoOneTwoGames.UIManager.Windows
         public override void Resume()
         {
             base.Resume();
-            _restartButton.OnClick.AddListener(OnRestartClicked);
-            _homeButton.OnClick.AddListener(OnHomeClicked);
-            _playButton.OnClick.AddListener(OnPlayClicked);
-            _settingsButton.OnClick.AddListener(OnSettingsClicked);
+            
+            _viewModel.RestartButton.Subscribe(_restartButton.SetData);
+            _viewModel.HomeButton.Subscribe(_homeButton.SetData);
+            _viewModel.PlayButton.Subscribe(_playButton.SetData);
+            _viewModel.SettingsButton.Subscribe(_settingsButton.SetData);
         }
 
         public override void Hide()
         {
             base.Hide();
-            _restartButton.OnClick.RemoveAllListeners();
-            _homeButton.OnClick.RemoveAllListeners();
-            _playButton.OnClick.RemoveAllListeners();
-            _settingsButton.OnClick.RemoveAllListeners();
-        }
-
-        private void OnRestartClicked()
-        {
-            Close();
-            _viewModel.RestartClicked();
-        }
-
-        private void OnHomeClicked()
-        {
-            _viewModel.HomeClicked();
-        }
-
-        protected virtual void OnPlayClicked()
-        {
-            _viewModel.PlayClicked();
-        }
-
-        private void OnSettingsClicked()
-        {
-            _viewModel.SettingsClicked();
+            _viewModel.RestartButton.Unsubscribe(_restartButton.SetData);
+            _viewModel.HomeButton.Unsubscribe(_homeButton.SetData);
+            _viewModel.PlayButton.Unsubscribe(_playButton.SetData);
+            _viewModel.SettingsButton.Unsubscribe(_settingsButton.SetData);
         }
     }
 }

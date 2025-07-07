@@ -1,4 +1,5 @@
-﻿using TwoOneTwoGames.UIManager.Interfaces;
+﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
@@ -9,6 +10,8 @@ namespace TwoOneTwoGames.UIManager.Windows
         // Reactive Properties
         public IReactiveProperty<string> Title { get; }
         public IReactiveProperty<string> Message { get; }
+        public IReactiveProperty<UIButtonViewData> ConfirmButton { get; }
+        public IReactiveProperty<UIButtonViewData> DiscardButton { get; }
 
         // Injected
         private readonly INavigationController _navigationController;
@@ -26,6 +29,11 @@ namespace TwoOneTwoGames.UIManager.Windows
 
             Title = new ReactiveProperty<string>("Exit Level");
             Message = new ReactiveProperty<string>("Are you sure? \nYour progress will be lost.");
+            
+            ConfirmButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: ExitLevel));
+            DiscardButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                clickAction: DiscardPopupClicked));
         }
 
         public void BackgroundClicked()
