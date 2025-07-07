@@ -59,7 +59,7 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
             _pauseGameController = pauseGameController;
         }
 
-        public void Show<TArguments>(TArguments navArguments)
+        public virtual void Show<TArguments>(TArguments navArguments)
         {
             PopupScreenShownEvent?.Invoke(this, EventArgs.Empty);
             Resume();
@@ -68,9 +68,16 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
         public virtual void Resume()
         {
             PopupScreenResumedEvent?.Invoke(this, EventArgs.Empty);
-            _popupClickableBackground.OnClick.AddListener(GetPopupViewModel().BackgroundClicked);
-            if (_title != null) GetPopupViewModel().Title?.Subscribe(SetTitle, true);
-            if (_message != null) GetPopupViewModel().Message?.Subscribe(SetMessage, true);
+            _popupClickableBackground.OnClick += GetPopupViewModel().BackgroundClicked;
+            if (_title != null)
+            {
+                GetPopupViewModel().Title?.Subscribe(SetTitle, true);
+            }
+
+            if (_message != null)
+            {
+                GetPopupViewModel().Message?.Subscribe(SetMessage, true);
+            }
             gameObject.SetActive(true);
             PlaySfx(_uiAudioPalette.PopupShown);
             PauseGame(true);
@@ -79,10 +86,17 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
         public virtual void Hide()
         {
             PopupScreenHiddenEvent?.Invoke(this, EventArgs.Empty);
-            _popupClickableBackground.OnClick.RemoveListener(GetPopupViewModel().BackgroundClicked);
+            _popupClickableBackground.OnClick -= GetPopupViewModel().BackgroundClicked;
             gameObject.SetActive(false);
-            if (_title != null) GetPopupViewModel().Title?.Unsubscribe(SetTitle);
-            if (_message != null) GetPopupViewModel().Message?.Unsubscribe(SetMessage);
+            if (_title != null)
+            {
+                GetPopupViewModel().Title?.Unsubscribe(SetTitle);
+            }
+
+            if (_message != null)
+            {
+                GetPopupViewModel().Message?.Unsubscribe(SetMessage);
+            }
             PauseGame(false);
         }
 

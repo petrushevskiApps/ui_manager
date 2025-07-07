@@ -80,11 +80,13 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
             if (screen != null)
             {
                 if (!_screenBackStack.IsEmpty() && (_screenBackStack.Peek().IsPopup || !screen.IsPopup))
+                {
                     // We skip hiding the current screen only if
                     // there is no active screen on the stack or
                     // the current screen is Screen and the new is Popup.
                     HideCurrentScreenIn(_screenBackStack);
-
+                }
+                
                 if (_screenBackStack.Contains(screen))
                 {
                     ClearStackToScreen(_screenBackStack, screen);
@@ -104,12 +106,35 @@ namespace TwoOneTwoGames.UIManager.ScreenNavigation
 
         private void HideCurrentScreenIn(Stack<IScreen> stack)
         {
-            if (stack.Count == 0) return;
+            if (stack.Count == 0)
+            {
+                return;
+            }
 
-            if (stack.Peek().IsBackStackable)
-                stack.Peek().Hide();
+            if (stack.Peek().IsPopup)
+            {
+                if (stack.Peek().IsBackStackable)
+                {
+                    stack.Peek().Hide();
+                }
+                else
+                {
+                    stack.Pop().Close();
+                }
+                HideCurrentScreenIn(stack);
+            }
             else
-                stack.Pop().Close();
+            {
+                if (stack.Peek().IsBackStackable)
+                {
+                    stack.Peek().Hide();
+                }
+                else
+                {
+                    stack.Pop().Close();
+                }
+            }
+            
         }
 
         private void ClearStackToScreen(Stack<IScreen> stack, IScreen screen)
