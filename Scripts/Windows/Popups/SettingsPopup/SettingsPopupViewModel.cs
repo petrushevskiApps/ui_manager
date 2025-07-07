@@ -19,7 +19,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         public IReactiveProperty<UIButtonViewData> PrivacySettingsButton { get; }
         public IReactiveProperty<UIButtonViewData> TermsOfUseButton { get; }
         public IReactiveProperty<UIButtonViewData> RateUsButton { get; }
-        
+
         // Internal
         private readonly IReactiveProperty<ToggleViewData> _audioToggle;
         private readonly IReactiveProperty<ToggleViewData> _musicToggle;
@@ -50,33 +50,41 @@ namespace TwoOneTwoGames.UIManager.Windows
 
             Title = new ReactiveProperty<string>("Settings");
             Message = new ReactiveProperty<string>("Thank you for playing our game.");
-            
-            PrivacyPolicyButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                clickAction: PrivacyPolicyClicked));
-            PrivacySettingsButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                clickAction: PrivacySettingsClicked));
-            TermsOfUseButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                clickAction: TermsOfUseClicked));
-            RateUsButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                clickAction: RateUsClicked));
+
+            PrivacyPolicyButton = new ReactiveProperty<UIButtonViewData>(
+                new UIButtonViewData(
+                    label: "Privacy Policy",
+                    clickAction: PrivacyPolicyClicked));
+            PrivacySettingsButton = new ReactiveProperty<UIButtonViewData>(
+                new UIButtonViewData(
+                    label: "Privacy Settings",
+                    clickAction: PrivacySettingsClicked));
+            TermsOfUseButton = new ReactiveProperty<UIButtonViewData>(
+                new UIButtonViewData(
+                    label: "Terms of Use",
+                    clickAction: TermsOfUseClicked));
+            RateUsButton = new ReactiveProperty<UIButtonViewData>(
+                new UIButtonViewData(
+                    label: "Rate Us",
+                    clickAction: RateUsClicked));
         }
-        
-        public virtual void RateUsClicked()
+
+        protected virtual void RateUsClicked()
         {
             throw new NotImplementedException();
         }
 
-        public virtual void TermsOfUseClicked()
+        protected virtual void TermsOfUseClicked()
         {
             OpenURL(_urlConfigurationProvider.TermsOfUseUrl);
         }
 
-        public virtual void PrivacyPolicyClicked()
+        protected virtual void PrivacyPolicyClicked()
         {
             OpenURL(_urlConfigurationProvider.PrivacyPolicyUrl);
         }
 
-        public virtual void PrivacySettingsClicked()
+        protected virtual void PrivacySettingsClicked()
         {
             OpenURL(_urlConfigurationProvider.PrivacySettingsUrl);
         }

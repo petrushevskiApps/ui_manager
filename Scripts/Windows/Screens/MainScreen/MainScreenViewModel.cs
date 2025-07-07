@@ -35,7 +35,9 @@ namespace TwoOneTwoGames.UIManager.Windows
             
             PlayButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(isVisible: false));
             LevelsButton = new ReactiveProperty<UIButtonViewData>(
-                new UIButtonViewData(isVisible: true, clickAction: LevelsButtonClicked));
+                new UIButtonViewData(
+                    label: "Levels",
+                    clickAction: LevelsButtonClicked));
             SettingsButton = new ReactiveProperty<UIButtonViewData>(
                 new UIButtonViewData(isVisible: true, clickAction: SettingsClicked));
         }

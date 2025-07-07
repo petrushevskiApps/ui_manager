@@ -29,10 +29,12 @@ namespace TwoOneTwoGames.UIManager.Windows
 
             Title = new ReactiveProperty<string>("Exit Level");
             Message = new ReactiveProperty<string>("Are you sure? \nYour progress will be lost.");
-            
+
             ConfirmButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                label: "Yes",
                 clickAction: ExitLevel));
             DiscardButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                label: "No",
                 clickAction: DiscardPopupClicked));
         }
 

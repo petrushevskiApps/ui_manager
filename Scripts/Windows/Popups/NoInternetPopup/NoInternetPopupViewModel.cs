@@ -21,6 +21,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             Message = new ReactiveProperty<string>("Please check your cellular or Wi-Fi connection and retry.");
             
             OkButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                label:"Ok",
                 clickAction: OkButtonClicked));
         }
         

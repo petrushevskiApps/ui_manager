@@ -12,9 +12,5 @@ namespace TwoOneTwoGames.UIManager.Windows
         IReactiveProperty<UIButtonViewData> PrivacySettingsButton { get; }
         IReactiveProperty<UIButtonViewData> TermsOfUseButton { get; }
         IReactiveProperty<UIButtonViewData> RateUsButton { get; }
-        void RateUsClicked();
-        void TermsOfUseClicked();
-        void PrivacyPolicyClicked();
-        void PrivacySettingsClicked();
     }
 }

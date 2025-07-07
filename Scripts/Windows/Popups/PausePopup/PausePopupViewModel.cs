@@ -39,6 +39,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             HomeButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
                 clickAction: HomeClicked));
             PlayButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                label:"Resume",
                 clickAction: PlayClicked));
             SettingsButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
                 clickAction: SettingsClicked));

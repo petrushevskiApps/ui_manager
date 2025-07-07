@@ -7,13 +7,12 @@ namespace TwoOneTwoGames.UIManager.Windows
 {
     public class ExitGamePopupViewModel : IExitGamePopupViewModel
     {
-        
         // Reactive Properties
         public IReactiveProperty<string> Title { get; protected set; }
         public IReactiveProperty<string> Message { get; protected set; }
         public IReactiveProperty<UIButtonViewData> ConfirmButton { get; }
         public IReactiveProperty<UIButtonViewData> DiscardButton { get; }
-        
+
         // Injected
         private readonly INavigationController _navigationController;
         private readonly IExitAppController _exitAppController;
@@ -26,8 +25,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             _exitAppController = exitAppController;
 
             ConfirmButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                label: "Yes",
                 clickAction: ExitApp));
             DiscardButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                label: "No",
                 clickAction: DiscardPopupClicked));
         }
 
