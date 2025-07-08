@@ -18,5 +18,6 @@ namespace TwoOneTwoGames.ZenRings.UserInterface.Windows
             UIButtonViewData[] buttonsViewData);
         IReactiveProperty<ImageViewData> Icon { get; }
         List<IReactiveProperty<UIButtonViewData>> ButtonViews { get; }
+        void Clear();
     }
 }

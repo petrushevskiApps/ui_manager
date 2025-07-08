@@ -55,5 +55,11 @@ namespace TwoOneTwoGames.ZenRings.UserInterface.Windows
             _discardAction?.Invoke();
             _navigationController.GoBack();
         }
+        
+        public void Clear()
+        {
+            ButtonViews.Clear();
+            _discardAction = null;
+        }
     }
 }

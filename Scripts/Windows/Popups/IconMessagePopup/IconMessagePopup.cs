@@ -21,9 +21,10 @@ namespace TwoOneTwoGames.ZenRings.UserInterface.Windows
         
         // Internal
         private readonly List<UIButton> _buttons = new();
-
-        // Injected
         private IIconMessagePopupViewModel _viewModel;
+        
+        // Injected
+        private IFactory<IIconMessagePopupViewModel> _viewModelFactory;
 
         protected override IPopupViewModel GetPopupViewModel()
         {
@@ -31,13 +32,14 @@ namespace TwoOneTwoGames.ZenRings.UserInterface.Windows
         }
 
         [Inject]
-        private void Initialize(IIconMessagePopupViewModel viewModel)
+        private void Initialize(IFactory<IIconMessagePopupViewModel> viewModelFactory)
         {
-            _viewModel = viewModel;
+            _viewModelFactory = viewModelFactory;
         }
         
         public override void Show<TArguments>(TArguments navArguments)
         {
+            _viewModel = _viewModelFactory.Create();
             if (navArguments is IconMessagePopupArguments arguments)
             {
                 _viewModel.Setup(
@@ -100,6 +102,7 @@ namespace TwoOneTwoGames.ZenRings.UserInterface.Windows
                 Destroy(button.gameObject);
             });
             _buttons.Clear();
+            _viewModel.Clear();
         }
     }
 }

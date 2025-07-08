@@ -64,7 +64,7 @@ namespace TwoOneTwoGames.UIManager.Windows
                 .To<ExitGamePopupViewModel>()
                 .AsSingle();
             container
-                .Bind<IIconMessagePopupViewModel>()
+                .BindIFactory<IIconMessagePopupViewModel>()
                 .To<IconMessagePopupViewModel>()
                 .AsSingle();
             container
