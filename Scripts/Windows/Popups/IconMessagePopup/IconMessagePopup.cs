@@ -97,7 +97,7 @@ namespace TwoOneTwoGames.ZenRings.UserInterface.Windows
             _buttons.ForEach(button =>
             {
                 button.OnClick -= Close;
-                Destroy(button);
+                Destroy(button.gameObject);
             });
             _buttons.Clear();
         }
