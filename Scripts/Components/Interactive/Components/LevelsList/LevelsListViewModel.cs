@@ -54,7 +54,15 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive.LevelsList
             }
 
             Levels.AddRange(loadedPage);
-            PageLoadedEvent?.Invoke(this, new PageLoadedEventArguments(GetIndexOfLevelToScroll(), loadedPage.Count));
+            int indexOfLastCompletedLevel = GetIndexOfLevelToScroll();
+            PageLoadedEvent?.Invoke(
+                this, 
+                new PageLoadedEventArguments(
+                    Math.Clamp(indexOfLastCompletedLevel - 1, 0, Levels.Count), loadedPage.Count));
+            if (indexOfLastCompletedLevel == -1)
+            {
+                LoadNextPage();
+            }
         }
 
         public void OnLevelClicked(int funnelId, int levelId)
@@ -65,8 +73,11 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive.LevelsList
         private int GetIndexOfLevelToScroll()
         {
             IUILevelData levelData = _levelsDataProvider.GetLastUnlockedLevel();
-            int index = Levels.FindIndex(ld => levelData.Id == ld.Id);
-            return Math.Clamp(index - 1, 0, Levels.Count);
+            if (levelData == null)
+            {
+                return -1;
+            }
+            return Levels.FindIndex(ld => levelData.Id == ld.Id);
         }
     }
 }

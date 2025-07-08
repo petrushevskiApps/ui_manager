@@ -93,7 +93,7 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive.LevelsList
         {
             _infiniteScrollController.AddPageAndScrollTo(
                 Mathf.CeilToInt((float) args.ElementsInPage / _columnCount),
-                args.IndexOfLastCompletedLevel);
+                (Mathf.Clamp(args.IndexOfLastCompletedLevel - 1, 0, int.MaxValue)) / _columnCount);
         }
     }
 }

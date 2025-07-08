@@ -130,7 +130,10 @@ namespace TwoOneTwoGames.UIManager.InfiniteScrollList
 
                         _rows.AddRange(newRows);
                         UpdateContainerSize(_rows.Count);
-                        if (scrollToRow >= 0) ToElement(scrollToRow);
+                        if (scrollToRow >= 0)
+                        {
+                            ToElement(scrollToRow);
+                        }
                         NotifyRowsVisibility();
                     }));
         }
