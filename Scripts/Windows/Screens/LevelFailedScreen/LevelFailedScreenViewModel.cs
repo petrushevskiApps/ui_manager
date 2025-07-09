@@ -52,7 +52,7 @@ namespace TwoOneTwoGames.UIManager.Windows
 
         public virtual void OnBackTriggered()
         {
-            _screenNavigation.ShowMainScreen();
+            GoToMainScreen();
         }
 
         public void ScreenShown()
@@ -77,8 +77,7 @@ namespace TwoOneTwoGames.UIManager.Windows
 
         protected virtual void HomeButtonClicked()
         {
-            _uiLevelController.LeaveLevel();
-            _screenNavigation.ShowMainScreen();
+            GoToMainScreen();
         }
 
         protected virtual void ReplayButtonClicked()
@@ -94,6 +93,12 @@ namespace TwoOneTwoGames.UIManager.Windows
         protected void SettingsClicked()
         {
             _popupNavigation.ShowSettingsPopup();
+        }
+
+        private void GoToMainScreen()
+        {
+            _uiLevelController.LeaveLevel();
+            _screenNavigation.ShowMainScreen();
         }
     }
 }
