@@ -8,7 +8,7 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.View
         public Sprite Sprite;
         public Color Color;
 
-        public ImageViewData(Color color, bool isActive = true, Sprite sprite = null)
+        public ImageViewData(Color color = default, bool isActive = true, Sprite sprite = null)
         {
             IsActive = isActive;
             Sprite = sprite;
