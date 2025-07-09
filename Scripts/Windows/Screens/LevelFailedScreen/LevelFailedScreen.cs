@@ -38,7 +38,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         {
             base.Resume();
             
-            ViewModel.ReplayButton.Subscribe(_reviveButton.SetData);
+            ViewModel.ReviveButton.Subscribe(_reviveButton.SetData);
             ViewModel.ReplayButton.Subscribe(_replayButton.SetData);
             ViewModel.HomeButton.Subscribe(_homeButton.SetData);
             ViewModel.SettingsButton.Subscribe(_settingsButton.SetData);
