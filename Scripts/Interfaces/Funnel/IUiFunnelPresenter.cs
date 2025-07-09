@@ -9,7 +9,7 @@ namespace TwoOneTwoGames.UIManager.Interfaces
         event EventHandler FunnelLoadedEvent;
         event EventHandler<int> FunnelUnlockedEvent;
         string GetCurrentFunnelTitle();
-        int GetLastCompletedLevelId();
+        int GetIndexOfLastCompletedLevel();
         int GetLevelsCount();
         bool IsLastFunnel();
         bool IsLockedFunnel();
