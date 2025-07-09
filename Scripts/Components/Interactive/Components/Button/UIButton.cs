@@ -30,7 +30,7 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
 
         protected void Awake()
         {
-            _button = GetComponent<Button>();
+            _button ??= GetComponent<Button>();
             _button.onClick.AddListener(ButtonClicked);
         }
 
@@ -52,6 +52,7 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
 
         public void SetData(UIButtonViewData viewData)
         {
+            _button ??= GetComponent<Button>();
             gameObject.SetActive(viewData.IsVisible);
             if (viewData.IsVisible && _label != null)
             {
@@ -79,6 +80,7 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
             }
             
             OnClick = viewData.ClickAction;
+            
             _button.interactable = viewData.IsInteractive;
         }
 

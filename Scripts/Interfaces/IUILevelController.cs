@@ -9,8 +9,8 @@ namespace TwoOneTwoGames.UIManager.Interfaces
         void StartLevel();
         void RestartLevel();
         void ReviveAndContinueLevel();
-        void CollectReward();
-        void CollectDoubleReward();
+        void CollectReward(int earnedStars);
+        void CollectDoubleReward(int earnedStars);
         void LeaveLevel();
         void StartNextLevel();
         void SetLastUnlockedLevel();

@@ -61,6 +61,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             DoubleRewardButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
                 label:"Get 2X",
                 clickAction: DoubleRewardButtonClicked));
+            
         }
         
         public virtual void ScreenResumed()
@@ -89,8 +90,7 @@ namespace TwoOneTwoGames.UIManager.Windows
 
         public void OnBackTriggered()
         {
-            _uiLevelController.CollectReward();
-            _screenNavigation.ShowMainScreen();
+            GoToMainScreen();
         }
 
         public virtual void SetEarnedPoints(int points)
@@ -101,17 +101,17 @@ namespace TwoOneTwoGames.UIManager.Windows
         public virtual void SetEarnedStars(int earnedStars)
         {
             EarnedStars.Value = earnedStars;
+            _uiLevelController.CollectReward(EarnedStars.Value);
         }
 
         protected virtual void NextLevelButtonClicked()
         {
-            _uiLevelController.CollectReward();
             _uiLevelController.StartNextLevel();
         }
 
         protected virtual void DoubleRewardButtonClicked()
         {
-            _uiLevelController.CollectDoubleReward();
+            _uiLevelController.CollectReward(EarnedStars.Value);
             _uiLevelController.StartNextLevel();
         }
 
@@ -122,13 +122,17 @@ namespace TwoOneTwoGames.UIManager.Windows
 
         protected virtual void HomeButtonClicked()
         {
-            _uiLevelController.CollectReward();
-            _screenNavigation.ShowMainScreen();
+            GoToMainScreen();
         }
 
         protected virtual void SettingsButtonClicked()
         {
             _popupNavigation.ShowSettingsPopup();
+        }
+
+        private void GoToMainScreen()
+        {
+            _screenNavigation.ShowMainScreen();
         }
     }
 }
