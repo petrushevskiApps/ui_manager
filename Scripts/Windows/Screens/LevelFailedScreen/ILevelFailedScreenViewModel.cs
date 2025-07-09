@@ -13,5 +13,6 @@ namespace TwoOneTwoGames.UIManager.Windows
         IReactiveProperty<UIButtonViewData> ReplayButton { get; }
         IReactiveProperty<UIButtonViewData> HomeButton { get; }
         IReactiveProperty<UIButtonViewData> SettingsButton { get; }
+        IReactiveProperty<string> Title { get; }
     }
 }

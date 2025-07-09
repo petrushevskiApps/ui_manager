@@ -9,6 +9,7 @@ namespace TwoOneTwoGames.UIManager.Windows
     public class LevelFailedScreenViewModel : ILevelFailedScreenViewModel
     {
         // Reactive Properties
+        public IReactiveProperty<string> Title { get; }
         public IReactiveProperty<UIButtonViewData> ReviveButton { get; }
         public IReactiveProperty<UIButtonViewData> ReplayButton { get; }
         public IReactiveProperty<UIButtonViewData> HomeButton { get; }
@@ -39,8 +40,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             _musicAudioPalette = musicAudioPalette;
             _uiAudioPalette = uiAudioPalette;
             _uiSoundSystem = uiSoundSystem;
-            
+
+            Title = new ReactiveProperty<string>("Level Failed");
             ReviveButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
+                isInteractive: false,
                 clickAction: ReviveButtonClicked));
             ReplayButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
                 clickAction: ReplayButtonClicked));

@@ -16,5 +16,6 @@ namespace TwoOneTwoGames.UIManager.Interfaces
         bool IsFirstFunnel();
         Texture GetFirstPuzzleTexture();
         int GetFunnelCost();
+        Texture GetLastCompletedPuzzleTexture();
     }
 }

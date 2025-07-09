@@ -1,4 +1,6 @@
+using TMPro;
 using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive;
 using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using UnityEngine;
@@ -8,6 +10,9 @@ namespace TwoOneTwoGames.UIManager.Windows
 {
     public class LevelFailedScreen : UIScreen
     {
+        [SerializeField]
+        private TextMeshProUGUI _title;
+        
         [SerializeField]
         private UIButton _reviveButton;
 
@@ -38,6 +43,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         {
             base.Resume();
             
+            ViewModel.Title.Subscribe(_title.SetData);
             ViewModel.ReviveButton.Subscribe(_reviveButton.SetData);
             ViewModel.ReplayButton.Subscribe(_replayButton.SetData);
             ViewModel.HomeButton.Subscribe(_homeButton.SetData);
@@ -51,6 +57,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         {
             base.Hide();
             
+            ViewModel.Title.Unsubscribe(_title.SetData);
             ViewModel.ReplayButton.Unsubscribe(_reviveButton.SetData);
             ViewModel.ReplayButton.Unsubscribe(_replayButton.SetData);
             ViewModel.HomeButton.Unsubscribe(_homeButton.SetData);

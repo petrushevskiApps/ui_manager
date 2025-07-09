@@ -59,7 +59,8 @@ namespace TwoOneTwoGames.UIManager.Windows
                 label: "Next",
                 clickAction: NextLevelButtonClicked));
             DoubleRewardButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                label:"Get 2X",
+                label:"x2",
+                isInteractive: false,
                 clickAction: DoubleRewardButtonClicked));
             
         }
