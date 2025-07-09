@@ -70,7 +70,7 @@ namespace TwoOneTwoGames.UIManager.Windows.Popups
             
             BuyButtonViewData.Value = new UIButtonViewData(
                 label: $"{resourceAmountRequired}",
-                firstIcon: new ImageViewData(
+                secondIcon: new ImageViewData(
                     sprite: _gameEconomyIconPalette.EconomyResourceIcons[_resourceId],
                     color: Color.white,
                     isActive: true),
@@ -78,7 +78,7 @@ namespace TwoOneTwoGames.UIManager.Windows.Popups
                 clickAction: OnBuyButtonClicked);
             RewardedAdButtonViewData.Value = new UIButtonViewData(
                 label: "Free",
-                firstIcon: new ImageViewData(
+                secondIcon: new ImageViewData(
                     sprite: _adsIconPalette.RewardedAdsIcon,
                     color: Color.white,
                     isActive: true),

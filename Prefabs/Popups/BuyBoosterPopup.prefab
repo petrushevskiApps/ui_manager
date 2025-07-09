@@ -540,7 +540,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6388234195800977501}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1120,6 +1120,16 @@ PrefabInstance:
       propertyPath: _secondIcon
       value: 
       objectReference: {fileID: 6089878538447607453}
+    - target: {fileID: 2268309636361691977, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_PreferredWidth
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2268309636361691977, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_PreferredHeight
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 2938851318244089624, guid: ebabfe89ff56ec54385e19e69a5b1c01,
         type: 3}
       propertyPath: m_IsActive
@@ -1154,6 +1164,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427380501953708227, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_PreferredWidth
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427380501953708227, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_PreferredHeight
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1456,6 +1476,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 807965306691136188, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 807965306691136188, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 807965306691136191, guid: ebabfe89ff56ec54385e19e69a5b1c01,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1496,6 +1526,16 @@ PrefabInstance:
       propertyPath: _secondIcon
       value: 
       objectReference: {fileID: 7673924841416066349}
+    - target: {fileID: 2268309636361691977, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_PreferredWidth
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2268309636361691977, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_PreferredHeight
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 2938851318244089624, guid: ebabfe89ff56ec54385e19e69a5b1c01,
         type: 3}
       propertyPath: m_IsActive
@@ -1530,6 +1570,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427380501953708227, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_PreferredWidth
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427380501953708227, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_PreferredHeight
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115759594117832718, guid: ebabfe89ff56ec54385e19e69a5b1c01,
+        type: 3}
+      propertyPath: m_Spacing
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
