@@ -58,6 +58,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             PrivacySettingsButton = new ReactiveProperty<UIButtonViewData>(
                 new UIButtonViewData(
                     label: "Privacy Settings",
+                    isVisible: false,
                     clickAction: PrivacySettingsClicked));
             TermsOfUseButton = new ReactiveProperty<UIButtonViewData>(
                 new UIButtonViewData(
