@@ -8,14 +8,14 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
     {
         public bool IsVisible { get; }
         public bool IsInteractive { get; }
-        public string Label { get; }
+        public TextViewData Label { get; }
         public Color? TextColor { get; }
         public Action ClickAction { get; }
         public ImageViewData? FirstIcon { get; }
         public ImageViewData? SecondIcon { get; }
 
         public UIButtonViewData(
-            string label = null, 
+            TextViewData label = default, 
             Color? textColor = null, 
             Action clickAction = null,
             ImageViewData? firstIcon = null,

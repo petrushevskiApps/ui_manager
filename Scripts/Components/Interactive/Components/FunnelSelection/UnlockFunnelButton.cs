@@ -1,5 +1,6 @@
 ﻿using System;
 using TMPro;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.Interfaces;
 using UnityEngine;
 using Zenject;
@@ -68,7 +69,7 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive.FunnelSelection
             _loadedFunnelCost = _funnelPresenter.GetFunnelCost();
             bool sufficientResources = _gameEconomyPresenter.GetResourceValueWithId(0) >= _loadedFunnelCost;
             _button.SetData(new UIButtonViewData(
-                "Unlock Puzzle Set",
+                label: new TextViewData(true, "Unlock Puzzle Set"),
                 clickAction: OnButtonClicked,
                 isVisible: _funnelPresenter.IsLockedFunnel(),
                 isInteractive: sufficientResources));

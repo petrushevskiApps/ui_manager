@@ -1,4 +1,5 @@
 ﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.Data;
 using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
@@ -36,7 +37,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             PlayButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(isVisible: false));
             LevelsButton = new ReactiveProperty<UIButtonViewData>(
                 new UIButtonViewData(
-                    label: "Levels",
+                    label: new TextViewData(true, "Levels"),
                     clickAction: LevelsButtonClicked));
             SettingsButton = new ReactiveProperty<UIButtonViewData>(
                 new UIButtonViewData(isVisible: true, clickAction: SettingsClicked));
@@ -57,7 +58,7 @@ namespace TwoOneTwoGames.UIManager.Windows
         private void OnLevelReady(object sender, string levelTitle)
         {
             PlayButton.Value = new UIButtonViewData(
-                $"Play Level {levelTitle}",
+                label: new TextViewData(true, $"Play Level {levelTitle}"),
                 clickAction: StartLevelClicked);
         }
 

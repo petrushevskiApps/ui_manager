@@ -1,4 +1,5 @@
 ﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.Data;
 using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
@@ -56,10 +57,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             SettingsButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
                 clickAction: SettingsButtonClicked));
             NextButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                label: "Next",
+                label: new TextViewData(true,  "Next"),
                 clickAction: NextLevelButtonClicked));
             DoubleRewardButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                label:"x2",
+                label: new TextViewData(true,  "x2"),
                 isInteractive: false,
                 clickAction: DoubleRewardButtonClicked));
             

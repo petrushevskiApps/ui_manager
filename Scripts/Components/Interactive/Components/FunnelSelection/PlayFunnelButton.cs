@@ -1,4 +1,5 @@
 ﻿using System;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.Interfaces;
 using UnityEngine;
 using Zenject;
@@ -55,7 +56,7 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive.FunnelSelection
         private void SetData()
         {
             _button.SetData(new UIButtonViewData(
-                label: $"Play Level {_levelsDataProvider.GetLastUnlockedLevel().Id + 1}",
+                label: new TextViewData(true, $"Play Level {_levelsDataProvider.GetLastUnlockedLevel().Id + 1}"),
                 clickAction:OnButtonClicked,
                 isVisible: !_funnelPresenter.IsLockedFunnel()));
         }

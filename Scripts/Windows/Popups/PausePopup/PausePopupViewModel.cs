@@ -1,4 +1,5 @@
 ﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
@@ -39,7 +40,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             HomeButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
                 clickAction: HomeClicked));
             PlayButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                label:"Resume",
+                label: new TextViewData(true, "Resume"),
                 clickAction: PlayClicked));
             SettingsButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
                 clickAction: SettingsClicked));

@@ -67,17 +67,19 @@ namespace TwoOneTwoGames.UIManager.Windows.Popups
             _onSuccessfulBuy = onSuccessfulBuy;
             _resourceId = resourceId;
             _resourceAmountRequired = resourceAmountRequired;
-            
+
+            bool isInteractiveBuyButton = IsBuyWithResourceAvailable(resourceId, resourceAmountRequired);
             BuyButtonViewData.Value = new UIButtonViewData(
-                label: $"{resourceAmountRequired}",
+                label: new TextViewData(true, $"{resourceAmountRequired}",
+                    isInteractiveBuyButton ? Color.white : Color.yellow),
                 secondIcon: new ImageViewData(
                     sprite: _gameEconomyIconPalette.EconomyResourceIcons[_resourceId],
                     color: Color.white,
                     isActive: true),
-                isInteractive: IsBuyWithResourceAvailable(resourceId, resourceAmountRequired),
+                isInteractive: isInteractiveBuyButton,
                 clickAction: OnBuyButtonClicked);
             RewardedAdButtonViewData.Value = new UIButtonViewData(
-                label: "Free",
+                label: new TextViewData(true, "Free"),
                 secondIcon: new ImageViewData(
                     sprite: _adsIconPalette.RewardedAdsIcon,
                     color: Color.white,

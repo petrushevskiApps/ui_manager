@@ -1,6 +1,7 @@
 ﻿using System;
 using TwoOneTwoGames.UIManager.Components.Interactive;
 using TwoOneTwoGames.UIManager.Components.NonInteractive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.InfiniteScrollList;
 using TwoOneTwoGames.UIManager.Interfaces;
 using UnityEngine;
@@ -63,7 +64,7 @@ namespace TwoOneTwoGames.UIManager.Windows
                 _background.sprite = _completedBackground;
                 _lockIcon.SetActive(false);
                 _button.SetData(new UIButtonViewData(
-                    visualLevelId.ToString(),
+                    label: new TextViewData(true, $"{visualLevelId.ToString()}"),
                     clickAction:OnButtonClicked));
                 _stars.SetData(_levelData.Stars);
             }
@@ -72,7 +73,7 @@ namespace TwoOneTwoGames.UIManager.Windows
                 _background.sprite = _unlockedBackground;
                 _lockIcon.SetActive(false);
                 _button.SetData(new UIButtonViewData(
-                    visualLevelId.ToString(),
+                    label: new TextViewData(true, $"{visualLevelId.ToString()}"),
                     clickAction:OnButtonClicked));
                 _stars.SetData(_levelData.Stars);
             }
@@ -81,7 +82,6 @@ namespace TwoOneTwoGames.UIManager.Windows
                 _background.sprite = _lockedBackground;
                 _lockIcon.SetActive(true);
                 _button.SetData(new UIButtonViewData(
-                    null, 
                     isInteractive: false,
                     clickAction:OnButtonClicked));
                 _stars.gameObject.SetActive(false);

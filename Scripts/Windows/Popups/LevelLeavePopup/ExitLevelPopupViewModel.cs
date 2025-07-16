@@ -1,4 +1,5 @@
 ﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.Interfaces;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
@@ -31,10 +32,10 @@ namespace TwoOneTwoGames.UIManager.Windows
             Message = new ReactiveProperty<string>("Are you sure? \nYour progress will be lost.");
 
             ConfirmButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                label: "Yes",
+                label: new TextViewData(true, "Yes"),
                 clickAction: ExitLevel));
             DiscardButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                label: "No",
+                label: new TextViewData(true, "No"),
                 clickAction: DiscardPopupClicked));
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.Data;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
@@ -53,20 +54,20 @@ namespace TwoOneTwoGames.UIManager.Windows
 
             PrivacyPolicyButton = new ReactiveProperty<UIButtonViewData>(
                 new UIButtonViewData(
-                    label: "Privacy Policy",
+                    label: new TextViewData(true, "Privacy Policy"),
                     clickAction: PrivacyPolicyClicked));
             PrivacySettingsButton = new ReactiveProperty<UIButtonViewData>(
                 new UIButtonViewData(
-                    label: "Privacy Settings",
+                    label: new TextViewData(true, "Privacy Settings"),
                     isVisible: false,
                     clickAction: PrivacySettingsClicked));
             TermsOfUseButton = new ReactiveProperty<UIButtonViewData>(
                 new UIButtonViewData(
-                    label: "Terms of Use",
+                    label: new TextViewData(true,  "Terms of Use"),
                     clickAction: TermsOfUseClicked));
             RateUsButton = new ReactiveProperty<UIButtonViewData>(
                 new UIButtonViewData(
-                    label: "Rate Us",
+                    label: new TextViewData(true,  "Rate Us"),
                     clickAction: RateUsClicked));
         }
 

@@ -1,4 +1,5 @@
 ﻿using TwoOneTwoGames.UIManager.Components.Interactive;
+using TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.ViewData;
 using TwoOneTwoGames.UIManager.ScreenNavigation;
 using TwoOneTwoGames.UIManager.Utilities.ReactiveProperty;
 
@@ -21,7 +22,7 @@ namespace TwoOneTwoGames.UIManager.Windows
             Message = new ReactiveProperty<string>("Please check your cellular or Wi-Fi connection and retry.");
             
             OkButton = new ReactiveProperty<UIButtonViewData>(new UIButtonViewData(
-                label:"Ok",
+                label: new TextViewData(true, "Ok"),
                 clickAction: OkButtonClicked));
         }
         
