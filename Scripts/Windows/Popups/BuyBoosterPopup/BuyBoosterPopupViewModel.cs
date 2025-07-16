@@ -91,12 +91,14 @@ namespace TwoOneTwoGames.UIManager.Windows.Popups
         private void OnRewardedAdClicked()
         {
             _onSuccessfulBuy?.Invoke();
+            _navigationController.GoBack();
         }
 
         private void OnBuyButtonClicked()
         {
             _economyController.UseCurrency(_resourceId, _resourceAmountRequired);
             _onSuccessfulBuy?.Invoke();
+            _navigationController.GoBack();
         }
 
         private bool IsBuyWithResourceAvailable(int resourceId, int resourceAmount)
@@ -104,7 +106,7 @@ namespace TwoOneTwoGames.UIManager.Windows.Popups
             int availableResources = _economyPresenter.GetResourceValueWithId(resourceId);
             return availableResources >= resourceAmount;
         }
-        
+
         public void BackgroundClicked()
         {
             _discardAction?.Invoke();
