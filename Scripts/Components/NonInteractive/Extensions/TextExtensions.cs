@@ -19,6 +19,10 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive
         
         public static void SetData(this TextMeshProUGUI textMeshProUGUI, TextViewData data)
         {
+            if (textMeshProUGUI == null)
+            {
+                return;
+            }
             if (!data.IsActive)
             {
                 textMeshProUGUI.gameObject.SetActive(false);

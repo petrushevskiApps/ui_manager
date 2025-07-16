@@ -54,16 +54,8 @@ namespace TwoOneTwoGames.UIManager.Components.Interactive
         {
             _button ??= GetComponent<Button>();
             gameObject.SetActive(viewData.IsVisible);
-            if (viewData.IsVisible)
-            {
-                _label.gameObject.SetActive(true);
-                _label.SetData(viewData.Label);
-            }
-
-            if (viewData.TextColor != null)
-            {
-                _label.color = viewData.TextColor.Value;
-            }
+            
+            _label.SetData(viewData.Label);
 
             if (_firstIcon != null && viewData.FirstIcon.HasValue)
             {

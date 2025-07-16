@@ -13,6 +13,10 @@ namespace TwoOneTwoGames.UIManager.Components.NonInteractive.NonInteractive.View
             IsActive = isActive;
             Text = text;
             Color = color;
+            if (color == default)
+            {
+                Color = Color.white;
+            }
         }
     }
 }
