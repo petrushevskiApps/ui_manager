@@ -47,7 +47,7 @@ namespace TwoOneTwoGames.UIManager.Windows.Popups
                     args.DiscardAction,
                     args.BoosterResourceId,
                     args.ResourceId,
-                    args.ResourceAmountRequired,
+                    args.BoosterCost,
                     args.ONSuccessfulBuy);
             }
 

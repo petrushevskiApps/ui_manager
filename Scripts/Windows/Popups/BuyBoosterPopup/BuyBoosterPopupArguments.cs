@@ -20,7 +20,7 @@ namespace TwoOneTwoGames.UIManager.Windows.Popups
         public Action DiscardAction { get; }
 
         public int ResourceId { get; }
-        public int ResourceAmountRequired { get; }
+        public int BoosterCost { get; }
         public int BoosterResourceId { get; }
 
         public Action ONSuccessfulBuy { get; }
@@ -32,13 +32,13 @@ namespace TwoOneTwoGames.UIManager.Windows.Popups
             Action discardAction, 
             int boosterResourceId, 
             int resourceId,
-            int resourceAmountRequired, 
+            int boosterCost, 
             Action onSuccessfulBuy)
         {
             Title = title;
             Message = message;
             ResourceId = resourceId;
-            ResourceAmountRequired = resourceAmountRequired;
+            BoosterCost = boosterCost;
             ONSuccessfulBuy = onSuccessfulBuy;
             BoosterResourceId = boosterResourceId;
             Icon = icon;
